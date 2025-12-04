@@ -1,6 +1,6 @@
-# TruthLens - Fake News Detection System 🧠📰
+# Factora - Fake News Detection System 🧠📰
 
-**TruthLens** is an AI-powered full-stack fake news detection web app built with Python Flask and BERT-based NLP model. Developed during a virtual internship at **Pinnacle Labs**, it provides real-time prediction, analytics, and user feedback for detecting misinformation.
+**Factora** is an AI-powered full-stack fake news detection web app built with Python Flask and BERT-based NLP model. Developed during a virtual internship at **Pinnacle Labs**, it provides real-time prediction, analytics, and user feedback for detecting misinformation.
 
 ---
 
@@ -53,7 +53,7 @@
 
 ## 📁 Folder Structure
 
-TruthLens/
+Factora/
 │
 ├── bert_model/ # Fine-tuned DistilBERT model
 ├── bert_tokenizer/ # Tokenizer for DistilBERT
@@ -75,8 +75,8 @@ TruthLens/
 
 ### 1️⃣ Clone the Repo
 ```bash
-git clone https://github.com/yourusername/TruthLens.git
-cd TruthLens
+git clone https://github.com/yourusername/Factora.git
+cd Factora
 
 
 2️⃣ Create Virtual Environment
@@ -145,4 +145,5 @@ Let’s connect on LinkedIn 🔗 and work on more cool stuff together! 🚀
 
 📄 License
 MIT License — open source for learning and non-commercial use.
+
 PRs and contributions welcome!
