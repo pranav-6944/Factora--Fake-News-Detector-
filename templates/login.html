@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - FacTora | Sign In to Your Account</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon-32x32.png') }}">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="auth-body">
+    <!-- Background Decoration -->
+    <div class="auth-background">
+        <div class="auth-circle auth-circle-1"></div>
+        <div class="auth-circle auth-circle-2"></div>
+        <div class="auth-pattern"></div>
+    </div>
+
+    <!-- Auth Container -->
+    <div class="auth-container">
+        <!-- Left Side - Branding -->
+        <div class="auth-branding">
+            <div class="branding-content">
+                <a href="{{ url_for('index') }}" class="brand-logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <span class="logo-text">FacTora</span>
+                </a>
+                
+                <h2 class="branding-title">Fight Misinformation with AI</h2>
+                <p class="branding-description">
+                    Join thousands of users who trust FacTora to verify news authenticity with 75%+ accuracy powered by advanced machine learning.
+                </p>
+                
+                <div class="branding-features">
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>75%+ Accuracy Rate</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-bolt"></i>
+                        <span>Real-time Analysis</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-shield-check"></i>
+                        <span>Secure & Private</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Detailed Analytics</span>
+                    </div>
+                </div>
+                
+                <div class="branding-stats">
+                    <div class="stat">
+                        <span class="stat-number">10+</span>
+                        <span class="stat-label">Active Users</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">1000+</span>
+                        <span class="stat-label">News Analyzed</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">&lt;2s</span>
+                        <span class="stat-label">Response Time</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side - Login Form -->
+        <div class="auth-form-wrapper">
+            <div class="auth-card">
+                <!-- Back to Home Button -->
+                <a href="{{ url_for('index') }}" class="back-home-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Home
+                </a>
+
+                <!-- Auth Header -->
+                <div class="auth-header">
+                    <div class="auth-icon">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <h1 class="auth-title">Welcome Back!</h1>
+                    <p class="auth-subtitle">Sign in to continue to FacTora</p>
+                </div>
+
+                <!-- Flash Messages -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        <div class="flash-messages-inline">
+                            {% for category, message in messages %}
+                                <div class="flash-alert flash-{{ category }}">
+                                    <i class="fas fa-{% if category == 'success' %}check-circle{% elif category == 'error' %}exclamation-circle{% else %}info-circle{% endif %}"></i>
+                                    <span>{{ message }}</span>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+
+                <!-- Login Form -->
+                <form method="POST" action="{{ url_for('login') }}" class="auth-form" id="loginForm">
+                    <!-- Username Field -->
+                    <div class="form-group">
+                        <label for="username" class="form-label">
+                            <i class="fas fa-user"></i>
+                            Username
+                        </label>
+                        <div class="input-wrapper">
+                            <input 
+                                type="text" 
+                                id="username"
+                                name="username" 
+                                class="form-input"
+                                placeholder="Enter your username" 
+                                required
+                                autocomplete="username"
+                            >
+                            <span class="input-icon">
+                                <i class="fas fa-user"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="form-group">
+                        <label for="password" class="form-label">
+                            <i class="fas fa-lock"></i>
+                            Password
+                        </label>
+                        <div class="input-wrapper">
+                            <input 
+                                type="password" 
+                                id="password"
+                                name="password" 
+                                class="form-input"
+                                placeholder="Enter your password" 
+                                required
+                                autocomplete="current-password"
+                            >
+                            <span class="input-icon">
+                                <i class="fas fa-lock"></i>
+                            </span>
+                            <button type="button" class="password-toggle" onclick="togglePassword()">
+                                <i class="fas fa-eye" id="toggleIcon"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Remember Me & Forgot Password -->
+                    <div class="form-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="remember" id="remember">
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-text">Remember me</span>
+                        </label>
+                        <a href="#" class="forgot-link">Forgot password?</a>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="auth-btn" id="loginBtn">
+                        <span class="btn-content">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <span>Sign In</span>
+                        </span>
+                        <span class="btn-loader" style="display: none;">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <span>Signing in...</span>
+                        </span>
+                    </button>
+
+                    <!-- Divider -->
+                    <div class="auth-divider">
+                        <span>or</span>
+                    </div>
+
+                    <!-- Social Login (Optional) -->
+                    <div class="social-login">
+                        <button type="button" class="social-btn google-btn" disabled>
+                            <i class="fab fa-google"></i>
+                            <span>Continue with Google</span>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Auth Footer -->
+                <div class="auth-footer">
+                    <p class="footer-text">
+                        Don't have an account? 
+                        <a href="{{ url_for('register') }}" class="footer-link">Sign up now</a>
+                    </p>
+                </div>
+
+                <!-- Trust Indicators -->
+                <div class="trust-indicators">
+                    <div class="trust-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Secure Login</span>
+                    </div>
+                    <div class="trust-item">
+                        <i class="fas fa-lock"></i>
+                        <span>Encrypted</span>
+                    </div>
+                    <div class="trust-item">
+                        <i class="fas fa-user-shield"></i>
+                        <span>Privacy Protected</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Toggle Password Visibility
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.getElementById('toggleIcon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
+        }
+
+        // Form Submission with Loading State
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            const loginBtn = document.getElementById('loginBtn');
+            const btnContent = loginBtn.querySelector('.btn-content');
+            const btnLoader = loginBtn.querySelector('.btn-loader');
+            
+            loginBtn.disabled = true;
+            btnContent.style.display = 'none';
+            btnLoader.style.display = 'flex';
+        });
+
+        // Auto-focus on first input
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('username').focus();
+        });
+
+        // Close flash messages
+        document.querySelectorAll('.flash-alert').forEach(function(alert) {
+            setTimeout(function() {
+                alert.style.opacity = '0';
+                setTimeout(function() {
+                    alert.remove();
+                }, 300);
+            }, 5000);
+        });
+    </script>
+</body>
+</html>

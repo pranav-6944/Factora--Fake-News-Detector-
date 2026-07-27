@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FacTora Privacy Policy - Learn how we protect your data and respect your privacy when using our AI-powered fake news detection service.">
+    <meta name="keywords" content="privacy policy, data protection, GDPR, fake news, FacTora">
+    <title>Privacy Policy - FacTora | Your Data Protection Rights</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon-32x32.png') }}">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/legal.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="legal-body">
+    <!-- Navigation Bar -->
+    {% include 'components/navbar.html' %}
+
+    <!-- Main Content -->
+    <main class="legal-main">
+        <div class="legal-container">
+            <!-- Header Section -->
+            <header class="legal-header" data-aos="fade-down">
+                <div class="header-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h1 class="legal-title">Privacy Policy</h1>
+                <p class="legal-subtitle">
+                    Your privacy is important to us. Learn how FacTora collects, uses, and protects your personal information.
+                </p>
+                <div class="legal-meta">
+                    <span class="meta-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        Last Updated: December 4, 2025
+                    </span>
+                    <span class="meta-item">
+                        <i class="fas fa-clock"></i>
+                        Effective Date: January 1, 2025
+                    </span>
+                </div>
+            </header>
+
+            <!-- Table of Contents -->
+            <nav class="toc-container" data-aos="fade-up" data-aos-delay="100">
+                <h2 class="toc-title">
+                    <i class="fas fa-list"></i>
+                    Table of Contents
+                </h2>
+                <ol class="toc-list">
+                    <li><a href="#introduction">Introduction</a></li>
+                    <li><a href="#information-we-collect">Information We Collect</a></li>
+                    <li><a href="#how-we-use">How We Use Your Information</a></li>
+                    <li><a href="#data-storage">Data Storage and Security</a></li>
+                    <li><a href="#data-sharing">Data Sharing and Disclosure</a></li>
+                    <li><a href="#your-rights">Your Privacy Rights</a></li>
+                    <li><a href="#cookies">Cookies and Tracking</a></li>
+                    <li><a href="#third-party">Third-Party Services</a></li>
+                    <li><a href="#children">Children's Privacy</a></li>
+                    <li><a href="#international">International Users</a></li>
+                    <li><a href="#changes">Changes to This Policy</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
+                </ol>
+            </nav>
+
+            <!-- Content Sections -->
+            <div class="legal-content">
+                <!-- Section 1: Introduction -->
+                <section id="introduction" class="legal-section" data-aos="fade-up" data-aos-delay="200">
+                    <div class="section-header">
+                        <span class="section-number">01</span>
+                        <h2 class="section-title">Introduction</h2>
+                    </div>
+                    <div class="section-content">
+                        <p>
+                            Welcome to <strong>FacTora</strong> ("we," "us," or "our"). We are committed to protecting your personal information and your right to privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our fake news detection service.
+                        </p>
+                        <p>
+                            By accessing or using FacTora, you agree to the terms outlined in this Privacy Policy. If you do not agree with our policies and practices, please do not use our service.
+                        </p>
+                        <div class="info-box info-primary">
+                            <i class="fas fa-info-circle"></i>
+                            <div>
+                                <strong>What is FacTora?</strong>
+                                <p>FacTora is an AI-powered platform that analyzes news headlines and content to detect potential misinformation using advanced machine learning algorithms.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Information We Collect -->
+                <section id="information-we-collect" class="legal-section" data-aos="fade-up">
+                    <div class="section-header">
+                        <span class="section-number">02</span>
+                        <h2 class="section-title">Information We Collect</h2>
+                    </div>
+                    <div class="section-content">
+                        <p>We collect information that you provide directly to us and information automatically collected when you use our service:</p>
+                        
+                        <h3 class="subsection-title">
+                            <i class="fas fa-user-edit"></i>
+                            Personal Information You Provide
+                        </h3>
+                        <ul class="feature-list">
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <div>
+                                    <strong>Account Information:</strong> Username, email address, and password (encrypted)
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <div>
+                                    <strong>Profile Information:</strong> Optional profile details you choose to provide
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <div>
+                                    <strong>Content Submissions:</strong> News headlines and text you submit for analysis
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <div>
+                                    <strong>Feedback Data:</strong> Your feedback on prediction accuracy (accurate/wrong)
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <div>
+                                    <strong>Communications:</strong> Messages, support requests, and correspondence
+                                </div>
+                            </li>
+                        </ul>
+
+                        <h3 class="subsection-title">
+                            <i class="fas fa-robot"></i>
+                            Information Automatically Collected
+                        </h3>
+                        <ul class="feature-list">
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <div>
+                                    <strong>Usage Data:</strong> Pages viewed, features used, time spent, and click patterns
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <div>
+                                    <strong>Device Information:</strong> Browser type, operating system, device identifiers
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <div>
+                                    <strong>Log Data:</strong> IP address, access times, and error logs
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <div>
+                                    <strong>Cookies:</strong> Session cookies and preference cookies (see Cookies section)
+                                </div>
+                            </li>
+                        </ul>
+
+                        <div class="info-box info-warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <div>
+                                <strong>We Do Not Collect:</strong>
+                                <p>We do not collect sensitive personal information such as social security numbers, financial data, health information, or precise geolocation data.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: How We Use Your Information -->
+                <section id="how-we-use" class="legal-section" data-aos="fade-up">
+                    <div class="section-header">
+                        <span class="section-number">03</span>
+                        <h2 class="section-title">How We Use Your Information</h2>
+                    </div>
+                    <div class="section-content">
+                        <p>We use the information we collect for the following purposes:</p>
+                        
+                        <div class="purpose-grid">
+                            <div class="purpose-card">
+                                <div class="purpose-icon">
+                                    <i class="fas fa-cogs"></i>
+                                </div>
+                                <h4>Service Provision</h4>
+                                <ul>
+                                    <li>Process and analyze news submissions</li>
+                                    <li>Maintain your account and preferences</li>
+                                    <li>Provide prediction results and history</li>
+                                </ul>
+                            </div>
+
+                            <div class="purpose-card">
+                                <div class="purpose-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <h4>Improvement & Analytics</h4>
+                                <ul>
+                                    <li>Improve AI model accuracy</li>
+                                    <li>Analyze usage patterns</li>
+                                    <li>Develop new features</li>
+                                </ul>
+                            </div>
+
+                            <div class="purpose-card">
+                                <div class="purpose-icon">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <h4>Security & Compliance</h4>
+                                <ul>
+                                    <li>Detect and prevent fraud</li>
+                                    <li>Enforce terms of service</li>
+                                    <li>Comply with legal obligations</li>
+                                </ul>
+                            </div>
+
+                            <div class="purpose-card">
+                                <div class="purpose-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <h4>Communication</h4>
+                                <ul>
+                                    <li>Send service notifications</li>
+                                    <li>Respond to support requests</li>
+                                    <li>Provide updates (with consent)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 4: Data Storage and Security -->
+                <section id="data-storage" class="legal-section" data-aos="fade-up">
+                    <div class="section-header">
+                        <span class="section-number">04</span>
+                        <h2 class="section-title">Data Storage and Security</h2>
+                    </div>
+                    <div class="section-content">
+                        <p>We implement industry-standard security measures to protect your personal information:</p>
+                        
+                        <h3 class="subsection-title">
+                            <i class="fas fa-lock"></i>
+                            Security Measures
+                        </h3>
+                        <ul class="feature-list">
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <div>
+                                    <strong>Encryption:</strong> All passwords are hashed using industry-standard encryption (bcrypt)
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <div>
+                                    <strong>Secure Transmission:</strong> Data transmitted over HTTPS/SSL protocols
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <div>
+                                    <strong>Access Controls:</strong> Limited employee access to personal data
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <div>
+                                    <strong>Database Security:</strong> SQLite databases with restricted file permissions
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <div>
+                                    <strong>Regular Audits:</strong> Periodic security assessments and updates
+                                </div>
+                            </li>
+                        </ul>
+
+                        <h3 class="subsection-title">
+                            <i class="fas fa-database"></i>
+                            Data Retention
+                        </h3>
+                        <p>
+                            We retain your personal information for as long as your account is active or as needed to provide services. You may request deletion of your account and associated data at any time.
+                        </p>
+                        <ul class="simple-list">
+                            <li><strong>Account Data:</strong> Retained until account deletion</li>
+                            <li><strong>Prediction History:</strong> Retained for 2 years or until deletion request</li>
+                            <li><strong>Log Data:</strong> Retained for 90 days for security purposes</li>
+                        </ul>
+
+                        <div class="info-box info-error">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <div>
+                                <strong>Important Notice:</strong>
+                                <p>No method of transmission over the internet is 100% secure. While we strive to protect your data, we cannot guarantee absolute security.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 5: Data Sharing and Disclosure -->
+                <section id="data-sharing" class="legal-section" data-aos="fade-up">
+                    <div class="section-header">
+                        <span class="section-number">05</span>
+                        <h2 class="section-title">Data Sharing and Disclosure</h2>
+                    </div>
+                    <div class="section-content">
+                        <p>We do not sell, rent, or trade your personal information. We may share your information only in the following limited circumstances:</p>
+                        
+                        <div class="sharing-grid">
+                            <div class="sharing-card">
+                                <i class="fas fa-handshake"></i>
+                                <h4>Service Providers</h4>
+                                <p>Third-party vendors who perform services on our behalf (hosting, analytics) under strict confidentiality agreements.</p>
+                            </div>
+
+                            <div class="sharing-card">
+                                <i class="fas fa-gavel"></i>
+                                <h4>Legal Requirements</h4>
+                                <p>When required by law, court order, or government regulation to comply with legal processes.</p>
+                            </div>
+
+                            <div class="sharing-card">
+                                <i class="fas fa-building"></i>
+                                <h4>Business Transfers</h4>
+                                <p>In the event of a merger, acquisition, or sale of assets, your data may be transferred (you will be notified).</p>
+                            </div>
+
+                            <div class="sharing-card">
+                                <i class="fas fa-user-shield"></i>
+                                <h4>Your Consent</h4>
+                                <p>With your explicit consent for specific purposes not covered in this policy.</p>
+                            </div>
+                        </div>
+
+                        <div class="info-box info-success">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <strong>No Sale of Data:</strong>
+                                <p>We will never sell your personal information to advertisers, marketers, or data brokers.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 6: Your Privacy Rights -->
+                <section id="your-rights" class="legal-section" data-aos="fade-up">
+                    <div class="section-header">
+                        <span class="section-number">06</span>
+                        <h2 class="section-title">Your Privacy Rights</h2>
+                    </div>
+                    <div class="section-content">
+                        <p>Depending on your location, you may have the following rights regarding your personal data:</p>
+                        
+                        <div class="rights-grid">
+                            <div class="right-item">
+                                <i class="fas fa-eye"></i>
+                                <strong>Right to Access</strong>
+                                <p>Request a copy of the personal data we hold about you</p>
+                            </div>
+
+                            <div class="right-item">
+                                <i class="fas fa-edit"></i>
+                                <strong>Right to Rectification</strong>
+                                <p>Correct inaccurate or incomplete personal information</p>
+                            </div>
+
+                            <div class="right-item">
+                                <i class="fas fa-trash-alt"></i>
+                                <strong>Right to Erasure</strong>
+                                <p>Request deletion of your personal data ("right to be forgotten")</p>
+                            </div>
+
+                            <div class="right-item">
+                                <i class="fas fa-ban"></i>
+                                <strong>Right to Restriction</strong>
+                                <p>Limit how we use your personal information</p>
+                            </div>
+
+                            <div class="right-item">
+                                <i class="fas fa-download"></i>
+                                <strong>Right to Portability</strong>
+                                <p>Receive your data in a structured, machine-readable format</p>
+                            </div>
+
+                            <div class="right-item">
+                                <i class="fas fa-times-circle"></i>
+                                <strong>Right to Object</strong>
+                                <p>Object to processing of your personal data for certain purposes</p>
+                            </div>
+                        </div>
+
+                        <h3 class="subsection-title">
+                            <i class="fas fa-paper-plane"></i>
+                            How to Exercise Your Rights
+                        </h3>
+                        <p>To exercise any of these rights, please contact us at:</p>
+                        <div class="contact-box">
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:privacy@factora.com">privacy@factora.com</a>
+                        </div>
+                        <p class="small-text">We will respond to your request within 30 days as required by applicable law.</p>
+                    </div>
+                </section>
+
+                <!-- Section 7: Cookies and Tracking -->
+                <section id="cookies" class="legal-section" data-aos="fade-up">
+                    <div class="section-header">
+                        <span class="section-number">07</span>
+                        <h2 class="section-title">Cookies and Tracking Technologies</h2>
+                    </div>
+                    <div class="section-content">
+                        <p>We use cookies and similar tracking technologies to enhance your experience on FacTora:</p>
+                        
+                        <h3 class="subsection-title">
+                            <i class="fas fa-cookie-bite"></i>
+                            Types of Cookies We Use
+                        </h3>
+                        
+                        <table class="cookies-table">
+                            <thead>
+                                <tr>
+                                    <th>Cookie Type</th>
+                                    <th>Purpose</th>
+                                    <th>Duration</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Essential Cookies</strong></td>
+                                    <td>Required for login, session management, and core functionality</td>
+                                    <td>Session</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Preference Cookies</strong></td>
+                                    <td>Remember your settings and preferences</td>
+                                    <td>1 year</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Analytics Cookies</strong></td>
+                                    <td>Help us understand how you use our service (anonymized)</td>
+                                    <td>2 years</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h3 class="subsection-title">
+                            <i class="fas fa-cog"></i>
+                            Managing Cookies
+                        </h3>
+                        <p>You can control cookies through your browser settings:</p>
+                        <ul class="simple-list">
+                            <li>Block all cookies</li>
+                            <li>Accept only first-party cookies</li>
+                            <li>Delete cookies after each session</li>
+                        </ul>
+                        <p class="small-text"><strong>Note:</strong> Disabling essential cookies may affect site functionality.</p>
+                    </div>
+                </section>
+
+                <!-- Section 8: Third-Party Services -->
+                <section id="third-party" class="legal-section" data-aos="fade-up">
+                    <div class="section-header">
+                        <span class="section-number">08</span>
+                        <h2 class="section-title">Third-Party Services</h2>
+                    </div>
+                    <div class="section-content">
+                        <p>We may use the following third-party services:</p>
+                        
+                        <div class="third-party-list">
+                            <div class="third-party-item">
+                                <i class="fas fa-newspaper"></i>
+                                <div>
+                                    <strong>News API</strong>
+                                    <p>We use NewsAPI.org to fetch live news headlines. Data sent to NewsAPI is subject to their <a href="https://newsapi.org/privacy" target="_blank" rel="noopener">Privacy Policy</a>.</p>
+                                </div>
+                            </div>
+
+                            <div class="third-party-item">
+                                <i class="fas fa-chart-bar"></i>
+                                <div>
+                                    <strong>Analytics (if applicable)</strong>
+                                    <p>We may use analytics tools to understand usage patterns. These services use cookies and may collect aggregated, anonymized data.</p>
+                                </div>
+                            </div>
+
+                            <div class="third-party-item">
+                                <i class="fas fa-cloud"></i>
+                                <div>
+                                    <strong>Hosting Services</strong>
+                                    <p>Our service may be hosted on third-party cloud platforms that comply with industry-standard security practices.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-box info-primary">
+                            <i class="fas fa-info-circle"></i>
+                            <div>
+                                <strong>External Links:</strong>
+                                <p>Our service may contain links to external websites. We are not responsible for the privacy practices of these third-party sites.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 9: Children's Privacy -->
+                <section id="children" class="legal-section" data-aos="fade-up">
+                    <div class="section-header">
+                        <span class="section-number">09</span>
+                        <h2 class="section-title">Children's Privacy</h2>
+                    </div>
+                    <div class="section-content">
+                        <p>
+                            FacTora is not intended for children under the age of 13 (or the applicable age of consent in your jurisdiction). We do not knowingly collect personal information from children.
+                        </p>
+                        <p>
+                            If you believe a child has provided us with personal information, please contact us immediately at <a href="mailto:privacy@factora.com">privacy@factora.com</a>, and we will promptly delete such information.
+                        </p>
+                        <div class="info-box info-warning">
+                            <i class="fas fa-child"></i>
+                            <div>
+                                <strong>Parental Notice:</strong>
+                                <p>If you are a parent or guardian, please ensure your child does not use FacTora without your supervision and consent.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 10: International Users -->
+                <section id="international" class="legal-section" data-aos="fade-up">
+                    <div class="section-header">
+                        <span class="section-number">10</span>
+                        <h2 class="section-title">International Users and Data Transfers</h2>
+                    </div>
+                    <div class="section-content">
+                        <p>
+                            FacTora is operated in India. If you access our service from outside India, please be aware that your information may be transferred to, stored, and processed in India or other countries where our service providers operate.
+                        </p>
+                        <p>
+                            These countries may have data protection laws that differ from your home country. By using FacTora, you consent to the transfer of your information to India and other jurisdictions as necessary to provide our services.
+                        </p>
+                        
+                        <h3 class="subsection-title">
+                            <i class="fas fa-globe"></i>
+                            Compliance with International Standards
+                        </h3>
+                        <ul class="feature-list">
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <div>
+                                    <strong>GDPR (EU):</strong> For users in the European Economic Area, we comply with GDPR requirements
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <div>
+                                    <strong>CCPA (California):</strong> For California residents, we honor CCPA rights
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <div>
+                                    <strong>DPDPA (India):</strong> We comply with India's Digital Personal Data Protection Act
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Section 11: Changes to This Policy -->
+                <section id="changes" class="legal-section" data-aos="fade-up">
+                    <div class="section-header">
+                        <span class="section-number">11</span>
+                        <h2 class="section-title">Changes to This Privacy Policy</h2>
+                    </div>
+                    <div class="section-content">
+                        <p>
+                            We may update this Privacy Policy from time to time to reflect changes in our practices, technology, legal requirements, or other factors.
+                        </p>
+                        <p>
+                            When we make changes, we will:
+                        </p>
+                        <ul class="simple-list">
+                            <li>Update the "Last Updated" date at the top of this policy</li>
+                            <li>Notify you via email or in-app notification for material changes</li>
+                            <li>Post a prominent notice on our website</li>
+                        </ul>
+                        <p>
+                            Your continued use of FacTora after changes are posted constitutes your acceptance of the updated Privacy Policy.
+                        </p>
+                        <div class="version-history">
+                            <h4><i class="fas fa-history"></i> Version History</h4>
+                            <ul>
+                                <li><strong>v2.0</strong> - December 4, 2025 - Updated data retention policies</li>
+                                <li><strong>v1.0</strong> - January 1, 2025 - Initial privacy policy</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 12: Contact Us -->
+                <section id="contact" class="legal-section" data-aos="fade-up">
+                    <div class="section-header">
+                        <span class="section-number">12</span>
+                        <h2 class="section-title">Contact Us</h2>
+                    </div>
+                    <div class="section-content">
+                        <p>
+                            If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us:
+                        </p>
+                        
+                        <div class="contact-grid">
+                            <div class="contact-method">
+                                <i class="fas fa-envelope"></i>
+                                <strong>Email</strong>
+                                <a href="mailto:privacy@factora.com">privacy@factora.com</a>
+                            </div>
+
+                            <div class="contact-method">
+                                <i class="fas fa-headset"></i>
+                                <strong>Support</strong>
+                                <a href="mailto:support@factora.com">support@factora.com</a>
+                            </div>
+
+                            <div class="contact-method">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <strong>Address</strong>
+                                <p>
+                                    MIT Academy of Engineering<br>
+                                    Alandi, Pune, Maharashtra<br>
+                                    India - 412105
+                                </p>
+                            </div>
+
+                            <div class="contact-method">
+                                <i class="fas fa-user-tie"></i>
+                                <strong>Data Protection Officer</strong>
+                                <a href="mailto:dpo@factora.com">dpo@factora.com</a>
+                            </div>
+                        </div>
+
+                        <div class="response-time">
+                            <i class="fas fa-clock"></i>
+                            <p>We aim to respond to all privacy inquiries within <strong>5 business days</strong>.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Footer Actions -->
+            <div class="legal-footer-actions" data-aos="fade-up">
+                <a href="{{ url_for('terms') }}" class="footer-action-btn">
+                    <i class="fas fa-file-contract"></i>
+                    Terms of Service
+                </a>
+                <a href="{{ url_for('cookies') }}" class="footer-action-btn">
+                    <i class="fas fa-file-contract"></i>
+                    Cookies Policy
+                </a>                
+                <a href="{{ url_for('index') }}" class="footer-action-btn footer-action-primary">
+                    <i class="fas fa-home"></i>
+                    Back to Home
+                </a>
+                <a href="mailto:privacy@factora.com" class="footer-action-btn">
+                    <i class="fas fa-question-circle"></i>
+                    Ask a Question
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    {% include 'components/footer.html' %}
+
+    <!-- JavaScript -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            offset: 100,
+            once: true
+        });
+
+        // Smooth scroll for TOC links
+        document.querySelectorAll('.toc-list a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offset = 100;
+                    const targetPosition = target.offsetTop - offset;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add active class to TOC on scroll
+        const sections = document.querySelectorAll('.legal-section');
+        const tocLinks = document.querySelectorAll('.toc-list a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.pageYOffset >= sectionTop - 150) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Print button
+        function printPrivacyPolicy() {
+            window.print();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,333 @@
+{% extends "base.html" %}
+
+{% block title %}Install FacTora Extension – Chrome Browser Extension{% endblock %}
+{% block meta_description %}Add the FacTora fake news detector to Chrome. Real-time AI credibility scoring on any news page.{% endblock %}
+
+{% block extra_css %}
+<style>
+/* ── Install Extension Page ─────────────────────────────────── */
+.ie-hero {
+  background: linear-gradient(135deg,#0f0f1a 0%,#1a1025 55%,#0f1a1a 100%);
+  padding: 90px 20px 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.ie-hero::before {
+  content:'';
+  position:absolute;
+  inset:0;
+  background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(178,115,86,.18) 0%,transparent 70%);
+  pointer-events:none;
+}
+.ie-hero-inner { max-width:760px; margin:0 auto; position:relative; }
+.ie-ext-badge {
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  background:rgba(178,115,86,.12);
+  border:1px solid rgba(178,115,86,.3);
+  border-radius:14px;
+  padding:12px 22px;
+  margin-bottom:28px;
+}
+.ie-ext-badge img { width:36px; height:36px; border-radius:8px; }
+.ie-ext-badge-text { text-align:left; }
+.ie-ext-badge-name { font-size:.95rem; font-weight:700; color:#f5f5f5; }
+.ie-ext-badge-sub  { font-size:.72rem; color:rgba(255,255,255,.45); }
+.ie-title {
+  font-size:clamp(2rem,5vw,3rem);
+  font-weight:800;
+  color:#f5f5f5;
+  margin:0 0 16px;
+  line-height:1.15;
+}
+.ie-title span { color:#d4956e; }
+.ie-subtitle { font-size:1.05rem; color:rgba(255,255,255,.6); margin:0 0 36px; line-height:1.65; }
+.ie-features-row {
+  display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin-bottom:36px;
+}
+.ie-feature-pill {
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:50px;
+  padding:6px 16px;
+  font-size:.8rem;
+  color:rgba(255,255,255,.7);
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.ie-feature-pill i { color:#d4956e; }
+.ie-download-btn {
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  background:linear-gradient(135deg,#b37356,#d4956e);
+  color:#fff;
+  border-radius:14px;
+  padding:16px 36px;
+  font-size:1rem;
+  font-weight:700;
+  text-decoration:none;
+  transition:opacity .2s,transform .15s;
+  box-shadow:0 8px 32px rgba(178,115,86,.3);
+}
+.ie-download-btn:hover { opacity:.9; transform:translateY(-2px); }
+.ie-download-btn i { font-size:1.1rem; }
+.ie-download-sub { margin-top:10px; font-size:.78rem; color:rgba(255,255,255,.35); }
+
+/* ── Steps ──────────────────────────────────────────────────── */
+.ie-steps-section {
+  background:#0f0f1a;
+  padding:70px 20px;
+}
+.ie-steps-inner { max-width:860px; margin:0 auto; }
+.ie-steps-section h2 {
+  text-align:center;
+  font-size:1.8rem;
+  font-weight:700;
+  color:#f5f5f5;
+  margin:0 0 48px;
+}
+.ie-steps-grid { display:flex; flex-direction:column; gap:20px; }
+.ie-step {
+  display:flex;
+  align-items:flex-start;
+  gap:20px;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:16px;
+  padding:24px;
+  transition:border-color .2s;
+}
+.ie-step:hover { border-color:rgba(178,115,86,.3); }
+.ie-step-num {
+  width:44px; height:44px; flex-shrink:0;
+  background:linear-gradient(135deg,#b37356,#d4956e);
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.1rem;
+  font-weight:800;
+  color:#fff;
+}
+.ie-step-body h4 { font-size:1rem; font-weight:600; color:#f5f5f5; margin:0 0 6px; }
+.ie-step-body p  { font-size:.87rem; color:rgba(255,255,255,.6); margin:0 0 10px; line-height:1.6; }
+.ie-step-code {
+  background:rgba(0,0,0,.3);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:8px;
+  padding:8px 14px;
+  font-size:.8rem;
+  color:#d4956e;
+  font-family:monospace;
+  display:inline-block;
+}
+.ie-step-tip {
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  background:rgba(34,197,94,.08);
+  border:1px solid rgba(34,197,94,.2);
+  border-radius:6px;
+  padding:4px 10px;
+  font-size:.75rem;
+  color:#4ade80;
+  margin-top:8px;
+}
+
+/* ── Feature Showcase ───────────────────────────────────────── */
+.ie-showcase-section {
+  background:linear-gradient(135deg,#1a1025,#0f1a1a);
+  padding:70px 20px;
+}
+.ie-showcase-inner { max-width:900px; margin:0 auto; }
+.ie-showcase-section h2 {
+  text-align:center;
+  font-size:1.8rem;
+  font-weight:700;
+  color:#f5f5f5;
+  margin:0 0 40px;
+}
+.ie-showcase-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:20px;
+}
+.ie-showcase-card {
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:16px;
+  padding:24px 20px;
+  text-align:center;
+  transition:transform .2s,border-color .2s;
+}
+.ie-showcase-card:hover { transform:translateY(-4px); border-color:rgba(178,115,86,.35); }
+.ie-showcase-icon { font-size:1.7rem; color:#d4956e; margin-bottom:14px; }
+.ie-showcase-card h4 { font-size:.9rem; font-weight:600; color:#f5f5f5; margin:0 0 8px; }
+.ie-showcase-card p  { font-size:.78rem; color:rgba(255,255,255,.5); line-height:1.6; margin:0; }
+
+/* ── CTA ──────────────────────────────────────────────────── */
+.ie-cta-section {
+  background:#0f0f1a;
+  padding:60px 20px;
+  text-align:center;
+}
+.ie-cta-card {
+  max-width:560px;
+  margin:0 auto;
+  background:linear-gradient(135deg,rgba(178,115,86,.12),rgba(212,149,110,.06));
+  border:1px solid rgba(178,115,86,.3);
+  border-radius:20px;
+  padding:40px 32px;
+}
+.ie-cta-card h2 { font-size:1.5rem; font-weight:700; color:#f5f5f5; margin:0 0 12px; }
+.ie-cta-card p  { font-size:.92rem; color:rgba(255,255,255,.6); margin:0 0 24px; }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- Hero -->
+<section class="ie-hero">
+  <div class="ie-hero-inner">
+
+    <div class="ie-ext-badge">
+      <img src="{{ url_for('static', filename='images/favicon-32x32.png') }}" alt="FacTora Extension Icon" onerror="this.style.display='none'">
+      <div class="ie-ext-badge-text">
+        <div class="ie-ext-badge-name">FacTora Extension</div>
+        <div class="ie-ext-badge-sub">Chrome · Manifest V3 · Free</div>
+      </div>
+    </div>
+
+    <h1 class="ie-title">Fight Fake News<br><span>Right in Your Browser</span></h1>
+    <p class="ie-subtitle">
+      FacTora's Chrome extension auto-scans every headline on the page and shows you a live 
+      credibility score powered by our BERT AI model — no copy-pasting required.
+    </p>
+
+    <div class="ie-features-row">
+      <div class="ie-feature-pill"><i class="fas fa-robot"></i> AI-Powered Scoring</div>
+      <div class="ie-feature-pill"><i class="fas fa-bolt"></i> Real-Time Detection</div>
+      <div class="ie-feature-pill"><i class="fas fa-tag"></i> Auto-Badge Headlines</div>
+      <div class="ie-feature-pill"><i class="fas fa-globe"></i> Works on Any News Site</div>
+      <div class="ie-feature-pill"><i class="fas fa-lock"></i> No Data Sent to Cloud</div>
+    </div>
+
+    <a href="{{ url_for('download_extension') }}" class="ie-download-btn" id="downloadExtBtn">
+      <i class="fas fa-download"></i>
+      Download Extension (.zip)
+    </a>
+    <div class="ie-download-sub">
+      <i class="fas fa-info-circle"></i>
+      Free · 3-step install · Works with Chrome and Edge
+    </div>
+  </div>
+</section>
+
+<!-- Steps -->
+<section class="ie-steps-section">
+  <div class="ie-steps-inner">
+    <h2>Install in 3 Simple Steps</h2>
+    <div class="ie-steps-grid">
+
+      <div class="ie-step">
+        <div class="ie-step-num">1</div>
+        <div class="ie-step-body">
+          <h4><i class="fas fa-download" style="color:#d4956e;margin-right:6px"></i> Download the Extension</h4>
+          <p>Click the download button above to get <code>factora-extension.zip</code>. Then extract it to any folder on your computer using Windows Explorer or 7-Zip.</p>
+          <a href="{{ url_for('download_extension') }}" class="ie-step-code">
+            <i class="fas fa-file-archive"></i> factora-extension.zip
+          </a>
+          <br>
+          <span class="ie-step-tip"><i class="fas fa-check"></i> Right-click the zip → "Extract All…"</span>
+        </div>
+      </div>
+
+      <div class="ie-step">
+        <div class="ie-step-num">2</div>
+        <div class="ie-step-body">
+          <h4><i class="fab fa-chrome" style="color:#d4956e;margin-right:6px"></i> Open Chrome Extensions</h4>
+          <p>Open Chrome (or any Chromium browser like Edge or Brave) and navigate to the extensions page. Enable <strong>Developer mode</strong> using the toggle in the top-right corner.</p>
+          <div class="ie-step-code">chrome://extensions/</div>
+          <br>
+          <span class="ie-step-tip"><i class="fas fa-toggle-on"></i> Enable "Developer mode" toggle</span>
+        </div>
+      </div>
+
+      <div class="ie-step">
+        <div class="ie-step-num">3</div>
+        <div class="ie-step-body">
+          <h4><i class="fas fa-folder-open" style="color:#d4956e;margin-right:6px"></i> Load the Extension</h4>
+          <p>Click <strong>"Load unpacked"</strong> and select the extracted <code>browser_extension</code> folder (the one containing <code>manifest.json</code>). FacTora will appear in your browser toolbar immediately.</p>
+          <div class="ie-step-code">Select: browser_extension/ folder</div>
+          <br>
+          <span class="ie-step-tip"><i class="fas fa-check-circle"></i> Look for the FacTora 🛡️ icon in your toolbar</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Prerequisite note -->
+    <div style="margin-top:28px;padding:16px 20px;background:rgba(234,179,8,.08);border:1px solid rgba(234,179,8,.25);border-radius:12px;font-size:.85rem;color:rgba(255,255,255,.7);">
+      <i class="fas fa-exclamation-triangle" style="color:#facc15;margin-right:8px"></i>
+      <strong style="color:#facc15">Prerequisite:</strong> The FacTora app must be running locally on 
+      <code style="background:rgba(0,0,0,.3);padding:1px 6px;border-radius:4px;color:#d4956e">http://localhost:5000</code> 
+      for the extension to work. You're already on it — so you're all set! ✅
+    </div>
+  </div>
+</section>
+
+<!-- Feature Showcase -->
+<section class="ie-showcase-section">
+  <div class="ie-showcase-inner">
+    <h2>What the Extension Does</h2>
+    <div class="ie-showcase-grid">
+      <div class="ie-showcase-card">
+        <div class="ie-showcase-icon"><i class="fas fa-tag"></i></div>
+        <h4>Auto-Badge Headlines</h4>
+        <p>Adds a FacTora badge next to every headline on any news page automatically.</p>
+      </div>
+      <div class="ie-showcase-card">
+        <div class="ie-showcase-icon"><i class="fas fa-tachometer-alt"></i></div>
+        <h4>Credibility Gauge</h4>
+        <p>Click a badge to see a 0–100 credibility score with an animated SVG gauge.</p>
+      </div>
+      <div class="ie-showcase-card">
+        <div class="ie-showcase-icon"><i class="fas fa-chart-bar"></i></div>
+        <h4>Factor Breakdown</h4>
+        <p>See AI Model, Linguistic, and Source scores individually with color-coded bars.</p>
+      </div>
+      <div class="ie-showcase-card">
+        <div class="ie-showcase-icon"><i class="fas fa-magic"></i></div>
+        <h4>Grab from Page</h4>
+        <p>One-click to extract the page headline from any tab into the popup analyzer.</p>
+      </div>
+      <div class="ie-showcase-card">
+        <div class="ie-showcase-icon"><i class="fas fa-shield-alt"></i></div>
+        <h4>Source Trust Badge</h4>
+        <p>Instantly see if the article's source is trusted, unreliable, satire, or unknown.</p>
+      </div>
+      <div class="ie-showcase-card">
+        <div class="ie-showcase-icon"><i class="fas fa-sync-alt"></i></div>
+        <h4>Works on SPAs</h4>
+        <p>MutationObserver auto-detects new headlines on dynamic and infinite-scroll pages.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="ie-cta-section">
+  <div class="ie-cta-card">
+    <h2>Ready to Detect Fake News?</h2>
+    <p>Download the extension, load it in Chrome, and start verifying headlines on any news site in seconds.</p>
+    <a href="{{ url_for('download_extension') }}" class="ie-download-btn" style="display:inline-flex;">
+      <i class="fas fa-download"></i> Download Now – It's Free
+    </a>
+  </div>
+</section>
+
+{% endblock %}

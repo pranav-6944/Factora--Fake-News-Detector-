@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="{% block meta_description %}FacTora - AI-powered fake news detection platform using advanced machine learning. Verify news authenticity instantly with 75%+ accuracy.{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}fake news detection, AI fact checking, BERT, machine learning, news verification, misinformation detection{% endblock %}">
+    <meta name="author" content="FacTora - Pranav Lamkhade">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.url }}">
+    <meta property="og:title" content="{% block og_title %}FacTora - AI-Powered Fake News Detection{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Detect fake news instantly with our advanced AI technology. Trust the facts with FacTora.{% endblock %}">
+    <meta property="og:image" content="{{ url_for('static', filename='images/og-image.png', _external=True) }}">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{{ request.url }}">
+    <meta name="twitter:title" content="{% block twitter_title %}FacTora - AI-Powered Fake News Detection{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}Detect fake news instantly with our advanced AI technology.{% endblock %}">
+    <meta name="twitter:image" content="{{ url_for('static', filename='images/twitter-card.png', _external=True) }}">
+    
+    <!-- Page Title -->
+    <title>{% block title %}FacTora - AI-Powered Fake News Detection{% endblock %}</title>
+    
+    <!-- ===== FAVICON SECTION - UPDATE THIS ===== -->
+    <!-- Standard Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    
+    <!-- PNG Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='images/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='images/favicon-16x16.png') }}">
+    
+    <!-- Apple Touch Icon (for iOS) -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='images/apple-touch-icon.png') }}">
+    
+    <!-- Android Chrome -->
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ url_for('static', filename='images/android-chrome-192x192.png') }}">
+    <link rel="icon" type="image/png" sizes="512x512" href="{{ url_for('static', filename='images/android-chrome-512x512.png') }}">
+    
+    <!-- Web App Manifest (Optional) -->
+    <link rel="manifest" href="{{ url_for('static', filename='site.webmanifest') }}">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#B67C62">
+    
+    <!-- ===== END FAVICON SECTION ===== -->
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='images/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='images/favicon-16x16.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='images/apple-touch-icon.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <meta name="theme-color" content="#B37356">
+    
+    <!-- Preconnect for Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- Google Fonts - Poppins & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    
+    <!-- Main CSS Stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <!-- Page-Specific CSS -->
+    {% block extra_css %}{% endblock %}
+    
+    <!-- AOS Animation Library (Optional but recommended) -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    
+    <!-- Structured Data (JSON-LD) for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "FacTora",
+        "description": "AI-powered fake news detection platform",
+        "url": "{{ request.url_root }}",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Web Browser",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "author": {
+            "@type": "Person",
+            "name": "Pranav Lamkhade"
+        }
+    }
+    </script>
+</head>
+
+<body class="{% block body_class %}{% endblock %}">
+    <!-- Skip to Main Content (Accessibility) -->
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+    
+    <!-- Page Loader (Optional) -->
+    <div id="page-loader" class="page-loader">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <p class="loader-text">Loading FacTora...</p>
+        </div>
+    </div>
+    
+    <!-- Navigation Bar -->
+    {% include 'components/navbar.html' %}
+    
+    <!-- Flash Messages -->
+    {% include 'components/flash_messages.html' %}
+    
+    <!-- Main Content Area -->
+    <main id="main-content" role="main">
+        {% block content %}
+        <!-- Child templates will insert content here -->
+        {% endblock %}
+    </main>
+    
+    <!-- Footer -->
+    {% include 'components/footer.html' %}
+    
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to top" title="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <!-- Cookie Consent Banner (Optional) -->
+    <div id="cookieConsent" class="cookie-consent" style="display: none;">
+        <div class="cookie-content">
+            <p>
+                <i class="fas fa-cookie-bite"></i>
+                We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.
+            </p>
+            <div class="cookie-actions">
+                <button id="acceptCookies" class="btn btn-primary btn-sm">Accept</button>
+                <button id="declineCookies" class="btn btn-ghost btn-sm">Decline</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Core JavaScript -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Initialize AOS -->
+    <script>
+        // Initialize AOS (Animate On Scroll)
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            offset: 100
+        });
+        
+        // Hide page loader when page is fully loaded
+        window.addEventListener('load', function() {
+            const loader = document.getElementById('page-loader');
+            if (loader) {
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 300);
+            }
+        });
+        
+        // Back to Top Button
+        const backToTopBtn = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        });
+        
+        backToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Cookie Consent
+        const cookieConsent = document.getElementById('cookieConsent');
+        const acceptCookies = document.getElementById('acceptCookies');
+        const declineCookies = document.getElementById('declineCookies');
+        
+        // Check if user has already responded to cookies
+        if (!localStorage.getItem('cookieConsent')) {
+            setTimeout(() => {
+                cookieConsent.style.display = 'flex';
+            }, 2000);
+        }
+        
+        acceptCookies.addEventListener('click', function() {
+            localStorage.setItem('cookieConsent', 'accepted');
+            cookieConsent.style.display = 'none';
+        });
+        
+        declineCookies.addEventListener('click', function() {
+            localStorage.setItem('cookieConsent', 'declined');
+            cookieConsent.style.display = 'none';
+        });
+    </script>
+    
+    <!-- Page-Specific JavaScript -->
+    {% block extra_js %}{% endblock %}
+    
+    <!-- Google Analytics (Optional - Add your tracking ID) -->
+    {% if config.GOOGLE_ANALYTICS_ID %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ config.GOOGLE_ANALYTICS_ID }}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '{{ config.GOOGLE_ANALYTICS_ID }}');
+    </script>
+    {% endif %}
+</body>
+</html>

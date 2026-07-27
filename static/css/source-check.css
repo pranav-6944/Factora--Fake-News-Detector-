@@ -1,0 +1,372 @@
+/* ============================================================
+   FacTora – Source Credibility Checker Styles
+   ============================================================ */
+
+/* ── Hero ─────────────────────────────────────────────────── */
+.source-check-hero {
+  background: linear-gradient(135deg, #0f0f1a 0%, #1a1025 50%, #0f1a1a 100%);
+  padding: 90px 20px 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.source-check-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(178,115,86,.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+.sc-hero-inner {
+  max-width: 780px;
+  margin: 0 auto;
+  position: relative;
+}
+.sc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(178,115,86,.15);
+  border: 1px solid rgba(178,115,86,.35);
+  color: #d4956e;
+  padding: 6px 18px;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+}
+.sc-title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  color: #f5f5f5;
+  margin: 0 0 16px;
+  line-height: 1.15;
+}
+.sc-subtitle {
+  font-size: 1.05rem;
+  color: rgba(255,255,255,.65);
+  margin: 0 0 36px;
+  line-height: 1.65;
+}
+
+/* ── Form Card ───────────────────────────────────────────── */
+.sc-form-card {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 20px;
+  padding: 28px 28px 20px;
+  backdrop-filter: blur(12px);
+  margin-bottom: 24px;
+}
+.sc-input-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255,255,255,.06);
+  border: 1.5px solid rgba(255,255,255,.12);
+  border-radius: 14px;
+  padding: 6px 6px 6px 16px;
+  transition: border-color .2s;
+}
+.sc-input-group:focus-within {
+  border-color: rgba(178,115,86,.6);
+  box-shadow: 0 0 0 3px rgba(178,115,86,.12);
+}
+.sc-input-icon { color: rgba(255,255,255,.35); font-size: 1rem; flex-shrink: 0; }
+.sc-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #f5f5f5;
+  font-size: 0.98rem;
+  font-family: 'Poppins', sans-serif;
+  min-width: 0;
+}
+.sc-input::placeholder { color: rgba(255,255,255,.3); }
+.sc-btn {
+  background: linear-gradient(135deg, #b37356, #d4956e);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 22px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  transition: opacity .2s, transform .15s;
+  flex-shrink: 0;
+}
+.sc-btn:hover { opacity: .9; transform: translateY(-1px); }
+.sc-btn:disabled { opacity:.6; cursor:not-allowed; transform:none; }
+.sc-hint { font-size:.78rem; color:rgba(255,255,255,.35); margin:12px 0 0; }
+.sc-hint code { background:rgba(255,255,255,.08); padding:1px 5px; border-radius:4px; }
+
+/* ── Example Chips ───────────────────────────────────────── */
+.sc-examples {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 4px;
+}
+.sc-examples-label { font-size:.82rem; color:rgba(255,255,255,.4); }
+.sc-chip {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+  color: rgba(255,255,255,.7);
+  border-radius: 20px;
+  padding: 5px 14px;
+  font-size:.8rem;
+  cursor: pointer;
+  transition: background .2s, color .2s;
+  font-family: 'Poppins',sans-serif;
+}
+.sc-chip:hover { background:rgba(178,115,86,.2); color:#d4956e; border-color:rgba(178,115,86,.4); }
+
+/* ── Result Section ──────────────────────────────────────── */
+.sc-result-section {
+  background: #0f0f1a;
+  padding: 50px 20px 60px;
+}
+.sc-result-container {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ── Trust Card ──────────────────────────────────────────── */
+.sc-trust-card {
+  background: rgba(255,255,255,.04);
+  border: 2px solid rgba(255,255,255,.1);
+  border-radius: 20px;
+  padding: 28px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+  transition: border-color .3s;
+}
+.sc-trust-trusted  { border-color: rgba(34,197,94,.4);  background: rgba(34,197,94,.05); }
+.sc-trust-unreliable{ border-color: rgba(239,68,68,.4);  background: rgba(239,68,68,.05); }
+.sc-trust-satire   { border-color: rgba(168,85,247,.4); background: rgba(168,85,247,.05);}
+.sc-trust-suspicious{ border-color: rgba(249,115,22,.4); background: rgba(249,115,22,.05);}
+.sc-trust-unknown  { border-color: rgba(255,255,255,.12);}
+
+.sc-trust-left { display:flex; align-items:center; gap:20px; }
+.sc-domain-icon {
+  width: 56px; height: 56px;
+  background: rgba(178,115,86,.15);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: #d4956e;
+  flex-shrink: 0;
+}
+.sc-domain-name { font-size:1.35rem; font-weight:700; color:#f5f5f5; margin:0 0 8px; }
+
+/* Badges */
+.sc-trust-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 14px;
+  border-radius: 50px;
+  font-size: .82rem;
+  font-weight: 600;
+}
+.sc-badge-trusted    { background:rgba(34,197,94,.15);  color:#4ade80; border:1px solid rgba(34,197,94,.3); }
+.sc-badge-unreliable { background:rgba(239,68,68,.15);  color:#f87171; border:1px solid rgba(239,68,68,.3); }
+.sc-badge-satire     { background:rgba(168,85,247,.15); color:#c084fc; border:1px solid rgba(168,85,247,.3);}
+.sc-badge-suspicious { background:rgba(249,115,22,.15); color:#fb923c; border:1px solid rgba(249,115,22,.3);}
+.sc-badge-unknown    { background:rgba(255,255,255,.08); color:#94a3b8; border:1px solid rgba(255,255,255,.15);}
+
+/* Trust meter */
+.sc-trust-meter { min-width:200px; }
+.sc-meter-label { font-size:.75rem; color:rgba(255,255,255,.45); text-transform:uppercase; letter-spacing:.06em; margin-bottom:4px; }
+.sc-meter-value { font-size:1.5rem; font-weight:700; color:#f5f5f5; margin-bottom:10px; }
+.sc-meter-bar-wrap {
+  background: rgba(255,255,255,.08);
+  border-radius: 50px;
+  height: 10px;
+  overflow: hidden;
+}
+.sc-meter-bar {
+  height: 100%;
+  border-radius: 50px;
+  background: linear-gradient(90deg,#22c55e,#4ade80);
+  transition: width .8s cubic-bezier(.4,0,.2,1);
+  width: 0%;
+}
+
+/* ── Details Grid ────────────────────────────────────────── */
+.sc-details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+@media (max-width: 640px) { .sc-details-grid { grid-template-columns: 1fr; } }
+
+.sc-detail-card {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 16px;
+  padding: 24px;
+}
+.sc-detail-card h3 {
+  font-size: .95rem;
+  font-weight: 600;
+  color: #d4956e;
+  margin: 0 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sc-recs { padding: 0; margin: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.sc-recs li {
+  font-size:.87rem;
+  color:rgba(255,255,255,.75);
+  padding-left:18px;
+  position:relative;
+  line-height:1.55;
+}
+.sc-recs li::before {
+  content:'•';
+  position:absolute;
+  left:0;
+  color:#d4956e;
+}
+.sc-heuristic-item {
+  margin-top: 10px;
+  font-size: .82rem;
+  color: rgba(249,115,22,.85);
+  background: rgba(249,115,22,.08);
+  border: 1px solid rgba(249,115,22,.2);
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+.sc-wiki-extract {
+  font-size: .87rem;
+  color: rgba(255,255,255,.7);
+  line-height: 1.65;
+  margin: 0 0 14px;
+}
+.sc-wiki-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: .82rem;
+  color: #d4956e;
+  text-decoration: none;
+}
+.sc-wiki-link:hover { text-decoration: underline; }
+.sc-muted { color: rgba(255,255,255,.35); font-size:.87rem; }
+
+/* ── Cross-reference ─────────────────────────────────────── */
+.sc-crossref-card {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 16px;
+  padding: 24px;
+}
+.sc-crossref-card h3 {
+  font-size:.95rem;
+  font-weight:600;
+  color:#d4956e;
+  margin:0 0 16px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.sc-crossref-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+}
+.sc-crossref-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 10px;
+  padding: 10px 14px;
+  color: rgba(255,255,255,.75);
+  text-decoration: none;
+  font-size: .85rem;
+  transition: background .2s, color .2s;
+}
+.sc-crossref-link:hover { background:rgba(178,115,86,.15); color:#d4956e; }
+.sc-crossref-favicon { width:16px; height:16px; border-radius:3px; }
+
+/* ── Analyze CTA ─────────────────────────────────────────── */
+.sc-analyze-cta {
+  text-align: center;
+  background: linear-gradient(135deg, rgba(178,115,86,.12), rgba(212,149,110,.08));
+  border: 1px solid rgba(178,115,86,.3);
+  border-radius: 16px;
+  padding: 28px;
+  color: rgba(255,255,255,.75);
+  font-size:.95rem;
+}
+.sc-analyze-cta strong { color: #d4956e; }
+.sc-analyze-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  background: linear-gradient(135deg, #b37356, #d4956e);
+  color: #fff;
+  border-radius: 10px;
+  padding: 10px 24px;
+  font-weight: 600;
+  font-size: .9rem;
+  text-decoration: none;
+  transition: opacity .2s, transform .15s;
+}
+.sc-analyze-btn:hover { opacity:.9; transform:translateY(-1px); }
+
+/* ── How Section ─────────────────────────────────────────── */
+.sc-how-section {
+  background: linear-gradient(135deg, #1a1025, #0f1a1a);
+  padding: 70px 20px;
+  text-align: center;
+}
+.sc-how-inner { max-width:900px; margin:0 auto; }
+.sc-how-section h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #f5f5f5;
+  margin: 0 0 40px;
+}
+.sc-how-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 20px;
+}
+.sc-how-card {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px;
+  padding: 28px 20px;
+  transition: transform .2s, border-color .2s;
+}
+.sc-how-card:hover { transform:translateY(-4px); border-color:rgba(178,115,86,.35); }
+.sc-how-icon {
+  font-size:1.6rem;
+  color:#d4956e;
+  margin-bottom:16px;
+}
+.sc-how-card h4 { font-size:.95rem; font-weight:600; color:#f5f5f5; margin:0 0 10px; }
+.sc-how-card p  { font-size:.82rem; color:rgba(255,255,255,.55); line-height:1.6; margin:0; }

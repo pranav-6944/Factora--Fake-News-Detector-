@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FacTora Settings - Manage your account preferences, privacy settings, and notification preferences.">
+    <title>Settings - FacTora | Account Management</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon-32x32.png') }}">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/settings.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    {% include 'components/navbar.html' %}
+
+    <!-- Main Settings Content -->
+    <main class="settings-main">
+        <div class="settings-container">
+            <!-- Settings Header -->
+            <header class="settings-header">
+                <div class="header-content">
+                    <div class="header-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <div class="header-text">
+                        <h1>Settings</h1>
+                        <p>Manage your account preferences and application settings</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-save-all" id="saveAllSettings">
+                        <i class="fas fa-save"></i>
+                        Save All Changes
+                    </button>
+                </div>
+            </header>
+
+            <div class="settings-layout">
+                <!-- Settings Sidebar -->
+                <aside class="settings-sidebar">
+                    <nav class="settings-nav">
+                        <button class="settings-nav-item active" data-section="account">
+                            <i class="fas fa-user-circle"></i>
+                            <span>Account</span>
+                        </button>
+                        <button class="settings-nav-item" data-section="privacy">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Privacy &amp; Security</span>
+                        </button>
+                        <button class="settings-nav-item" data-section="notifications">
+                            <i class="fas fa-bell"></i>
+                            <span>Notifications</span>
+                        </button>
+                        <button class="settings-nav-item" data-section="appearance">
+                            <i class="fas fa-palette"></i>
+                            <span>Appearance</span>
+                        </button>
+                        <button class="settings-nav-item" data-section="data">
+                            <i class="fas fa-database"></i>
+                            <span>Data &amp; Storage</span>
+                        </button>
+                        <button class="settings-nav-item" data-section="advanced">
+                            <i class="fas fa-sliders-h"></i>
+                            <span>Advanced</span>
+                        </button>
+                        <button class="settings-nav-item" data-section="extension">
+                            <i class="fas fa-puzzle-piece"></i>
+                            <span>Browser Extension</span>
+                            <span style="margin-left:auto;background:linear-gradient(135deg,#b37356,#d4956e);color:#fff;font-size:.6rem;padding:2px 6px;border-radius:50px;font-weight:700;">NEW</span>
+                        </button>
+                    </nav>
+                </aside>
+
+                <!-- Settings Content -->
+                <div class="settings-content">
+                    <!-- Account Section -->
+                    <section class="settings-section active" id="account-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-user-circle"></i> Account Information</h2>
+                            <p>Manage your account details and profile information</p>
+                        </div>
+
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <h3>Profile Details</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="profile-avatar-section">
+                                    <div class="avatar-display">
+                                        <div class="avatar-circle">
+                                            {{ current_user.username[0].upper() }}
+                                        </div>
+                                        <button class="btn-change-avatar">
+                                            <i class="fas fa-camera"></i>
+                                            Change Avatar
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="username">Username</label>
+                                    <input type="text" id="username" value="{{ current_user.username }}" readonly>
+                                    <small class="form-help">Your username cannot be changed</small>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email">Email Address</label>
+                                    <input type="email" id="email" placeholder="your.email@example.com">
+                                    <small class="form-help">We'll send important updates to this email</small>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="fullName">Full Name</label>
+                                    <input type="text" id="fullName" placeholder="Enter your full name">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="bio">Bio</label>
+                                    <textarea id="bio" rows="3" placeholder="Tell us about yourself..."></textarea>
+                                    <small class="form-help">Maximum 200 characters</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <h3>Change Password</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="currentPassword">Current Password</label>
+                                    <div class="password-input-wrapper">
+                                        <input type="password" id="currentPassword" placeholder="Enter current password">
+                                        <button class="toggle-password" type="button">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="newPassword">New Password</label>
+                                    <div class="password-input-wrapper">
+                                        <input type="password" id="newPassword" placeholder="Enter new password">
+                                        <button class="toggle-password" type="button">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                    <div class="password-strength">
+                                        <div class="strength-bar">
+                                            <div class="strength-fill"></div>
+                                        </div>
+                                        <span class="strength-text">Password strength</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="confirmPassword">Confirm New Password</label>
+                                    <div class="password-input-wrapper">
+                                        <input type="password" id="confirmPassword" placeholder="Confirm new password">
+                                        <button class="toggle-password" type="button">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <button class="btn-primary">
+                                    <i class="fas fa-key"></i>
+                                    Update Password
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="settings-card danger-zone">
+                            <div class="card-header">
+                                <h3>Danger Zone</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="danger-action">
+                                    <div class="danger-info">
+                                        <h4>Delete Account</h4>
+                                        <p>Permanently delete your account and all associated data. This action cannot be undone.</p>
+                                    </div>
+                                    <button class="btn-danger" id="deleteAccountBtn">
+                                        <i class="fas fa-trash-alt"></i>
+                                        Delete Account
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Privacy & Security Section -->
+                    <section class="settings-section" id="privacy-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-shield-alt"></i> Privacy & Security</h2>
+                            <p>Control your privacy settings and security preferences</p>
+                        </div>
+
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <h3>Privacy Settings</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="toggle-setting">
+                                    <div class="toggle-info">
+                                        <h4>Profile Visibility</h4>
+                                        <p>Make your profile visible to other users</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+
+                                <div class="toggle-setting">
+                                    <div class="toggle-info">
+                                        <h4>Show Prediction History</h4>
+                                        <p>Allow others to see your prediction statistics</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+
+                                <div class="toggle-setting">
+                                    <div class="toggle-info">
+                                        <h4>Activity Status</h4>
+                                        <p>Show when you're active on FacTora</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <h3>Security Options</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="toggle-setting">
+                                    <div class="toggle-info">
+                                        <h4>Two-Factor Authentication</h4>
+                                        <p>Add an extra layer of security to your account</p>
+                                    </div>
+                                    <button class="btn-secondary">
+                                        <i class="fas fa-shield-alt"></i>
+                                        Enable 2FA
+                                    </button>
+                                </div>
+
+                                <div class="toggle-setting">
+                                    <div class="toggle-info">
+                                        <h4>Login Notifications</h4>
+                                        <p>Get notified when someone logs into your account</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+
+                                <div class="toggle-setting">
+                                    <div class="toggle-info">
+                                        <h4>Active Sessions</h4>
+                                        <p>View and manage your active login sessions</p>
+                                    </div>
+                                    <button class="btn-secondary">
+                                        <i class="fas fa-desktop"></i>
+                                        Manage Sessions
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <h3>Data Collection</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="toggle-setting">
+                                    <div class="toggle-info">
+                                        <h4>Analytics & Cookies</h4>
+                                        <p>Help us improve by sharing usage data</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+
+                                <div class="toggle-setting">
+                                    <div class="toggle-info">
+                                        <h4>Personalized Experience</h4>
+                                        <p>Use my data to personalize my experience</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Notifications Section -->
+                    <section class="settings-section" id="notifications-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-bell"></i> Notifications</h2>
+                            <p>Manage how and when you receive notifications</p>
+                        </div>
+
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <h3>Email Notifications</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="toggle-setting">
+                                    <div class="toggle-info">
+                                        <h4>Prediction Results</h4>
+                                        <p>Get emailed when your analysis is complete</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+
+                                <div class="toggle-setting">
+                                    <div class="toggle-info">
+                                        <h4>Weekly Summary</h4>
+                                        <p>Receive a weekly report of your activity</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+
+                                <div class="toggle-setting">
+                                    <div class="toggle-info">
+                                        <h4>Security Alerts</h4>
+                                        <p>Important security and account updates</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+
+                                <div class="toggle-setting">
+                                    <div class="toggle-info">
+                                        <h4>Product Updates</h4>
+                                        <p>News about new features and improvements</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <h3>Push Notifications</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="toggle-setting">
+                                    <div class="toggle-info">
+                                        <h4>Enable Push Notifications</h4>
+                                        <p>Receive real-time notifications in your browser</p>
+                                    </div>
+                                    <button class="btn-secondary" id="enablePushBtn">
+                                        <i class="fas fa-bell"></i>
+                                        Enable Push
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Appearance Section -->
+                    <section class="settings-section" id="appearance-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-palette"></i> Appearance</h2>
+                            <p>Customize how FacTora looks to you</p>
+                        </div>
+
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <h3>Theme Preferences</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="theme-selector">
+                                    <div class="theme-option active">
+                                        <div class="theme-preview light">
+                                            <div class="preview-header"></div>
+                                            <div class="preview-content">
+                                                <div class="preview-box"></div>
+                                                <div class="preview-box"></div>
+                                            </div>
+                                        </div>
+                                        <input type="radio" name="theme" id="lightTheme" checked>
+                                        <label for="lightTheme">
+                                            <i class="fas fa-sun"></i>
+                                            Light
+                                        </label>
+                                    </div>
+
+                                    <div class="theme-option">
+                                        <div class="theme-preview dark">
+                                            <div class="preview-header"></div>
+                                            <div class="preview-content">
+                                                <div class="preview-box"></div>
+                                                <div class="preview-box"></div>
+                                            </div>
+                                        </div>
+                                        <input type="radio" name="theme" id="darkTheme">
+                                        <label for="darkTheme">
+                                            <i class="fas fa-moon"></i>
+                                            Dark
+                                        </label>
+                                    </div>
+
+                                    <div class="theme-option">
+                                        <div class="theme-preview auto">
+                                            <div class="preview-header"></div>
+                                            <div class="preview-content">
+                                                <div class="preview-box"></div>
+                                                <div class="preview-box"></div>
+                                            </div>
+                                        </div>
+                                        <input type="radio" name="theme" id="autoTheme">
+                                        <label for="autoTheme">
+                                            <i class="fas fa-adjust"></i>
+                                            Auto
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <h3>Display Options</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="fontSize">Font Size</label>
+                                    <select id="fontSize">
+                                        <option value="small">Small</option>
+                                        <option value="medium" selected>Medium</option>
+                                        <option value="large">Large</option>
+                                    </select>
+                                </div>
+
+                                <div class="toggle-setting">
+                                    <div class="toggle-info">
+                                        <h4>Compact Mode</h4>
+                                        <p>Display more content on screen</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+
+                                <div class="toggle-setting">
+                                    <div class="toggle-info">
+                                        <h4>Animations</h4>
+                                        <p>Enable interface animations and transitions</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Data & Storage Section -->
+                    <section class="settings-section" id="data-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-database"></i> Data & Storage</h2>
+                            <p>Manage your data and download options</p>
+                        </div>
+
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <h3>Data Management</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="data-stat">
+                                    <div class="stat-icon">
+                                        <i class="fas fa-chart-bar"></i>
+                                    </div>
+                                    <div class="stat-info">
+                                        <h4>Prediction History</h4>
+                                        <p>{{ total_predictions if total_predictions else 0 }} predictions stored</p>
+                                    </div>
+                                    <a href="{{ url_for('export_csv') }}" class="btn-secondary">
+                                        <i class="fas fa-download"></i>
+                                        Export Data
+                                    </a>
+                                </div>
+
+                                <div class="data-stat">
+                                    <div class="stat-icon">
+                                        <i class="fas fa-comments"></i>
+                                    </div>
+                                    <div class="stat-info">
+                                        <h4>Feedback Records</h4>
+                                        <p>Your feedback helps improve our AI</p>
+                                    </div>
+                                    <button class="btn-secondary">
+                                        <i class="fas fa-eye"></i>
+                                        View Feedback
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <h3>Clear Data</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="danger-action">
+                                    <div class="danger-info">
+                                        <h4>Clear Prediction History</h4>
+                                        <p>Remove all your prediction records</p>
+                                    </div>
+                                    <button class="btn-danger-outline">
+                                        <i class="fas fa-trash-alt"></i>
+                                        Clear History
+                                    </button>
+                                </div>
+
+                                <div class="danger-action">
+                                    <div class="danger-info">
+                                        <h4>Clear All Data</h4>
+                                        <p>Remove all your data from FacTora</p>
+                                    </div>
+                                    <button class="btn-danger-outline">
+                                        <i class="fas fa-eraser"></i>
+                                        Clear All
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Advanced Section -->
+                    <section class="settings-section" id="advanced-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-sliders-h"></i> Advanced Settings</h2>
+                            <p>Advanced options for power users</p>
+                        </div>
+
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <h3>API Access</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label>API Key</label>
+                                    <div class="api-key-display">
+                                        <input type="text" value="••••••••••••••••••••••••••••" readonly>
+                                        <button class="btn-icon" title="Copy API Key">
+                                            <i class="fas fa-copy"></i>
+                                        </button>
+                                        <button class="btn-icon" title="Regenerate API Key">
+                                            <i class="fas fa-sync-alt"></i>
+                                        </button>
+                                    </div>
+                                    <small class="form-help">Use this key to access FacTora API</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <h3>Developer Options</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="toggle-setting">
+                                    <div class="toggle-info">
+                                        <h4>Debug Mode</h4>
+                                        <p>Show additional debugging information</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+
+                                <div class="toggle-setting">
+                                    <div class="toggle-info">
+                                        <h4>Experimental Features</h4>
+                                        <p>Enable beta features and new functionality</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ═══════════════════════════════════════
+                         BROWSER EXTENSION SECTION
+                    ═══════════════════════════════════════ -->
+                    <section class="settings-section" id="extension-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-puzzle-piece"></i> Browser Extension</h2>
+                            <p>Add FacTora to Chrome for real-time fake news detection on any website</p>
+                        </div>
+
+                        <!-- Hero install card -->
+                        <div class="settings-card" style="background:linear-gradient(135deg,rgba(178,115,86,.1),rgba(0,0,0,0));border-color:rgba(178,115,86,.3);">
+                            <div class="card-header" style="border-bottom-color:rgba(178,115,86,.2);">
+                                <h3 style="display:flex;align-items:center;gap:10px;">
+                                    <span style="width:32px;height:32px;background:linear-gradient(135deg,#b37356,#d4956e);border-radius:9px;display:inline-flex;align-items:center;justify-content:center;">
+                                        <i class="fas fa-puzzle-piece" style="color:#fff;font-size:.85rem;"></i>
+                                    </span>
+                                    FacTora for Chrome
+                                    <span style="background:linear-gradient(135deg,#b37356,#d4956e);color:#fff;font-size:.6rem;padding:2px 8px;border-radius:50px;font-weight:700;">FREE</span>
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                <p style="color:rgba(255,255,255,.65);font-size:.9rem;margin-bottom:20px;line-height:1.65;">
+                                    Detect fake news without leaving the page. The extension automatically adds 
+                                    a credibility badge next to every headline you browse — powered by the same 
+                                    BERT AI model that runs FacTora.
+                                </p>
+
+                                <!-- Feature pills -->
+                                <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;">
+                                    <span style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:50px;padding:5px 14px;font-size:.78rem;color:rgba(255,255,255,.7);">
+                                        <i class="fas fa-tag" style="color:#d4956e;margin-right:4px;"></i>Auto-Badge Headlines
+                                    </span>
+                                    <span style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:50px;padding:5px 14px;font-size:.78rem;color:rgba(255,255,255,.7);">
+                                        <i class="fas fa-tachometer-alt" style="color:#d4956e;margin-right:4px;"></i>Credibility Gauge
+                                    </span>
+                                    <span style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:50px;padding:5px 14px;font-size:.78rem;color:rgba(255,255,255,.7);">
+                                        <i class="fas fa-chart-bar" style="color:#d4956e;margin-right:4px;"></i>Factor Breakdown
+                                    </span>
+                                    <span style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:50px;padding:5px 14px;font-size:.78rem;color:rgba(255,255,255,.7);">
+                                        <i class="fas fa-shield-alt" style="color:#d4956e;margin-right:4px;"></i>Source Trust Badge
+                                    </span>
+                                    <span style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:50px;padding:5px 14px;font-size:.78rem;color:rgba(255,255,255,.7);">
+                                        <i class="fas fa-magic" style="color:#d4956e;margin-right:4px;"></i>Grab from Tab
+                                    </span>
+                                </div>
+
+                                <!-- Action buttons -->
+                                <div style="display:flex;gap:12px;flex-wrap:wrap;">
+                                    <a href="/download-extension" 
+                                       style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#b37356,#d4956e);color:#fff;border-radius:10px;padding:11px 22px;font-size:.88rem;font-weight:600;text-decoration:none;transition:opacity .2s,transform .15s;box-shadow:0 4px 20px rgba(178,115,86,.25);"
+                                       onmouseover="this.style.opacity='.88';this.style.transform='translateY(-1px)'" 
+                                       onmouseout="this.style.opacity='1';this.style.transform='translateY(0)'">
+                                        <i class="fas fa-download"></i> Download Extension (.zip)
+                                    </a>
+                                    <a href="/install-extension" 
+                                       style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.8);border-radius:10px;padding:11px 22px;font-size:.88rem;font-weight:500;text-decoration:none;transition:background .2s;"
+                                       onmouseover="this.style.background='rgba(255,255,255,.12)'" 
+                                       onmouseout="this.style.background='rgba(255,255,255,.07)'">
+                                        <i class="fas fa-book-open"></i> Full Install Guide
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick install steps card -->
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <h3>Quick Install Steps</h3>
+                            </div>
+                            <div class="card-body">
+                                <div style="display:flex;flex-direction:column;gap:14px;">
+
+                                    <div style="display:flex;align-items:center;gap:14px;padding:12px;background:rgba(255,255,255,.03);border-radius:10px;border:1px solid rgba(255,255,255,.07);">
+                                        <div style="width:36px;height:36px;flex-shrink:0;background:linear-gradient(135deg,#b37356,#d4956e);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:800;color:#fff;">1</div>
+                                        <div>
+                                            <div style="font-size:.88rem;font-weight:600;color:#f5f5f5;margin-bottom:3px;">Download &amp; Extract</div>
+                                            <div style="font-size:.78rem;color:rgba(255,255,255,.5);">Click "Download Extension" above → right-click the zip → Extract All</div>
+                                        </div>
+                                    </div>
+
+                                    <div style="display:flex;align-items:center;gap:14px;padding:12px;background:rgba(255,255,255,.03);border-radius:10px;border:1px solid rgba(255,255,255,.07);">
+                                        <div style="width:36px;height:36px;flex-shrink:0;background:linear-gradient(135deg,#b37356,#d4956e);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:800;color:#fff;">2</div>
+                                        <div>
+                                            <div style="font-size:.88rem;font-weight:600;color:#f5f5f5;margin-bottom:3px;">Open Chrome Extensions</div>
+                                            <div style="font-size:.78rem;color:rgba(255,255,255,.5);">
+                                                Go to <code style="background:rgba(0,0,0,.3);padding:1px 5px;border-radius:4px;color:#d4956e;">chrome://extensions/</code> → Enable <b>Developer mode</b>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div style="display:flex;align-items:center;gap:14px;padding:12px;background:rgba(255,255,255,.03);border-radius:10px;border:1px solid rgba(255,255,255,.07);">
+                                        <div style="width:36px;height:36px;flex-shrink:0;background:linear-gradient(135deg,#b37356,#d4956e);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:800;color:#fff;">3</div>
+                                        <div>
+                                            <div style="font-size:.88rem;font-weight:600;color:#f5f5f5;margin-bottom:3px;">Load the Extension</div>
+                                            <div style="font-size:.78rem;color:rgba(255,255,255,.5);">Click "Load unpacked" → select the <code style="background:rgba(0,0,0,.3);padding:1px 5px;border-radius:4px;color:#d4956e;">browser_extension/</code> folder</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div style="margin-top:16px;padding:12px 16px;background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.2);border-radius:9px;font-size:.8rem;color:rgba(255,255,255,.65);">
+                                    <i class="fas fa-check-circle" style="color:#4ade80;margin-right:6px;"></i>
+                                    <strong style="color:#4ade80;">You're already running FacTora!</strong> 
+                                    The extension will connect to this server automatically at <code style="background:rgba(0,0,0,.3);padding:1px 5px;border-radius:4px;color:#d4956e;">localhost:5000</code>
+                                </div>
+                            </div>
+                        </div>
+
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    {% include 'components/footer.html' %}
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/settings.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FacTora – Fake News Detector</title>
+  <link rel="stylesheet" href="popup.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="ext-header">
+    <div class="ext-logo">
+      <img src="icons/icon48.png" alt="FacTora" class="ext-icon">
+      <span class="ext-logo-text">Fac<span class="ext-logo-accent">Tora</span></span>
+    </div>
+    <div class="ext-tagline">AI Fake News Detector</div>
+  </header>
+
+  <!-- Input Section -->
+  <div class="ext-body">
+    <div class="ext-input-group">
+      <textarea
+        id="headlineInput"
+        class="ext-textarea"
+        placeholder="Paste a headline or article text to analyze…"
+        rows="3"
+        maxlength="500"
+      ></textarea>
+      <div class="ext-char-count"><span id="charCount">0</span>/500</div>
+    </div>
+
+    <div class="ext-url-group">
+      <input
+        type="text"
+        id="sourceUrl"
+        class="ext-url-input"
+        placeholder="Article URL (optional – for source check)"
+      >
+    </div>
+
+    <div class="ext-actions">
+      <button id="analyzeBtn" class="ext-btn-primary">
+        <i class="fas fa-brain"></i>
+        <span id="btnText">Analyze</span>
+      </button>
+      <button id="grabBtn" class="ext-btn-secondary" title="Grab headline from current tab">
+        <i class="fas fa-magic"></i> Grab
+      </button>
+    </div>
+
+    <!-- Status message -->
+    <div id="statusMsg" class="ext-status" style="display:none;"></div>
+
+    <!-- Result Card -->
+    <div id="resultCard" class="ext-result" style="display:none;">
+
+      <!-- Verdict banner -->
+      <div class="ext-verdict" id="verdictBanner">
+        <div class="ext-verdict-icon" id="verdictIcon"></div>
+        <div>
+          <div class="ext-verdict-label" id="verdictLabel">—</div>
+          <div class="ext-verdict-sub" id="verdictSub">—</div>
+        </div>
+      </div>
+
+      <!-- Big score gauge -->
+      <div class="ext-gauge-wrap">
+        <svg class="ext-gauge-svg" viewBox="0 0 120 70" xmlns="http://www.w3.org/2000/svg">
+          <!-- Background arc -->
+          <path d="M10,65 A55,55 0 0,1 110,65" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="10" stroke-linecap="round"/>
+          <!-- Score arc -->
+          <path id="gaugeArc" d="M10,65 A55,55 0 0,1 110,65" fill="none" stroke="#22c55e" stroke-width="10"
+                stroke-linecap="round" stroke-dasharray="172.8" stroke-dashoffset="172.8"/>
+        </svg>
+        <div class="ext-gauge-center">
+          <div class="ext-gauge-score" id="gaugeScore">—</div>
+          <div class="ext-gauge-label">Credibility</div>
+        </div>
+      </div>
+
+      <!-- Grade -->
+      <div class="ext-grade-row">
+        <span class="ext-grade" id="gradeSpan">—</span>
+        <span class="ext-grade-label" id="gradeLabel">—</span>
+      </div>
+
+      <!-- Factor bars -->
+      <div class="ext-factors">
+        <div class="ext-factor-row">
+          <span class="ext-factor-name"><i class="fas fa-robot"></i> AI Model</span>
+          <div class="ext-factor-bar-wrap">
+            <div class="ext-factor-bar" id="barBert"></div>
+          </div>
+          <span class="ext-factor-val" id="valBert">—</span>
+        </div>
+        <div class="ext-factor-row">
+          <span class="ext-factor-name"><i class="fas fa-language"></i> Language</span>
+          <div class="ext-factor-bar-wrap">
+            <div class="ext-factor-bar" id="barLing"></div>
+          </div>
+          <span class="ext-factor-val" id="valLing">—</span>
+        </div>
+        <div class="ext-factor-row">
+          <span class="ext-factor-name"><i class="fas fa-globe"></i> Source</span>
+          <div class="ext-factor-bar-wrap">
+            <div class="ext-factor-bar" id="barSrc"></div>
+          </div>
+          <span class="ext-factor-val" id="valSrc">—</span>
+        </div>
+      </div>
+
+      <!-- Signals -->
+      <div id="signalsList" class="ext-signals" style="display:none;"></div>
+
+      <!-- Badges -->
+      <div class="ext-badges" id="extBadges"></div>
+
+      <!-- Open FacTora -->
+      <a id="openFacTora" href="http://localhost:5000" target="_blank" class="ext-open-link">
+        <i class="fas fa-external-link-alt"></i> Full analysis on FacTora
+      </a>
+    </div>
+
+    <!-- No server warning -->
+    <div id="serverWarning" class="ext-warning" style="display:none;">
+      <i class="fas fa-exclamation-triangle"></i>
+      FacTora server not running. Start it locally on port 5000 first.
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="ext-footer">
+    <a href="http://localhost:5000/source-check" target="_blank">Source Checker</a>
+    <span>·</span>
+    <a href="http://localhost:5000/live-news" target="_blank">Live News</a>
+    <span>·</span>
+    <a href="http://localhost:5000" target="_blank">Open App</a>
+  </footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>

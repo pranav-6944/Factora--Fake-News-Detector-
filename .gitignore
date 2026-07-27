@@ -1,0 +1,54 @@
+# ─── Python ───
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+*.egg
+
+# ─── Virtual Environments ───
+venv/
+.venv/
+env/
+_old_gitignore_dir/
+
+# ─── Environment Variables / Secrets ───
+.env
+.env.local
+.env.production
+
+# ─── BERT Model Files (too large for GitHub, downloaded at runtime) ───
+bert_model/
+bert_tokenizer/
+
+# ─── SQLite Databases (auto-created on startup) ───
+database/*.db
+
+# ─── Large Media / Docs ───
+docs/
+Presentations ppt/
+
+# ─── Training Logs ───
+logs/
+runs/
+
+# ─── IDE / Editor ───
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ─── OS Files ───
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ─── Temp Files ───
+tempCodeRunnerFile.py
+*.tmp
+
+# ─── Node (browser extension dev) ───
+node_modules/

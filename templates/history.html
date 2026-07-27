@@ -1,0 +1,287 @@
+{% extends "base.html" %}
+
+{% block title %}History - FacTora | Prediction History{% endblock %}
+
+{% block body_class %}history-body{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/history.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="history-container">
+    <!-- Page Header -->
+    <div class="history-header">
+        <div class="header-content">
+            <div class="header-text">
+                <h1><i class="fas fa-history"></i> Prediction History</h1>
+                <p class="header-subtitle">View and manage all your previous fake news predictions</p>
+            </div>
+            <div class="header-stats">
+                <div class="stat-card">
+                    <i class="fas fa-list-alt"></i>
+                    <div class="stat-content">
+                        <span class="stat-number">{{ total_predictions }}</span>
+                        <span class="stat-label">Total Predictions</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-check-circle"></i>
+                    <div class="stat-content">
+                        <span class="stat-number">{{ real_count }}</span>
+                        <span class="stat-label">Real News</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div class="stat-content">
+                        <span class="stat-number">{{ fake_count }}</span>
+                        <span class="stat-label">Fake News</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter and Search Section -->
+    <div class="filter-section">
+        <div class="filter-container">
+            <!-- Search Form -->
+            <form method="GET" action="{{ url_for('history') }}" class="search-form">
+                <div class="search-input-group">
+                    <i class="fas fa-search search-icon"></i>
+                    <input 
+                        type="text" 
+                        name="search" 
+                        placeholder="Search by headline or keyword..." 
+                        value="{{ search_query or '' }}"
+                        class="search-input"
+                    >
+                    <button type="submit" class="search-btn">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                    {% if search_query %}
+                    <a href="{{ url_for('history') }}" class="clear-btn" title="Clear search">
+                        <i class="fas fa-times"></i>
+                    </a>
+                    {% endif %}
+                </div>
+            </form>
+
+            <!-- Filter Options -->
+            <div class="filter-options">
+                <div class="filter-group">
+                    <label for="filterType">Filter by Result:</label>
+                    <select id="filterType" name="filter_type" onchange="applyFilter()">
+                        <option value="all" {% if filter_type == 'all' %}selected{% endif %}>All</option>
+                        <option value="real" {% if filter_type == 'real' %}selected{% endif %}>Real News</option>
+                        <option value="fake" {% if filter_type == 'fake' %}selected{% endif %}>Fake News</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="sortBy">Sort by:</label>
+                    <select id="sortBy" name="sort_by" onchange="applySort()">
+                        <option value="newest" {% if sort_by == 'newest' %}selected{% endif %}>Newest First</option>
+                        <option value="oldest" {% if sort_by == 'oldest' %}selected{% endif %}>Oldest First</option>
+                        <option value="confidence_high" {% if sort_by == 'confidence_high' %}selected{% endif %}>Highest Confidence</option>
+                        <option value="confidence_low" {% if sort_by == 'confidence_low' %}selected{% endif %}>Lowest Confidence</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="perPage">Show:</label>
+                    <select id="perPage" name="per_page" onchange="changePerPage()">
+                        <option value="10" {% if per_page == 10 %}selected{% endif %}>10 per page</option>
+                        <option value="25" {% if per_page == 25 %}selected{% endif %}>25 per page</option>
+                        <option value="50" {% if per_page == 50 %}selected{% endif %}>50 per page</option>
+                        <option value="100" {% if per_page == 100 %}selected{% endif %}>100 per page</option>
+                    </select>
+                </div>
+
+                <button class="export-btn" onclick="exportHistory()">
+                    <i class="fas fa-download"></i> Export CSV
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- History Content -->
+    <div class="history-content">
+        {% if predictions.items %}
+            <!-- Results Info -->
+            <div class="results-info">
+                <p>
+                    Showing <strong>{{ predictions.items|length }}</strong> of <strong>{{ predictions.total }}</strong> predictions
+                    {% if search_query %}
+                    for "<strong>{{ search_query }}</strong>"
+                    {% endif %}
+                </p>
+            </div>
+
+            <!-- Predictions Grid -->
+            <div class="predictions-grid">
+                {% for prediction in predictions.items %}
+                <div class="prediction-card" data-prediction-id="{{ prediction.id }}">
+                    <div class="prediction-header">
+                        <div class="prediction-result {{ prediction.prediction.lower() }}">
+                            <i class="fas fa-{% if prediction.prediction.upper() == 'REAL' %}check-circle{% else %}times-circle{% endif %}"></i>
+                            <span class="result-label">{{ prediction.prediction }}</span>
+                        </div>
+                        <div class="prediction-confidence">
+                            <div class="confidence-badge {{ 'high' if prediction.confidence >= 80 else 'medium' if prediction.confidence >= 60 else 'low' }}">
+                                <i class="fas fa-chart-line"></i>
+                                {{ "%.1f"|format(prediction.confidence) }}%
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="prediction-content">
+                        <p class="prediction-headline">{{ prediction.headline }}</p>
+                        
+                        <div class="prediction-meta">
+                            <span class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                <time datetime="{{ prediction.timestamp }}">
+                                    {{ prediction.timestamp.strftime('%B %d, %Y at %I:%M %p') if prediction.timestamp else 'N/A' }}
+                                </time>
+                            </span>
+                            {% if prediction.source %}
+                            <span class="meta-item">
+                                <i class="fas fa-newspaper"></i>
+                                {{ prediction.source }}
+                            </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Confidence Bar -->
+                        <div class="confidence-bar-container">
+                            <div class="confidence-label-row">
+                                <span class="confidence-label">Confidence Level</span>
+                                <span class="confidence-value">{{ "%.1f"|format(prediction.confidence) }}%</span>
+                            </div>
+                            <div class="confidence-bar">
+                                <div class="confidence-fill {{ 'real' if prediction.prediction.upper() == 'REAL' else 'fake' }}" 
+                                     style="width: {{ prediction.confidence }}%">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="prediction-actions">
+                            <button class="action-btn view-details" onclick="viewDetails({{ prediction.id }})">
+                                <i class="fas fa-eye"></i> View Details
+                            </button>
+                            <button class="action-btn reanalyze" onclick="reanalyze('{{ prediction.headline|tojson }}')">
+                                <i class="fas fa-redo"></i> Re-analyze
+                            </button>
+                            <button class="action-btn delete" onclick="deletePrediction({{ prediction.id }})">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Pagination -->
+            {% if predictions.pages > 1 %}
+            <div class="pagination-container">
+                <div class="pagination">
+                    <!-- Previous Button -->
+                    {% if predictions.has_prev %}
+                    <a href="{{ url_for('history', page=predictions.prev_num, search=search_query, filter_type=filter_type, sort_by=sort_by, per_page=per_page) }}" 
+                       class="pagination-btn prev">
+                        <i class="fas fa-chevron-left"></i> Previous
+                    </a>
+                    {% else %}
+                    <span class="pagination-btn prev disabled">
+                        <i class="fas fa-chevron-left"></i> Previous
+                    </span>
+                    {% endif %}
+
+                    <!-- Page Numbers -->
+                    <div class="pagination-numbers">
+                        {% for page_num in predictions.iter_pages(left_edge=1, right_edge=1, left_current=2, right_current=2) %}
+                            {% if page_num %}
+                                {% if page_num == predictions.page %}
+                                <span class="pagination-number active">{{ page_num }}</span>
+                                {% else %}
+                                <a href="{{ url_for('history', page=page_num, search=search_query, filter_type=filter_type, sort_by=sort_by, per_page=per_page) }}" 
+                                   class="pagination-number">{{ page_num }}</a>
+                                {% endif %}
+                            {% else %}
+                                <span class="pagination-ellipsis">...</span>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+
+                    <!-- Next Button -->
+                    {% if predictions.has_next %}
+                    <a href="{{ url_for('history', page=predictions.next_num, search=search_query, filter_type=filter_type, sort_by=sort_by, per_page=per_page) }}" 
+                       class="pagination-btn next">
+                        Next <i class="fas fa-chevron-right"></i>
+                    </a>
+                    {% else %}
+                    <span class="pagination-btn next disabled">
+                        Next <i class="fas fa-chevron-right"></i>
+                    </span>
+                    {% endif %}
+                </div>
+
+                <!-- Page Info -->
+                <div class="pagination-info">
+                    Page {{ predictions.page }} of {{ predictions.pages }}
+                </div>
+            </div>
+            {% endif %}
+
+        {% else %}
+            <!-- No Data State -->
+            <div class="no-data">
+                <div class="no-data-icon">
+                    <i class="fas fa-{% if search_query %}search{% else %}history{% endif %}"></i>
+                </div>
+                <h3>
+                    {% if search_query %}
+                    No Results Found
+                    {% else %}
+                    No Predictions Yet
+                    {% endif %}
+                </h3>
+                <p>
+                    {% if search_query %}
+                    No predictions match "{{ search_query }}". Try a different search term.
+                    {% else %}
+                    You haven't made any predictions yet. Start analyzing news headlines!
+                    {% endif %}
+                </p>
+                <div class="no-data-actions">
+                    {% if search_query %}
+                    <a href="{{ url_for('history') }}" class="cta-btn secondary">
+                        <i class="fas fa-times"></i> Clear Search
+                    </a>
+                    {% endif %}
+                    <a href="{{ url_for('index') }}" class="cta-btn primary">
+                        <i class="fas fa-plus"></i> Make Your First Prediction
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Prediction Details Modal -->
+<div id="detailsModal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+        <div id="modalBody">
+            <!-- Details will be loaded here via JavaScript -->
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/history.js') }}"></script>
+{% endblock %}

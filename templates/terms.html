@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - FacTora</title>
+    
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon-32x32.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/legal.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="legal-body">
+    {% include 'components/navbar.html' %}
+
+    <main class="legal-main">
+        <div class="legal-container">
+            <header class="legal-header" data-aos="fade-down">
+                <div class="header-icon">
+                    <i class="fas fa-file-contract"></i>
+                </div>
+                <h1 class="legal-title">Terms of Service</h1>
+                <p class="legal-subtitle">
+                    Please read these terms carefully before using FacTora
+                </p>
+                <div class="legal-meta">
+                    <span class="meta-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        Last Updated: December 4, 2025
+                    </span>
+                </div>
+            </header>
+
+            <div class="legal-content">
+                <section id="acceptance" class="legal-section" data-aos="fade-up">
+                    <div class="section-header">
+                        <span class="section-number">01</span>
+                        <h2 class="section-title">Acceptance of Terms</h2>
+                    </div>
+                    <div class="section-content">
+                        <p>
+                            By accessing and using FacTora, you accept and agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our service.
+                        </p>
+                    </div>
+                </section>
+
+                <section id="service-description" class="legal-section" data-aos="fade-up">
+                    <div class="section-header">
+                        <span class="section-number">02</span>
+                        <h2 class="section-title">Service Description</h2>
+                    </div>
+                    <div class="section-content">
+                        <p>
+                            FacTora is an AI-powered fake news detection service. Our machine learning models analyze news headlines and content to provide probability assessments of authenticity. 
+                        </p>
+                        <div class="info-box info-warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <div>
+                                <strong>Important Disclaimer:</strong>
+                                <p>FacTora provides predictions based on AI models and should not be considered as definitive fact-checking. Results are probabilistic and should be used as one of many tools for evaluating news authenticity.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="user-obligations" class="legal-section" data-aos="fade-up">
+                    <div class="section-header">
+                        <span class="section-number">03</span>
+                        <h2 class="section-title">User Obligations</h2>
+                    </div>
+                    <div class="section-content">
+                        <h3 class="subsection-title">You agree to:</h3>
+                        <ul class="feature-list">
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <div>Provide accurate account information</div>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <div>Keep your password secure and confidential</div>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <div>Not misuse or attempt to circumvent our service</div>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <div>Not use the service for illegal purposes</div>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <div>Comply with all applicable laws and regulations</div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section id="limitations" class="legal-section" data-aos="fade-up">
+                    <div class="section-header">
+                        <span class="section-number">04</span>
+                        <h2 class="section-title">Limitations of Liability</h2>
+                    </div>
+                    <div class="section-content">
+                        <p>
+                            FacTora is provided "as is" without warranties of any kind. We are not liable for:
+                        </p>
+                        <ul class="simple-list">
+                            <li>Accuracy of predictions or analysis results</li>
+                            <li>Decisions made based on our service outputs</li>
+                            <li>Service interruptions or technical issues</li>
+                            <li>Data loss or corruption</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section id="termination" class="legal-section" data-aos="fade-up">
+                    <div class="section-header">
+                        <span class="section-number">05</span>
+                        <h2 class="section-title">Termination</h2>
+                    </div>
+                    <div class="section-content">
+                        <p>
+                            We reserve the right to suspend or terminate your account at any time for violation of these terms or for any other reason at our discretion.
+                        </p>
+                    </div>
+                </section>
+
+                <section id="contact-terms" class="legal-section" data-aos="fade-up">
+                    <div class="section-header">
+                        <span class="section-number">06</span>
+                        <h2 class="section-title">Contact</h2>
+                    </div>
+                    <div class="section-content">
+                        <p>For questions about these Terms of Service, contact:</p>
+                        <div class="contact-box">
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:legal@factora.com">legal@factora.com</a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div class="legal-footer-actions" data-aos="fade-up">
+                <a href="{{ url_for('privacy') }}" class="footer-action-btn">
+                    <i class="fas fa-shield-alt"></i>
+                    Privacy Policy
+                </a>
+                <a href="{{ url_for('index') }}" class="footer-action-btn footer-action-primary">
+                    <i class="fas fa-home"></i>
+                    Back to Home
+                </a>
+                <a href="{{ url_for('cookies') }}" class="footer-action-btn">
+                    <i class="fas fa-file-contract"></i>
+                    Cookies Policy
+                </a>                   
+            </div>
+        </div>
+    </main>
+
+    {% include 'components/footer.html' %}
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script>
+        AOS.init({ duration: 800, offset: 100, once: true });
+    </script>
+</body>
+</html>

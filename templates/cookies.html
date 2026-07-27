@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FacTora Cookie Policy - Learn about how we use cookies to improve your experience on our fake news detection platform.">
+    <meta name="keywords" content="cookie policy, cookies, tracking, FacTora, privacy">
+    <title>Cookie Policy - FacTora | How We Use Cookies</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon-32x32.png') }}">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/legal.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body class="legal-body">
+    <!-- Navigation Bar -->
+    {% include 'components/navbar.html' %}
+
+    <!-- Main Content -->
+    <main class="legal-main">
+        <div class="legal-container">
+            <!-- Header Section -->
+            <header class="legal-header" data-aos="fade-down">
+                <div class="header-icon">
+                    <i class="fas fa-cookie-bite"></i>
+                </div>
+                <h1 class="legal-title">Cookie Policy</h1>
+                <p class="legal-subtitle">
+                    Learn how FacTora uses cookies and similar technologies to enhance your experience and provide our services.
+                </p>
+                <div class="legal-meta">
+                    <span class="meta-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        Last Updated: December 4, 2025
+                    </span>
+                    <span class="meta-item">
+                        <i class="fas fa-clock"></i>
+                        Effective Date: January 1, 2025
+                    </span>
+                </div>
+            </header>
+
+            <!-- Cookie Consent Banner Preview -->
+            <div class="cookie-banner-preview" data-aos="fade-up" data-aos-delay="100">
+                <div class="banner-preview-content">
+                    <i class="fas fa-info-circle"></i>
+                    <div>
+                        <strong>Cookie Consent Notice:</strong>
+                        <p>This is what our cookie consent banner looks like when you first visit FacTora. You can manage your preferences at any time.</p>
+                    </div>
+                </div>
+                <button class="btn-manage-cookies" onclick="openCookieSettings()">
+                    <i class="fas fa-cog"></i>
+                    Manage Cookie Preferences
+                </button>
+            </div>
+
+            <!-- Table of Contents -->
+            <nav class="toc-container" data-aos="fade-up" data-aos-delay="150">
+                <h2 class="toc-title">
+                    <i class="fas fa-list"></i>
+                    Table of Contents
+                </h2>
+                <ol class="toc-list">
+                    <li><a href="#what-are-cookies">What Are Cookies?</a></li>
+                    <li><a href="#why-we-use">Why We Use Cookies</a></li>
+                    <li><a href="#types-of-cookies">Types of Cookies We Use</a></li>
+                    <li><a href="#third-party-cookies">Third-Party Cookies</a></li>
+                    <li><a href="#cookie-duration">Cookie Duration</a></li>
+                    <li><a href="#managing-cookies">Managing Your Cookies</a></li>
+                    <li><a href="#browser-controls">Browser Controls</a></li>
+                    <li><a href="#impact-disabling">Impact of Disabling Cookies</a></li>
+                    <li><a href="#updates">Updates to This Policy</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
+                </ol>
+            </nav>
+
+            <!-- Content Sections -->
+            <div class="legal-content">
+                <!-- Section 1: What Are Cookies -->
+                <section id="what-are-cookies" class="legal-section" data-aos="fade-up" data-aos-delay="200">
+                    <div class="section-header">
+                        <span class="section-number">01</span>
+                        <h2 class="section-title">What Are Cookies?</h2>
+                    </div>
+                    <div class="section-content">
+                        <p>
+                            Cookies are small text files that are placed on your device (computer, smartphone, or tablet) when you visit a website. They are widely used to make websites work more efficiently and provide information to website owners.
+                        </p>
+                        
+                        <div class="cookie-visual">
+                            <div class="cookie-example">
+                                <div class="cookie-icon-large">
+                                    <i class="fas fa-cookie"></i>
+                                </div>
+                                <h4>Example Cookie</h4>
+                                <div class="cookie-data">
+                                    <code>
+                                        {<br>
+                                        &nbsp;&nbsp;"name": "session_id",<br>
+                                        &nbsp;&nbsp;"value": "abc123xyz",<br>
+                                        &nbsp;&nbsp;"expires": "2025-12-31",<br>
+                                        &nbsp;&nbsp;"domain": "factora.com"<br>
+                                        }
+                                    </code>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 class="subsection-title">
+                            <i class="fas fa-lightbulb"></i>
+                            How Cookies Work
+                        </h3>
+                        <ul class="simple-list">
+                            <li>When you visit FacTora, our server sends a cookie to your browser</li>
+                            <li>Your browser stores the cookie on your device</li>
+                            <li>When you return, your browser sends the cookie back to our server</li>
+                            <li>This helps us recognize you and remember your preferences</li>
+                        </ul>
+
+                        <div class="info-box info-primary">
+                            <i class="fas fa-shield-alt"></i>
+                            <div>
+                                <strong>Cookies Are Safe:</strong>
+                                <p>Cookies cannot access or read data from your device, carry viruses, or install malware. They only store small amounts of text information specific to the website that created them.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Why We Use Cookies -->
+                <section id="why-we-use" class="legal-section" data-aos="fade-up">
+                    <div class="section-header">
+                        <span class="section-number">02</span>
+                        <h2 class="section-title">Why We Use Cookies</h2>
+                    </div>
+                    <div class="section-content">
+                        <p>FacTora uses cookies to enhance your experience and provide essential functionality:</p>
+                        
+                        <div class="purpose-grid">
+                            <div class="purpose-card">
+                                <div class="purpose-icon">
+                                    <i class="fas fa-user-check"></i>
+                                </div>
+                                <h4>Authentication</h4>
+                                <p>Keep you logged in as you navigate between pages so you don't have to sign in repeatedly.</p>
+                            </div>
+
+                            <div class="purpose-card">
+                                <div class="purpose-icon">
+                                    <i class="fas fa-sliders-h"></i>
+                                </div>
+                                <h4>Preferences</h4>
+                                <p>Remember your settings, language preferences, and personalization choices.</p>
+                            </div>
+
+                            <div class="purpose-card">
+                                <div class="purpose-icon">
+                                    <i class="fas fa-shield-check"></i>
+                                </div>
+                                <h4>Security</h4>
+                                <p>Protect against fraudulent activity, improve security, and verify user authenticity.</p>
+                            </div>
+
+                            <div class="purpose-card">
+                                <div class="purpose-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <h4>Analytics</h4>
+                                <p>Understand how you use FacTora to improve our service and fix issues.</p>
+                            </div>
+
+                            <div class="purpose-card">
+                                <div class="purpose-icon">
+                                    <i class="fas fa-tachometer-alt"></i>
+                                </div>
+                                <h4>Performance</h4>
+                                <p>Monitor site performance and load times to ensure optimal user experience.</p>
+                            </div>
+
+                            <div class="purpose-card">
+                                <div class="purpose-icon">
+                                    <i class="fas fa-bug"></i>
+                                </div>
+                                <h4>Error Tracking</h4>
+                                <p>Identify and fix technical issues to maintain service reliability.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Types of Cookies -->
+                <section id="types-of-cookies" class="legal-section" data-aos="fade-up">
+                    <div class="section-header">
+                        <span class="section-number">03</span>
+                        <h2 class="section-title">Types of Cookies We Use</h2>
+                    </div>
+                    <div class="section-content">
+                        <p>We use different types of cookies for different purposes:</p>
+
+                        <!-- Essential Cookies -->
+                        <div class="cookie-type-card essential">
+                            <div class="cookie-type-header">
+                                <div class="cookie-type-icon">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div>
+                                    <h3>Essential Cookies</h3>
+                                    <span class="cookie-badge required">Required</span>
+                                </div>
+                            </div>
+                            <p class="cookie-type-description">
+                                These cookies are necessary for the website to function and cannot be disabled. Without these cookies, services like login and secure pages will not work.
+                            </p>
+                            
+                            <table class="cookies-detail-table">
+                                <thead>
+                                    <tr>
+                                        <th>Cookie Name</th>
+                                        <th>Purpose</th>
+                                        <th>Duration</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>session_id</code></td>
+                                        <td>Maintains your login session</td>
+                                        <td>Session</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>csrf_token</code></td>
+                                        <td>Security protection against attacks</td>
+                                        <td>Session</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>remember_token</code></td>
+                                        <td>"Remember Me" functionality</td>
+                                        <td>30 days</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Functional Cookies -->
+                        <div class="cookie-type-card functional">
+                            <div class="cookie-type-header">
+                                <div class="cookie-type-icon">
+                                    <i class="fas fa-cog"></i>
+                                </div>
+                                <div>
+                                    <h3>Functional Cookies</h3>
+                                    <span class="cookie-badge optional">Optional</span>
+                                </div>
+                            </div>
+                            <p class="cookie-type-description">
+                                These cookies enable enhanced functionality and personalization, such as remembering your preferences and settings.
+                            </p>
+                            
+                            <table class="cookies-detail-table">
+                                <thead>
+                                    <tr>
+                                        <th>Cookie Name</th>
+                                        <th>Purpose</th>
+                                        <th>Duration</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>theme_preference</code></td>
+                                        <td>Remembers your theme choice (light/dark)</td>
+                                        <td>1 year</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>language</code></td>
+                                        <td>Stores your language preference</td>
+                                        <td>1 year</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>dashboard_layout</code></td>
+                                        <td>Remembers your dashboard preferences</td>
+                                        <td>6 months</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Analytics Cookies -->
+                        <div class="cookie-type-card analytics">
+                            <div class="cookie-type-header">
+                                <div class="cookie-type-icon">
+                                    <i class="fas fa-chart-bar"></i>
+                                </div>
+                                <div>
+                                    <h3>Analytics Cookies</h3>
+                                    <span class="cookie-badge optional">Optional</span>
+                                </div>
+                            </div>
+                            <p class="cookie-type-description">
+                                These cookies help us understand how visitors interact with FacTora by collecting and reporting information anonymously.
+                            </p>
+                            
+                            <table class="cookies-detail-table">
+                                <thead>
+                                    <tr>
+                                        <th>Cookie Name</th>
+                                        <th>Purpose</th>
+                                        <th>Duration</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>_ga</code></td>
+                                        <td>Google Analytics - distinguishes users</td>
+                                        <td>2 years</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>_gid</code></td>
+                                        <td>Google Analytics - distinguishes users</td>
+                                        <td>24 hours</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>analytics_session</code></td>
+                                        <td>Tracks user session for analytics</td>
+                                        <td>30 minutes</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Performance Cookies -->
+                        <div class="cookie-type-card performance">
+                            <div class="cookie-type-header">
+                                <div class="cookie-type-icon">
+                                    <i class="fas fa-tachometer-alt"></i>
+                                </div>
+                                <div>
+                                    <h3>Performance Cookies</h3>
+                                    <span class="cookie-badge optional">Optional</span>
+                                </div>
+                            </div>
+                            <p class="cookie-type-description">
+                                These cookies collect information about how you use our website to help us improve performance and user experience.
+                            </p>
+                            
+                            <table class="cookies-detail-table">
+                                <thead>
+                                    <tr>
+                                        <th>Cookie Name</th>
+                                        <th>Purpose</th>
+                                        <th>Duration</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>performance_monitor</code></td>
+                                        <td>Monitors page load times</td>
+                                        <td>Session</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>error_tracking</code></td>
+                                        <td>Tracks errors for debugging</td>
+                                        <td>7 days</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 4: Third-Party Cookies -->
+                <section id="third-party-cookies" class="legal-section" data-aos="fade-up">
+                    <div class="section-header">
+                        <span class="section-number">04</span>
+                        <h2 class="section-title">Third-Party Cookies</h2>
+                    </div>
+                    <div class="section-content">
+                        <p>
+                            Some cookies are placed by third-party services that appear on our pages. We do not control these cookies, and you should review the respective privacy and cookie policies of these services.
+                        </p>
+
+                        <div class="third-party-services">
+                            <div class="service-card">
+                                <div class="service-logo">
+                                    <i class="fab fa-google"></i>
+                                </div>
+                                <h4>Google Analytics</h4>
+                                <p>Provides website analytics and visitor statistics.</p>
+                                <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" class="service-link">
+                                    View Privacy Policy <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+
+                            <div class="service-card">
+                                <div class="service-logo">
+                                    <i class="fas fa-newspaper"></i>
+                                </div>
+                                <h4>NewsAPI</h4>
+                                <p>Powers our live news feed functionality.</p>
+                                <a href="https://newsapi.org/privacy" target="_blank" rel="noopener noreferrer" class="service-link">
+                                    View Privacy Policy <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+
+                            <div class="service-card">
+                                <div class="service-logo">
+                                    <i class="fas fa-font"></i>
+                                </div>
+                                <h4>Google Fonts</h4>
+                                <p>Provides web fonts for improved typography.</p>
+                                <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" class="service-link">
+                                    View Privacy Policy <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="info-box info-warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <div>
+                                <strong>Note on Third-Party Services:</strong>
+                                <p>We carefully select third-party services and ensure they comply with privacy standards. However, we are not responsible for the privacy practices of these external services.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 5: Cookie Duration -->
+                <section id="cookie-duration" class="legal-section" data-aos="fade-up">
+                    <div class="section-header">
+                        <span class="section-number">05</span>
+                        <h2 class="section-title">Cookie Duration</h2>
+                    </div>
+                    <div class="section-content">
+                        <p>Cookies have different lifespans:</p>
+
+                        <div class="duration-grid">
+                            <div class="duration-card">
+                                <div class="duration-icon">
+                                    <i class="fas fa-stopwatch"></i>
+                                </div>
+                                <h4>Session Cookies</h4>
+                                <p class="duration-time">Until browser closes</p>
+                                <p>These temporary cookies are deleted when you close your browser. They help maintain your session while you navigate our site.</p>
+                            </div>
+
+                            <div class="duration-card">
+                                <div class="duration-icon">
+                                    <i class="fas fa-calendar-day"></i>
+                                </div>
+                                <h4>Short-Term Cookies</h4>
+                                <p class="duration-time">1-30 days</p>
+                                <p>These cookies remain on your device for a short period to remember recent preferences and activities.</p>
+                            </div>
+
+                            <div class="duration-card">
+                                <div class="duration-icon">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
+                                <h4>Long-Term Cookies</h4>
+                                <p class="duration-time">Up to 2 years</p>
+                                <p>These persistent cookies help us recognize you on return visits and maintain your long-term preferences.</p>
+                            </div>
+                        </div>
+
+                        <h3 class="subsection-title">
+                            <i class="fas fa-clock"></i>
+                            Cookie Expiration Timeline
+                        </h3>
+                        
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-marker session"></div>
+                                <div class="timeline-content">
+                                    <strong>Session</strong>
+                                    <span>Login cookies, CSRF tokens</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-marker short"></div>
+                                <div class="timeline-content">
+                                    <strong>24 Hours - 30 Days</strong>
+                                    <span>Analytics, performance tracking</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-marker medium"></div>
+                                <div class="timeline-content">
+                                    <strong>6 Months - 1 Year</strong>
+                                    <span>Preferences, settings, theme</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-marker long"></div>
+                                <div class="timeline-content">
+                                    <strong>Up to 2 Years</strong>
+                                    <span>Long-term analytics, user recognition</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 6: Managing Cookies -->
+                <section id="managing-cookies" class="legal-section" data-aos="fade-up">
+                    <div class="section-header">
+                        <span class="section-number">06</span>
+                        <h2 class="section-title">Managing Your Cookie Preferences</h2>
+                    </div>
+                    <div class="section-content">
+                        <p>
+                            You have full control over which cookies FacTora can use. You can change your preferences at any time.
+                        </p>
+
+                        <!-- Cookie Preference Manager -->
+                        <div class="cookie-manager">
+                            <h3 class="subsection-title">
+                                <i class="fas fa-sliders-h"></i>
+                                Your Cookie Preferences
+                            </h3>
+
+                            <div class="cookie-toggle-group">
+                                <div class="cookie-toggle-item">
+                                    <div class="toggle-info">
+                                        <div class="toggle-header">
+                                            <i class="fas fa-star"></i>
+                                            <strong>Essential Cookies</strong>
+                                            <span class="badge-required">Always Active</span>
+                                        </div>
+                                        <p>Required for the website to function properly</p>
+                                    </div>
+                                    <label class="toggle-switch disabled">
+                                        <input type="checkbox" checked disabled>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+
+                                <div class="cookie-toggle-item">
+                                    <div class="toggle-info">
+                                        <div class="toggle-header">
+                                            <i class="fas fa-cog"></i>
+                                            <strong>Functional Cookies</strong>
+                                        </div>
+                                        <p>Enable enhanced features and personalization</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="functionalCookies" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+
+                                <div class="cookie-toggle-item">
+                                    <div class="toggle-info">
+                                        <div class="toggle-header">
+                                            <i class="fas fa-chart-bar"></i>
+                                            <strong>Analytics Cookies</strong>
+                                        </div>
+                                        <p>Help us understand how you use our service</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="analyticsCookies" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+
+                                <div class="cookie-toggle-item">
+                                    <div class="toggle-info">
+                                        <div class="toggle-header">
+                                            <i class="fas fa-tachometer-alt"></i>
+                                            <strong>Performance Cookies</strong>
+                                        </div>
+                                        <p>Monitor site performance and load times</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="performanceCookies" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="cookie-manager-actions">
+                                <button class="btn-save-preferences" onclick="saveCookiePreferences()">
+                                    <i class="fas fa-save"></i>
+                                    Save Preferences
+                                </button>
+                                <button class="btn-reject-all" onclick="rejectAllCookies()">
+                                    <i class="fas fa-times"></i>
+                                    Reject All Optional
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 7: Browser Controls -->
+                <section id="browser-controls" class="legal-section" data-aos="fade-up">
+                    <div class="section-header">
+                        <span class="section-number">07</span>
+                        <h2 class="section-title">Browser Cookie Controls</h2>
+                    </div>
+                    <div class="section-content">
+                        <p>
+                            Most web browsers allow you to control cookies through their settings. Here's how to manage cookies in popular browsers:
+                        </p>
+
+                        <div class="browser-guide">
+                            <div class="browser-card">
+                                <div class="browser-icon">
+                                    <i class="fab fa-chrome"></i>
+                                </div>
+                                <h4>Google Chrome</h4>
+                                <ol>
+                                    <li>Click the three dots (⋮) in the top-right corner</li>
+                                    <li>Go to <strong>Settings</strong> → <strong>Privacy and security</strong></li>
+                                    <li>Click <strong>Cookies and other site data</strong></li>
+                                    <li>Choose your preferred cookie settings</li>
+                                </ol>
+                                <a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener noreferrer" class="browser-link">
+                                    Learn More <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+
+                            <div class="browser-card">
+                                <div class="browser-icon">
+                                    <i class="fab fa-firefox-browser"></i>
+                                </div>
+                                <h4>Mozilla Firefox</h4>
+                                <ol>
+                                    <li>Click the three lines (☰) in the top-right corner</li>
+                                    <li>Go to <strong>Settings</strong> → <strong>Privacy & Security</strong></li>
+                                    <li>Scroll to <strong>Cookies and Site Data</strong></li>
+                                    <li>Choose your preferred settings</li>
+                                </ol>
+                                <a href="https://support.mozilla.org/en-US/kb/cookies-information-websites-store-on-your-computer" target="_blank" rel="noopener noreferrer" class="browser-link">
+                                    Learn More <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+
+                            <div class="browser-card">
+                                <div class="browser-icon">
+                                    <i class="fab fa-safari"></i>
+                                </div>
+                                <h4>Safari</h4>
+                                <ol>
+                                    <li>Open Safari and click <strong>Safari</strong> in the menu bar</li>
+                                    <li>Go to <strong>Preferences</strong> → <strong>Privacy</strong></li>
+                                    <li>Manage <strong>Cookies and website data</strong></li>
+                                    <li>Choose your blocking options</li>
+                                </ol>
+                                <a href="https://support.apple.com/guide/safari/manage-cookies-sfri11471/mac" target="_blank" rel="noopener noreferrer" class="browser-link">
+                                    Learn More <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+
+                            <div class="browser-card">
+                                <div class="browser-icon">
+                                    <i class="fab fa-edge"></i>
+                                </div>
+                                <h4>Microsoft Edge</h4>
+                                <ol>
+                                    <li>Click the three dots (...) in the top-right corner</li>
+                                    <li>Go to <strong>Settings</strong> → <strong>Cookies and site permissions</strong></li>
+                                    <li>Click <strong>Manage and delete cookies</strong></li>
+                                    <li>Configure your cookie settings</li>
+                                </ol>
+                                <a href="https://support.microsoft.com/en-us/microsoft-edge/delete-cookies-in-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09" target="_blank" rel="noopener noreferrer" class="browser-link">
+                                    Learn More <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="info-box info-primary">
+                            <i class="fas fa-mobile-alt"></i>
+                            <div>
+                                <strong>Mobile Browsers:</strong>
+                                <p>For mobile devices, cookie settings are typically found in your browser's settings menu under Privacy or Security. The exact location varies by browser and operating system.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 8: Impact of Disabling -->
+                <section id="impact-disabling" class="legal-section" data-aos="fade-up">
+                    <div class="section-header">
+                        <span class="section-number">08</span>
+                        <h2 class="section-title">Impact of Disabling Cookies</h2>
+                    </div>
+                    <div class="section-content">
+                        <p>
+                            While you can disable cookies, doing so may affect your experience on FacTora:
+                        </p>
+
+                        <div class="impact-grid">
+                            <div class="impact-card negative">
+                                <i class="fas fa-times-circle"></i>
+                                <h4>If You Disable Essential Cookies</h4>
+                                <ul>
+                                    <li>You cannot log in to your account</li>
+                                    <li>Security features will not work</li>
+                                    <li>Form submissions may fail</li>
+                                    <li>Core functionality will be unavailable</li>
+                                </ul>
+                            </div>
+
+                            <div class="impact-card warning">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <h4>If You Disable Functional Cookies</h4>
+                                <ul>
+                                    <li>Preferences won't be saved</li>
+                                    <li>You'll need to set preferences each visit</li>
+                                    <li>Personalization features won't work</li>
+                                    <li>User experience may be degraded</li>
+                                </ul>
+                            </div>
+
+                            <div class="impact-card neutral">
+                                <i class="fas fa-info-circle"></i>
+                                <h4>If You Disable Analytics Cookies</h4>
+                                <ul>
+                                    <li>Core features continue to work</li>
+                                    <li>We won't track your usage patterns</li>
+                                    <li>Harder for us to improve the service</li>
+                                    <li>No significant impact on functionality</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="info-box info-success">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <strong>Recommended Settings:</strong>
+                                <p>For the best experience, we recommend accepting all cookies. However, you can safely disable Analytics and Performance cookies if you prefer, and still use FacTora effectively.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 9: Updates -->
+                <section id="updates" class="legal-section" data-aos="fade-up">
+                    <div class="section-header">
+                        <span class="section-number">09</span>
+                        <h2 class="section-title">Updates to This Policy</h2>
+                    </div>
+                    <div class="section-content">
+                        <p>
+                            We may update this Cookie Policy from time to time to reflect changes in our practices or for other operational, legal, or regulatory reasons.
+                        </p>
+                        <p>
+                            When we make significant changes, we will:
+                        </p>
+                        <ul class="simple-list">
+                            <li>Update the "Last Updated" date at the top of this policy</li>
+                            <li>Notify you via email or in-app notification</li>
+                            <li>Request your consent again if required by law</li>
+                        </ul>
+
+                        <div class="version-history">
+                            <h4><i class="fas fa-history"></i> Version History</h4>
+                            <ul>
+                                <li><strong>v1.1</strong> - December 4, 2025 - Added third-party cookie details</li>
+                                <li><strong>v1.0</strong> - January 1, 2025 - Initial cookie policy</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 10: Contact -->
+                <section id="contact" class="legal-section" data-aos="fade-up">
+                    <div class="section-header">
+                        <span class="section-number">10</span>
+                        <h2 class="section-title">Questions About Cookies?</h2>
+                    </div>
+                    <div class="section-content">
+                        <p>
+                            If you have questions about our use of cookies or this Cookie Policy, please contact us:
+                        </p>
+
+                        <div class="contact-grid">
+                            <div class="contact-method">
+                                <i class="fas fa-envelope"></i>
+                                <strong>Email</strong>
+                                <a href="mailto:privacy@factora.com">privacy@factora.com</a>
+                            </div>
+
+                            <div class="contact-method">
+                                <i class="fas fa-headset"></i>
+                                <strong>Support</strong>
+                                <a href="mailto:support@factora.com">support@factora.com</a>
+                            </div>
+
+                            <div class="contact-method">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <strong>Address</strong>
+                                <p>
+                                    MIT Academy of Engineering<br>
+                                    Alandi, Pune, Maharashtra<br>
+                                    India - 412105
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="helpful-links">
+                            <h4><i class="fas fa-link"></i> Related Policies</h4>
+                            <div class="policy-links">
+                                <a href="{{ url_for('privacy') }}" class="policy-link-btn">
+                                    <i class="fas fa-shield-alt"></i>
+                                    Privacy Policy
+                                </a>
+                                <a href="{{ url_for('terms') }}" class="policy-link-btn">
+                                    <i class="fas fa-file-contract"></i>
+                                    Terms of Service
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Footer Actions -->
+            <div class="legal-footer-actions" data-aos="fade-up">
+                <a href="{{ url_for('privacy') }}" class="footer-action-btn">
+                    <i class="fas fa-shield-alt"></i>
+                    Privacy Policy
+                </a>
+                <a href="{{ url_for('index') }}" class="footer-action-btn footer-action-primary">
+                    <i class="fas fa-home"></i>
+                    Back to Home
+                </a>
+                <button onclick="openCookieSettings()" class="footer-action-btn">
+                    <i class="fas fa-cog"></i>
+                    Cookie Settings
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    {% include 'components/footer.html' %}
+
+    <!-- JavaScript -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            offset: 100,
+            once: true
+        });
+
+        // Smooth scroll for TOC links
+        document.querySelectorAll('.toc-list a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offset = 100;
+                    const targetPosition = target.offsetTop - offset;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Cookie Settings Functions
+        function openCookieSettings() {
+            const manager = document.querySelector('.cookie-manager');
+            if (manager) {
+                manager.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                manager.style.animation = 'pulse 0.5s ease';
+                setTimeout(() => {
+                    manager.style.animation = '';
+                }, 500);
+            }
+        }
+
+        function saveCookiePreferences() {
+            const functional = document.getElementById('functionalCookies').checked;
+            const analytics = document.getElementById('analyticsCookies').checked;
+            const performance = document.getElementById('performanceCookies').checked;
+
+            // Save to localStorage (in production, send to backend)
+            localStorage.setItem('cookiePreferences', JSON.stringify({
+                functional,
+                analytics,
+                performance,
+                timestamp: new Date().toISOString()
+            }));
+
+            // Show success message
+            const btn = event.target;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check"></i> Saved!';
+            btn.style.background = '#7FA686';
+            
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.background = '';
+            }, 2000);
+        }
+
+        function rejectAllCookies() {
+            // Uncheck all optional cookies
+            document.getElementById('functionalCookies').checked = false;
+            document.getElementById('analyticsCookies').checked = false;
+            document.getElementById('performanceCookies').checked = false;
+
+            // Save preferences
+            saveCookiePreferences();
+        }
+
+        // Load saved preferences
+        document.addEventListener('DOMContentLoaded', function() {
+            const saved = localStorage.getItem('cookiePreferences');
+            if (saved) {
+                const prefs = JSON.parse(saved);
+                document.getElementById('functionalCookies').checked = prefs.functional;
+                document.getElementById('analyticsCookies').checked = prefs.analytics;
+                document.getElementById('performanceCookies').checked = prefs.performance;
+            }
+        });
+
+        // Active TOC on scroll
+        const sections = document.querySelectorAll('.legal-section');
+        const tocLinks = document.querySelectorAll('.toc-list a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.pageYOffset >= sectionTop - 150) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

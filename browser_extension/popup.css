@@ -1,0 +1,285 @@
+/* ============================================================
+   FacTora Browser Extension – Popup Styles
+   ============================================================ */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  width: 360px;
+  min-height: 200px;
+  background: #0f0f1a;
+  color: #f5f5f5;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+/* ── Header ──────────────────────────────────────────────── */
+.ext-header {
+  background: linear-gradient(135deg, #1a1025, #0f1a1a);
+  padding: 12px 16px 10px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.ext-logo { display:flex; align-items:center; gap:8px; }
+.ext-icon  { width:24px; height:24px; border-radius:6px; }
+.ext-logo-text { font-size:1.05rem; font-weight:700; color:#f5f5f5; }
+.ext-logo-accent { color:#d4956e; }
+.ext-tagline { font-size:.68rem; color:rgba(255,255,255,.4); text-transform:uppercase; letter-spacing:.06em; }
+
+/* ── Body ────────────────────────────────────────────────── */
+.ext-body { padding: 14px 14px 8px; display:flex; flex-direction:column; gap:10px; }
+
+/* Textarea */
+.ext-input-group { position:relative; }
+.ext-textarea {
+  width:100%;
+  background: rgba(255,255,255,.05);
+  border: 1.5px solid rgba(255,255,255,.1);
+  border-radius: 10px;
+  color: #f5f5f5;
+  font-family: 'Poppins',sans-serif;
+  font-size:.85rem;
+  padding: 10px 12px 24px;
+  resize: none;
+  outline: none;
+  transition: border-color .2s;
+}
+.ext-textarea::placeholder { color:rgba(255,255,255,.3); }
+.ext-textarea:focus { border-color:rgba(178,115,86,.55); }
+.ext-char-count {
+  position:absolute;
+  bottom:8px; right:10px;
+  font-size:.68rem;
+  color:rgba(255,255,255,.3);
+}
+
+/* URL input */
+.ext-url-input {
+  width:100%;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 8px;
+  color: rgba(255,255,255,.65);
+  font-family: 'Poppins',sans-serif;
+  font-size:.75rem;
+  padding: 7px 10px;
+  outline:none;
+  transition: border-color .2s;
+}
+.ext-url-input::placeholder { color:rgba(255,255,255,.25); }
+.ext-url-input:focus { border-color:rgba(178,115,86,.4); }
+
+/* Action buttons */
+.ext-actions { display:flex; gap:8px; }
+.ext-btn-primary {
+  flex:1;
+  background: linear-gradient(135deg,#b37356,#d4956e);
+  color:#fff;
+  border:none;
+  border-radius:8px;
+  padding:9px 14px;
+  font-size:.85rem;
+  font-weight:600;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  font-family:'Poppins',sans-serif;
+  transition:opacity .2s;
+}
+.ext-btn-primary:hover   { opacity:.88; }
+.ext-btn-primary:disabled{ opacity:.5; cursor:not-allowed; }
+.ext-btn-secondary {
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.12);
+  color: rgba(255,255,255,.7);
+  border-radius:8px;
+  padding:9px 14px;
+  font-size:.82rem;
+  font-weight:500;
+  cursor:pointer;
+  font-family:'Poppins',sans-serif;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  transition:background .2s;
+}
+.ext-btn-secondary:hover { background:rgba(255,255,255,.12); }
+
+/* Status */
+.ext-status {
+  font-size:.8rem;
+  color:rgba(255,255,255,.5);
+  text-align:center;
+  padding:4px 0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+}
+
+/* ── Result Card ─────────────────────────────────────────── */
+.ext-result {
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: fadeInUp .3s ease;
+}
+@keyframes fadeInUp {
+  from { opacity:0; transform:translateY(8px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* Verdict banner */
+.ext-verdict {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 12px;
+  border-radius:9px;
+  border:1px solid transparent;
+}
+.ext-verdict.real  { background:rgba(34,197,94,.1);  border-color:rgba(34,197,94,.25); }
+.ext-verdict.fake  { background:rgba(239,68,68,.1);  border-color:rgba(239,68,68,.25); }
+.ext-verdict-icon  { font-size:1.4rem; }
+.ext-verdict-label { font-size:.95rem; font-weight:700; }
+.ext-verdict-sub   { font-size:.72rem; color:rgba(255,255,255,.5); }
+
+/* Gauge */
+.ext-gauge-wrap {
+  position:relative;
+  text-align:center;
+  height:80px;
+}
+.ext-gauge-svg { width:140px; height:80px; }
+.ext-gauge-center {
+  position:absolute;
+  top:50%; left:50%;
+  transform:translate(-50%,-10%);
+  text-align:center;
+}
+.ext-gauge-score { font-size:1.4rem; font-weight:700; color:#f5f5f5; }
+.ext-gauge-label  { font-size:.65rem; color:rgba(255,255,255,.4); text-transform:uppercase; letter-spacing:.05em; }
+
+/* Grade */
+.ext-grade-row { display:flex; align-items:center; gap:10px; justify-content:center; }
+.ext-grade {
+  width:34px; height:34px;
+  border-radius:9px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.1rem; font-weight:800;
+  background:rgba(255,255,255,.1);
+  color:#f5f5f5;
+}
+.ext-grade-label { font-size:.85rem; color:rgba(255,255,255,.65); }
+
+/* Factor bars */
+.ext-factors { display:flex; flex-direction:column; gap:7px; }
+.ext-factor-row { display:flex; align-items:center; gap:7px; }
+.ext-factor-name {
+  font-size:.72rem;
+  color:rgba(255,255,255,.55);
+  width:72px;
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  gap:4px;
+}
+.ext-factor-bar-wrap {
+  flex:1;
+  background:rgba(255,255,255,.08);
+  border-radius:50px;
+  height:6px;
+  overflow:hidden;
+}
+.ext-factor-bar {
+  height:100%;
+  border-radius:50px;
+  background:linear-gradient(90deg,#b37356,#d4956e);
+  transition:width .7s cubic-bezier(.4,0,.2,1);
+  width:0%;
+}
+.ext-factor-val { font-size:.72rem; color:rgba(255,255,255,.5); width:26px; text-align:right; }
+
+/* Signals */
+.ext-signals {
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+}
+.ext-signal-pill {
+  background:rgba(249,115,22,.12);
+  border:1px solid rgba(249,115,22,.25);
+  color:rgba(249,115,22,.85);
+  border-radius:50px;
+  padding:2px 9px;
+  font-size:.68rem;
+}
+
+/* Badges */
+.ext-badges { display:flex; flex-wrap:wrap; gap:6px; }
+.ext-badge {
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  padding:3px 10px;
+  border-radius:50px;
+  font-size:.7rem;
+  font-weight:500;
+}
+.ext-badge-trusted    { background:rgba(34,197,94,.12);  border:1px solid rgba(34,197,94,.3);  color:#4ade80; }
+.ext-badge-unreliable { background:rgba(239,68,68,.12);  border:1px solid rgba(239,68,68,.3);  color:#f87171; }
+.ext-badge-satire     { background:rgba(168,85,247,.12); border:1px solid rgba(168,85,247,.3); color:#c084fc; }
+.ext-badge-suspicious { background:rgba(249,115,22,.12); border:1px solid rgba(249,115,22,.3); color:#fb923c; }
+.ext-badge-unknown    { background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15);color:#94a3b8; }
+.ext-badge-clickbait  { background:rgba(234,179,8,.12);  border:1px solid rgba(234,179,8,.3);  color:#facc15; }
+.ext-badge-conspiracy { background:rgba(239,68,68,.12);  border:1px solid rgba(239,68,68,.3);  color:#f87171; }
+
+/* Open link */
+.ext-open-link {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  font-size:.75rem;
+  color:rgba(178,115,86,.8);
+  text-decoration:none;
+  padding:6px;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+.ext-open-link:hover { color:#d4956e; }
+
+/* Warning */
+.ext-warning {
+  background:rgba(239,68,68,.1);
+  border:1px solid rgba(239,68,68,.25);
+  border-radius:9px;
+  padding:10px 12px;
+  font-size:.78rem;
+  color:#f87171;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+/* ── Footer ──────────────────────────────────────────────── */
+.ext-footer {
+  border-top: 1px solid rgba(255,255,255,.06);
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: center;
+}
+.ext-footer a { font-size:.7rem; color:rgba(255,255,255,.35); text-decoration:none; transition:color .2s; }
+.ext-footer a:hover { color:#d4956e; }
+.ext-footer span { color:rgba(255,255,255,.15); font-size:.65rem; }

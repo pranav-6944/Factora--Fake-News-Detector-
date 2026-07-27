@@ -1,0 +1,262 @@
+{% extends "base.html" %}
+
+{% block title %}Source Checker – FacTora{% endblock %}
+{% block meta_description %}Verify if a news source is trusted or unreliable with FacTora's source cross-referencing engine.{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/source-check.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="source-check-hero">
+  <div class="sc-hero-inner">
+    <div class="sc-badge"><i class="fas fa-shield-check"></i> Source Intelligence</div>
+    <h1 class="sc-title">Source Credibility Verifier</h1>
+    <p class="sc-subtitle">
+      Enter any article URL or domain to see if the source is trusted, unreliable, or unknown.
+      We cross-reference against hundreds of known publications.
+    </p>
+
+    <div class="sc-form-card" id="sourceFormCard">
+      <form id="sourceCheckForm" onsubmit="return false;">
+        <div class="sc-input-group">
+          <i class="fas fa-link sc-input-icon"></i>
+          <input
+            type="text"
+            id="sourceInput"
+            class="sc-input"
+            placeholder="e.g. https://www.bbc.com/news/article or bbc.com"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <button type="submit" class="sc-btn" id="checkSourceBtn">
+            <span class="btn-text"><i class="fas fa-search"></i> Check Source</span>
+            <span class="btn-loading" style="display:none;"><i class="fas fa-spinner fa-spin"></i> Verifying…</span>
+          </button>
+        </div>
+        <p class="sc-hint">Accepts full URLs, bare domains, or source names like <code>reuters.com</code></p>
+      </form>
+    </div>
+
+    <!-- Quick examples -->
+    <div class="sc-examples">
+      <span class="sc-examples-label">Try:</span>
+      <button class="sc-chip" onclick="fillAndCheck('bbc.com')">bbc.com</button>
+      <button class="sc-chip" onclick="fillAndCheck('infowars.com')">infowars.com</button>
+      <button class="sc-chip" onclick="fillAndCheck('reuters.com')">reuters.com</button>
+      <button class="sc-chip" onclick="fillAndCheck('naturalnews.com')">naturalnews.com</button>
+      <button class="sc-chip" onclick="fillAndCheck('theonion.com')">theonion.com</button>
+    </div>
+  </div>
+</section>
+
+<!-- Result Section (hidden until a check is done) -->
+<section class="sc-result-section" id="resultSection" style="display:none;">
+  <div class="sc-result-container">
+
+    <!-- Trust Badge Card -->
+    <div class="sc-trust-card" id="trustCard">
+      <div class="sc-trust-left">
+        <div class="sc-domain-icon"><i class="fas fa-globe"></i></div>
+        <div class="sc-domain-info">
+          <h2 class="sc-domain-name" id="resDomain">—</h2>
+          <div class="sc-trust-badge" id="resBadge">Checking…</div>
+        </div>
+      </div>
+      <div class="sc-trust-meter">
+        <div class="sc-meter-label">Trust Score</div>
+        <div class="sc-meter-value" id="resTrustScore">—</div>
+        <div class="sc-meter-bar-wrap">
+          <div class="sc-meter-bar" id="resTrustBar"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Two-col: Recommendations + Wikipedia -->
+    <div class="sc-details-grid">
+
+      <!-- Recommendations -->
+      <div class="sc-detail-card">
+        <h3><i class="fas fa-lightbulb"></i> Recommendations</h3>
+        <ul class="sc-recs" id="resRecs"></ul>
+        <div class="sc-heuristics" id="resHeuristics"></div>
+      </div>
+
+      <!-- Wikipedia Panel -->
+      <div class="sc-detail-card" id="wikiCard">
+        <h3><i class="fab fa-wikipedia-w"></i> Wikipedia Overview</h3>
+        <div id="wikiContent">
+          <p class="sc-muted">Wikipedia information not available for this source.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Cross-reference tips -->
+    <div class="sc-crossref-card">
+      <h3><i class="fas fa-search-plus"></i> Cross-Reference Tips</h3>
+      <div class="sc-crossref-grid">
+        <a class="sc-crossref-link" id="snopesLink" href="#" target="_blank" rel="noopener">
+          <img src="https://www.snopes.com/favicon.ico" onerror="this.style.display='none'" alt="" class="sc-crossref-favicon">
+          Check on Snopes
+        </a>
+        <a class="sc-crossref-link" id="politifactLink" href="#" target="_blank" rel="noopener">
+          <img src="https://www.politifact.com/favicon.ico" onerror="this.style.display='none'" alt="" class="sc-crossref-favicon">
+          PolitiFact Search
+        </a>
+        <a class="sc-crossref-link" id="mbfcLink" href="#" target="_blank" rel="noopener">
+          <i class="fas fa-database"></i>
+          Media Bias / Fact Check
+        </a>
+        <a class="sc-crossref-link" id="waybackLink" href="#" target="_blank" rel="noopener">
+          <i class="fas fa-history"></i>
+          Wayback Machine
+        </a>
+      </div>
+    </div>
+
+    <!-- Also analyze a headline from this source -->
+    <div class="sc-analyze-cta" id="analyzeCtaSection">
+      <p>Want to verify a specific headline from <strong id="ctaDomain"></strong>?</p>
+      <a href="/" class="sc-analyze-btn"><i class="fas fa-brain"></i> Analyze a Headline</a>
+    </div>
+  </div>
+</section>
+
+<!-- How we check sources -->
+<section class="sc-how-section">
+  <div class="sc-how-inner">
+    <h2>How Source Verification Works</h2>
+    <div class="sc-how-grid">
+      <div class="sc-how-card">
+        <div class="sc-how-icon"><i class="fas fa-database"></i></div>
+        <h4>Curated Database</h4>
+        <p>We maintain a hand-curated list of trusted news outlets and known misinformation sources.</p>
+      </div>
+      <div class="sc-how-card">
+        <div class="sc-how-icon"><i class="fas fa-exclamation-triangle"></i></div>
+        <h4>Heuristic Signals</h4>
+        <p>We flag domains mimicking trusted brands, suspicious TLDs, and newly registered sites.</p>
+      </div>
+      <div class="sc-how-card">
+        <div class="sc-how-icon"><i class="fab fa-wikipedia-w"></i></div>
+        <h4>Wikipedia Cross-Check</h4>
+        <p>For major publications, we surface a Wikipedia summary so you can evaluate editorial standing.</p>
+      </div>
+      <div class="sc-how-card">
+        <div class="sc-how-icon"><i class="fas fa-link"></i></div>
+        <h4>External Fact-Checkers</h4>
+        <p>Direct links to Snopes, PolitiFact, and MBFC for additional independent verification.</p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+const API_BASE = '';
+
+function fillAndCheck(domain) {
+  document.getElementById('sourceInput').value = domain;
+  runCheck(domain);
+}
+
+document.getElementById('sourceCheckForm').addEventListener('submit', function() {
+  const val = document.getElementById('sourceInput').value.trim();
+  if (val) runCheck(val);
+});
+
+async function runCheck(url) {
+  const btn = document.getElementById('checkSourceBtn');
+  btn.querySelector('.btn-text').style.display = 'none';
+  btn.querySelector('.btn-loading').style.display = 'inline-flex';
+  btn.disabled = true;
+  document.getElementById('resultSection').style.display = 'none';
+
+  try {
+    const resp = await fetch('/api/verify-source', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url })
+    });
+    const data = await resp.json();
+    renderResult(data);
+  } catch (e) {
+    alert('Error connecting to FacTora API. Please ensure the server is running.');
+  } finally {
+    btn.querySelector('.btn-text').style.display = 'inline-flex';
+    btn.querySelector('.btn-loading').style.display = 'none';
+    btn.disabled = false;
+  }
+}
+
+function renderResult(d) {
+  // Domain
+  document.getElementById('resDomain').textContent = d.domain || d.original_input;
+  document.getElementById('ctaDomain').textContent = d.domain || d.original_input;
+
+  // Badge
+  const badge = document.getElementById('resBadge');
+  badge.textContent = d.badge || '❓ Unknown';
+  badge.className = 'sc-trust-badge sc-badge-' + (d.trust_level || 'unknown');
+
+  // Trust score bar
+  document.getElementById('resTrustScore').textContent = d.trust_score + ' / 100';
+  const bar = document.getElementById('resTrustBar');
+  const score = d.trust_score || 50;
+  bar.style.width = score + '%';
+  if (score >= 75) bar.style.background = 'linear-gradient(90deg,#22c55e,#4ade80)';
+  else if (score >= 50) bar.style.background = 'linear-gradient(90deg,#eab308,#facc15)';
+  else bar.style.background = 'linear-gradient(90deg,#ef4444,#f87171)';
+
+  // Trust card border
+  const card = document.getElementById('trustCard');
+  card.className = 'sc-trust-card sc-trust-' + (d.trust_level || 'unknown');
+
+  // Recommendations
+  const recs = document.getElementById('resRecs');
+  recs.innerHTML = '';
+  (d.recommendations || []).forEach(r => {
+    const li = document.createElement('li');
+    li.textContent = r;
+    recs.appendChild(li);
+  });
+
+  // Heuristics
+  const heur = document.getElementById('resHeuristics');
+  heur.innerHTML = '';
+  (d.heuristics || []).forEach(h => {
+    const div = document.createElement('div');
+    div.className = 'sc-heuristic-item';
+    div.textContent = h;
+    heur.appendChild(div);
+  });
+
+  // Wikipedia
+  const wikiContent = document.getElementById('wikiContent');
+  if (d.wikipedia && d.wikipedia.found) {
+    let html = `<p class="sc-wiki-extract">${d.wikipedia.extract}</p>`;
+    if (d.wikipedia.url) {
+      html += `<a href="${d.wikipedia.url}" target="_blank" rel="noopener" class="sc-wiki-link">
+        <i class="fas fa-external-link-alt"></i> Read full Wikipedia article
+      </a>`;
+    }
+    wikiContent.innerHTML = html;
+  } else {
+    wikiContent.innerHTML = '<p class="sc-muted">No Wikipedia entry found for this source.</p>';
+  }
+
+  // Cross-reference links
+  const q = encodeURIComponent(d.domain || d.original_input);
+  document.getElementById('snopesLink').href = `https://www.snopes.com/?s=${q}`;
+  document.getElementById('politifactLink').href = `https://www.politifact.com/search/?q=${q}`;
+  document.getElementById('mbfcLink').href = `https://mediabiasfactcheck.com/?s=${q}`;
+  document.getElementById('waybackLink').href = `https://web.archive.org/web/*/${d.domain || d.original_input}`;
+
+  // Show result
+  document.getElementById('resultSection').style.display = 'block';
+  document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>
+{% endblock %}

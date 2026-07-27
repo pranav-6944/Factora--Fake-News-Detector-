@@ -1,0 +1,402 @@
+<!-- Premium Prediction Form with Warm Luxury Design -->
+<div class="prediction-form-wrapper">
+    <!-- Main Prediction Form -->
+    <form id="predictionForm" class="prediction-form" data-aos="fade-up">
+        <!-- Input Section -->
+        <div class="form-input-section">
+            <div class="input-group-premium">
+                <div class="input-icon-wrapper">
+                    <i class="fas fa-newspaper"></i>
+                </div>
+                <textarea 
+                    id="headline" 
+                    name="headline" 
+                    class="prediction-input"
+                    placeholder="Enter news headline or article text here..."
+                    rows="4"
+                    required
+                    aria-label="News headline input"
+                    maxlength="1000"
+                ></textarea>
+                <div class="char-counter">
+                    <span id="charCount">0</span> / 1000 characters
+                </div>
+            </div>
+            
+            <!-- Quick Examples -->
+            <div class="quick-examples">
+                <span class="examples-label">
+                    <i class="fas fa-lightbulb"></i> Try examples:
+                </span>
+                <div class="example-pills">
+                    <button type="button" class="example-pill" onclick="fillExample(0)">
+                        Breaking News Example
+                    </button>
+                    <button type="button" class="example-pill" onclick="fillExample(1)">
+                        Political News
+                    </button>
+                    <button type="button" class="example-pill" onclick="fillExample(2)">
+                        Health News
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Submit Button -->
+        <button type="submit" class="predict-btn" id="predictBtn">
+            <span class="btn-content">
+                <i class="fas fa-shield-alt"></i>
+                <span class="btn-text">Analyze with AI</span>
+            </span>
+            <div class="btn-loader" style="display: none;">
+                <div class="spinner"></div>
+                <span>Analyzing...</span>
+            </div>
+        </button>
+        
+        <!-- Tips Section -->
+        <div class="analysis-tips">
+            <i class="fas fa-info-circle"></i>
+            <span>Our AI analyzes language patterns, credibility indicators, and contextual signals</span>
+        </div>
+    </form>
+    
+    <!-- Results Container -->
+    <div id="resultContainer" class="result-container" style="display: none;">
+        <div class="result-card" data-aos="zoom-in">
+            <!-- Result Header -->
+            <div class="result-header">
+                <div class="result-icon-wrapper" id="resultIconWrapper">
+                    <div class="result-icon" id="resultIcon"></div>
+                </div>
+                <div class="result-content">
+                    <h3 class="result-title" id="resultTitle"></h3>
+                    <p class="result-subtitle" id="resultSubtitle"></p>
+                </div>
+            </div>
+            
+            <!-- Confidence Meter -->
+            <div class="confidence-section">
+                <div class="confidence-header">
+                    <span class="confidence-label">Confidence Score</span>
+                    <span class="confidence-value" id="confidenceValue">0%</span>
+                </div>
+                <div class="confidence-meter">
+                    <div class="confidence-track">
+                        <div class="confidence-fill" id="confidenceFill"></div>
+                        <div class="confidence-marker" id="confidenceMarker"></div>
+                    </div>
+                    <div class="confidence-labels">
+                        <span>0%</span>
+                        <span>50%</span>
+                        <span>100%</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Analysis Details -->
+            <div class="analysis-details">
+                <h4 class="details-title">
+                    <i class="fas fa-chart-bar"></i>
+                    Analysis Breakdown
+                </h4>
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <div class="detail-icon">
+                            <i class="fas fa-language"></i>
+                        </div>
+                        <div class="detail-content">
+                            <span class="detail-label">Language Pattern</span>
+                            <span class="detail-value" id="languagePattern">Analyzing...</span>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-icon">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <div class="detail-content">
+                            <span class="detail-label">Source Credibility</span>
+                            <span class="detail-value" id="sourceCredibility">Analyzing...</span>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="detail-content">
+                            <span class="detail-label">AI Model</span>
+                            <span class="detail-value">BERT (75.3%)</span>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="detail-content">
+                            <span class="detail-label">Analysis Time</span>
+                            <span class="detail-value" id="analysisTime">< 2s</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Feedback Section -->
+            <div class="feedback-section" id="feedbackSection" style="display: none;">
+                <div class="feedback-prompt">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Was this prediction accurate?</span>
+                </div>
+                <div class="feedback-buttons">
+                    <button class="feedback-btn feedback-accurate" onclick="submitFeedback('accurate')">
+                        <i class="fas fa-thumbs-up"></i>
+                        <span>Yes, Accurate</span>
+                    </button>
+                    <button class="feedback-btn feedback-wrong" onclick="submitFeedback('wrong')">
+                        <i class="fas fa-thumbs-down"></i>
+                        <span>No, Incorrect</span>
+                    </button>
+                </div>
+                <p class="feedback-note" id="feedbackNote" style="display: none;">
+                    <i class="fas fa-check-circle"></i>
+                    Thank you for your feedback!
+                </p>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="result-actions">
+                <button class="action-btn action-secondary" onclick="analyzeAnother()">
+                    <i class="fas fa-redo"></i>
+                    Analyze Another
+                </button>
+                <button class="action-btn action-primary" onclick="saveToHistory()">
+                    <i class="fas fa-save"></i>
+                    Save to History
+                </button>
+                <button class="action-btn action-secondary" onclick="shareResult()">
+                    <i class="fas fa-share-alt"></i>
+                    Share
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Prediction Form JavaScript -->
+<script>
+    // Example headlines
+    const exampleHeadlines = [
+        "Scientists discover new planet with potential for life in nearby solar system",
+        "Government announces major policy changes affecting healthcare and education sectors",
+        "New study reveals surprising benefits of daily exercise on mental health"
+    ];
+    
+    // Character counter
+    const headlineInput = document.getElementById('headline');
+    const charCount = document.getElementById('charCount');
+    
+    if (headlineInput && charCount) {
+        headlineInput.addEventListener('input', function() {
+            charCount.textContent = this.value.length;
+        });
+    }
+    
+    // Fill example headline
+    function fillExample(index) {
+        if (headlineInput && exampleHeadlines[index]) {
+            headlineInput.value = exampleHeadlines[index];
+            charCount.textContent = exampleHeadlines[index].length;
+            headlineInput.focus();
+        }
+    }
+    
+    // Form submission
+    let currentPredictionId = null;
+    
+    document.getElementById('predictionForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const headline = document.getElementById('headline').value.trim();
+        if (!headline) {
+            alert('Please enter a news headline');
+            return;
+        }
+        
+        const predictBtn = document.getElementById('predictBtn');
+        const btnContent = predictBtn.querySelector('.btn-content');
+        const btnLoader = predictBtn.querySelector('.btn-loader');
+        const resultContainer = document.getElementById('resultContainer');
+        
+        // Show loading state
+        predictBtn.disabled = true;
+        btnContent.style.display = 'none';
+        btnLoader.style.display = 'flex';
+        resultContainer.style.display = 'none';
+        
+        try {
+            const formData = new FormData();
+            formData.append('headline', headline);
+            
+            const startTime = Date.now();
+            const response = await fetch('/predict', {
+                method: 'POST',
+                body: formData
+            });
+            
+            const data = await response.json();
+            const endTime = Date.now();
+            const analysisTimeMs = endTime - startTime;
+            
+            if (data.error) {
+                throw new Error(data.error);
+            }
+            
+            // Store prediction ID for feedback
+            currentPredictionId = data.prediction_id;
+            
+            // Display results
+            displayResults(data, analysisTimeMs);
+            
+        } catch (error) {
+            console.error('Prediction error:', error);
+            alert('Error analyzing news: ' + error.message);
+        } finally {
+            // Reset button state
+            predictBtn.disabled = false;
+            btnContent.style.display = 'flex';
+            btnLoader.style.display = 'none';
+        }
+    });
+    
+    // Display results
+    function displayResults(data, analysisTime) {
+        const resultContainer = document.getElementById('resultContainer');
+        const resultIcon = document.getElementById('resultIcon');
+        const resultIconWrapper = document.getElementById('resultIconWrapper');
+        const resultTitle = document.getElementById('resultTitle');
+        const resultSubtitle = document.getElementById('resultSubtitle');
+        const confidenceValue = document.getElementById('confidenceValue');
+        const confidenceFill = document.getElementById('confidenceFill');
+        const confidenceMarker = document.getElementById('confidenceMarker');
+        const languagePattern = document.getElementById('languagePattern');
+        const sourceCredibility = document.getElementById('sourceCredibility');
+        const analysisTimeElem = document.getElementById('analysisTime');
+        const feedbackSection = document.getElementById('feedbackSection');
+        
+        // Parse result
+        const result = data.result.toUpperCase();
+        const confidence = parseFloat(data.confidence);
+        const isReal = result === 'REAL';
+        
+        // Set icon
+        resultIcon.innerHTML = isReal 
+            ? '<i class="fas fa-check-circle"></i>' 
+            : '<i class="fas fa-times-circle"></i>';
+        
+        resultIconWrapper.className = 'result-icon-wrapper ' + (isReal ? 'result-real' : 'result-fake');
+        
+        // Set title and subtitle
+        resultTitle.textContent = isReal ? 'Likely Real News' : 'Likely Fake News';
+        resultSubtitle.textContent = isReal 
+            ? 'This content appears to be credible and trustworthy'
+            : 'This content shows signs of misinformation or false claims';
+        
+        // Set confidence
+        confidenceValue.textContent = confidence.toFixed(1) + '%';
+        confidenceFill.style.width = confidence + '%';
+        confidenceFill.className = 'confidence-fill ' + (isReal ? 'fill-real' : 'fill-fake');
+        confidenceMarker.style.left = confidence + '%';
+        
+        // Set analysis details
+        if (confidence >= 80) {
+            languagePattern.textContent = 'Strong Indicators';
+            sourceCredibility.textContent = 'High Confidence';
+        } else if (confidence >= 60) {
+            languagePattern.textContent = 'Moderate Indicators';
+            sourceCredibility.textContent = 'Medium Confidence';
+        } else {
+            languagePattern.textContent = 'Weak Indicators';
+            sourceCredibility.textContent = 'Low Confidence';
+        }
+        
+        analysisTimeElem.textContent = (analysisTime / 1000).toFixed(2) + 's';
+        
+        // Show result container and feedback section
+        resultContainer.style.display = 'block';
+        feedbackSection.style.display = 'block';
+        
+        // Scroll to results
+        setTimeout(() => {
+            resultContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 100);
+    }
+    
+    // Submit feedback
+    function submitFeedback(feedbackType) {
+        if (!currentPredictionId) {
+            alert('No prediction to provide feedback for');
+            return;
+        }
+        
+        const formData = new FormData();
+        formData.append('prediction_id', currentPredictionId);
+        formData.append('feedback', feedbackType);
+        
+        fetch('/feedback', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.message) {
+                const feedbackSection = document.getElementById('feedbackSection');
+                const feedbackNote = document.getElementById('feedbackNote');
+                
+                feedbackSection.querySelector('.feedback-prompt').style.display = 'none';
+                feedbackSection.querySelector('.feedback-buttons').style.display = 'none';
+                feedbackNote.style.display = 'flex';
+            }
+        })
+        .catch(error => {
+            console.error('Feedback error:', error);
+            alert('Error submitting feedback');
+        });
+    }
+    
+    // Analyze another
+    function analyzeAnother() {
+        document.getElementById('headline').value = '';
+        document.getElementById('charCount').textContent = '0';
+        document.getElementById('resultContainer').style.display = 'none';
+        document.getElementById('headline').focus();
+        currentPredictionId = null;
+    }
+    
+    // Save to history (already saved automatically)
+    function saveToHistory() {
+        alert('Analysis has been saved to your history!');
+        setTimeout(() => {
+            window.location.href = '/history';
+        }, 1000);
+    }
+    
+    // Share result
+    function shareResult() {
+        const resultTitle = document.getElementById('resultTitle').textContent;
+        const confidence = document.getElementById('confidenceValue').textContent;
+        
+        const shareText = `FacTora Analysis: ${resultTitle} (${confidence} confidence)`;
+        
+        if (navigator.share) {
+            navigator.share({
+                title: 'FacTora Analysis',
+                text: shareText,
+                url: window.location.href
+            }).catch(err => console.log('Share error:', err));
+        } else {
+            // Fallback: Copy to clipboard
+            navigator.clipboard.writeText(shareText).then(() => {
+                alert('Result copied to clipboard!');
+            });
+        }
+    }
+</script>

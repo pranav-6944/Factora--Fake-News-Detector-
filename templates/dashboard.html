@@ -1,0 +1,451 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - FacTora | Your Analytics{% endblock %}
+
+{% block body_class %}dashboard-body{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-wrapper">
+    <!-- Dashboard Header -->
+    <div class="dashboard-header" data-aos="fade-down">
+        <div class="header-content">
+            <div class="header-text">
+                <h1 class="dashboard-title">
+                    <i class="fas fa-tachometer-alt"></i>
+                    Dashboard
+                </h1>
+                <p class="dashboard-subtitle">
+                    Welcome back, <span class="username-highlight">{{ current_user.username }}</span>! 
+                    Here's your analysis overview.
+                </p>
+            </div>
+            <div class="header-actions">
+                <button class="action-btn" onclick="refreshDashboard()">
+                    <i class="fas fa-sync-alt"></i>
+                    Refresh
+                </button>
+                <a href="{{ url_for('export_csv') }}" class="action-btn action-primary">
+                    <i class="fas fa-download"></i>
+                    Export CSV
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="stats-grid" data-aos="fade-up" data-aos-delay="100">
+        <!-- Total Predictions -->
+        <div class="stat-card">
+            <div class="stat-icon-wrapper stat-primary">
+                <i class="fas fa-chart-bar"></i>
+            </div>
+            <div class="stat-content">
+                <h3 class="stat-number">{{ total_predictions }}</h3>
+                <p class="stat-label">Total Predictions</p>
+                <div class="stat-trend positive">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>All time</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Accuracy Rate -->
+        <div class="stat-card stat-highlight">
+            <div class="stat-icon-wrapper stat-success">
+                <i class="fas fa-bullseye"></i>
+            </div>
+            <div class="stat-content">
+                <h3 class="stat-number">{{ "%.1f"|format(accuracy_percentage) }}%</h3>
+                <p class="stat-label">Accuracy Rate</p>
+                <div class="stat-trend {% if accuracy_percentage >= 70 %}positive{% else %}neutral{% endif %}">
+                    <i class="fas fa-{% if accuracy_percentage >= 70 %}check-circle{% else %}minus-circle{% endif %}"></i>
+                    <span>{% if accuracy_percentage >= 70 %}Excellent{% else %}Good{% endif %}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Accurate Predictions -->
+        <div class="stat-card">
+            <div class="stat-icon-wrapper stat-success">
+                <i class="fas fa-thumbs-up"></i>
+            </div>
+            <div class="stat-content">
+                <h3 class="stat-number">{{ accuracy_stats.accurate }}</h3>
+                <p class="stat-label">Accurate Predictions</p>
+                <div class="stat-trend positive">
+                    <i class="fas fa-check"></i>
+                    <span>Verified</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wrong Predictions -->
+        <div class="stat-card">
+            <div class="stat-icon-wrapper stat-error">
+                <i class="fas fa-thumbs-down"></i>
+            </div>
+            <div class="stat-content">
+                <h3 class="stat-number">{{ accuracy_stats.wrong }}</h3>
+                <p class="stat-label">Incorrect Predictions</p>
+                <div class="stat-trend negative">
+                    <i class="fas fa-times"></i>
+                    <span>Needs review</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Dashboard Content -->
+    <div class="dashboard-grid" data-aos="fade-up" data-aos-delay="200">
+        <!-- Chart Section -->
+        <div class="dashboard-card chart-card">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-chart-pie"></i>
+                    Accuracy Overview
+                </h3>
+                <div class="card-actions">
+                    <button class="icon-btn" onclick="downloadChart()" title="Download Chart">
+                        <i class="fas fa-download"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="chart-container">
+                    <canvas id="accuracyChart"></canvas>
+                </div>
+                <div class="chart-legend-custom">
+                    <div class="legend-item">
+                        <div class="legend-color legend-accurate"></div>
+                        <span>Accurate: <strong>{{ accuracy_stats.accurate }}</strong></span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color legend-wrong"></div>
+                        <span>Wrong: <strong>{{ accuracy_stats.wrong }}</strong></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Feedback Section -->
+        <div class="dashboard-card feedback-card">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-clock"></i>
+                    Recent Feedback
+                </h3>
+                <a href="{{ url_for('history') }}" class="view-all-link">
+                    View All <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="card-body">
+                {% if recent_feedback %}
+                    <div class="feedback-list">
+                        {% for feedback in recent_feedback %}
+                            <div class="feedback-item">
+                                <div class="feedback-icon {{ feedback.feedback }}">
+                                    <i class="fas fa-{% if feedback.feedback == 'accurate' %}check{% else %}times{% endif %}"></i>
+                                </div>
+                                <div class="feedback-content">
+                                    <p class="feedback-headline">
+                                        {{ feedback.headline[:80] }}{% if feedback.headline|length > 80 %}...{% endif %}
+                                    </p>
+                                    <div class="feedback-meta">
+                                        <span class="feedback-badge {{ feedback.feedback }}">
+                                            <i class="fas fa-{% if feedback.feedback == 'accurate' %}thumbs-up{% else %}thumbs-down{% endif %}"></i>
+                                            {{ feedback.feedback.title() }}
+                                        </span>
+                                        <span class="feedback-time">
+                                            <i class="fas fa-clock"></i>
+                                            {{ feedback.timestamp[:16] }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <i class="fas fa-comment-slash"></i>
+                        </div>
+                        <h4>No Feedback Yet</h4>
+                        <p>Make predictions and provide feedback to see your activity here</p>
+                        <a href="{{ url_for('index') }}" class="empty-action-btn">
+                            <i class="fas fa-plus"></i>
+                            Start Analyzing
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Additional Charts Row -->
+    <div class="dashboard-grid" data-aos="fade-up" data-aos-delay="300">
+        <!-- Predictions Over Time -->
+        <div class="dashboard-card chart-card">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-chart-line"></i>
+                    Analysis Trend
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="chart-container">
+                    <canvas id="trendChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="dashboard-card quick-stats-card">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-chart-bar"></i>
+                    Quick Statistics
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="quick-stats-grid">
+                    <div class="quick-stat">
+                        <div class="quick-stat-icon">
+                            <i class="fas fa-newspaper"></i>
+                        </div>
+                        <div class="quick-stat-content">
+                            <span class="quick-stat-label">Real News Detected</span>
+                            <span class="quick-stat-value">{{ accuracy_stats.accurate }}</span>
+                        </div>
+                    </div>
+                    <div class="quick-stat">
+                        <div class="quick-stat-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="quick-stat-content">
+                            <span class="quick-stat-label">Fake News Detected</span>
+                            <span class="quick-stat-value">{{ accuracy_stats.wrong }}</span>
+                        </div>
+                    </div>
+                    <div class="quick-stat">
+                        <div class="quick-stat-icon">
+                            <i class="fas fa-percentage"></i>
+                        </div>
+                        <div class="quick-stat-content">
+                            <span class="quick-stat-label">Success Rate</span>
+                            <span class="quick-stat-value">{{ "%.0f"|format(accuracy_percentage) }}%</span>
+                        </div>
+                    </div>
+                    <div class="quick-stat">
+                        <div class="quick-stat-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="quick-stat-content">
+                            <span class="quick-stat-label">Total Analyzed</span>
+                            <span class="quick-stat-value">{{ total_predictions }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Accuracy Chart - Doughnut
+    let accurateCount = parseInt('{{ accuracy_stats.accurate | default(0) }}') || 0;
+    let wrongCount = parseInt('{{ accuracy_stats.wrong | default(0) }}') || 0;
+    
+    const chartContainer = document.getElementById('accuracyChart');
+    
+    if (chartContainer) {
+        if (accurateCount > 0 || wrongCount > 0) {
+            const ctx = chartContainer.getContext('2d');
+            
+            const accuracyChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Accurate', 'Wrong'],
+                    datasets: [{
+                        data: [accurateCount, wrongCount],
+                        backgroundColor: [
+                            'rgba(127, 166, 134, 0.8)',  // Green for accurate
+                            'rgba(198, 107, 107, 0.8)'   // Red for wrong
+                        ],
+                        borderColor: [
+                            '#7FA686',
+                            '#C66B6B'
+                        ],
+                        borderWidth: 3,
+                        hoverOffset: 10
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    cutout: '65%',
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(74, 72, 69, 0.95)',
+                            titleColor: '#F4EFE4',
+                            bodyColor: '#D8D2C2',
+                            borderColor: '#B67C62',
+                            borderWidth: 2,
+                            padding: 12,
+                            displayColors: true,
+                            callbacks: {
+                                label: function(context) {
+                                    const total = accurateCount + wrongCount;
+                                    const percentage = ((context.parsed / total) * 100).toFixed(1);
+                                    return ` ${context.label}: ${context.parsed} (${percentage}%)`;
+                                }
+                            }
+                        }
+                    },
+                    animation: {
+                        animateRotate: true,
+                        animateScale: true,
+                        duration: 1000,
+                        easing: 'easeInOutQuart'
+                    }
+                }
+            });
+            
+            window.accuracyChart = accuracyChart;
+        } else {
+            chartContainer.parentElement.innerHTML = `
+                <div class="chart-empty-state">
+                    <i class="fas fa-chart-pie"></i>
+                    <p>No feedback data available yet</p>
+                    <small>Make predictions and provide feedback to see your accuracy chart</small>
+                </div>
+            `;
+        }
+    }
+
+    // Trend Chart - Line
+    const trendChartContainer = document.getElementById('trendChart');
+    
+    if (trendChartContainer) {
+        const trendCtx = trendChartContainer.getContext('2d');
+        
+        const trendChart = new Chart(trendCtx, {
+            type: 'line',
+            data: {
+                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6', 'This Week'],
+                datasets: [
+                    {
+                        label: 'Accurate',
+                        data: [2, 4, 5, 6, 8, 10, {{ accuracy_stats.accurate }}],
+                        borderColor: '#7FA686',
+                        backgroundColor: 'rgba(127, 166, 134, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        borderWidth: 3,
+                        pointBackgroundColor: '#7FA686',
+                        pointBorderColor: '#FFFFFF',
+                        pointBorderWidth: 2,
+                        pointRadius: 5,
+                        pointHoverRadius: 7
+                    },
+                    {
+                        label: 'Wrong',
+                        data: [1, 2, 3, 3, 5, 8, {{ accuracy_stats.wrong }}],
+                        borderColor: '#C66B6B',
+                        backgroundColor: 'rgba(198, 107, 107, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        borderWidth: 3,
+                        pointBackgroundColor: '#C66B6B',
+                        pointBorderColor: '#FFFFFF',
+                        pointBorderWidth: 2,
+                        pointRadius: 5,
+                        pointHoverRadius: 7
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                interaction: {
+                    mode: 'index',
+                    intersect: false
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        labels: {
+                            color: '#4A4845',
+                            font: {
+                                size: 12,
+                                weight: 'bold'
+                            },
+                            padding: 15,
+                            usePointStyle: true
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(74, 72, 69, 0.95)',
+                        titleColor: '#F4EFE4',
+                        bodyColor: '#D8D2C2',
+                        borderColor: '#B67C62',
+                        borderWidth: 2,
+                        padding: 12
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(182, 124, 98, 0.1)'
+                        },
+                        ticks: {
+                            color: '#706B66'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            color: '#706B66'
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    // Download Chart
+    function downloadChart() {
+        if (window.accuracyChart) {
+            const link = document.createElement('a');
+            link.download = 'factora-accuracy-chart.png';
+            link.href = window.accuracyChart.toBase64Image();
+            link.click();
+        } else {
+            alert('No chart data available to download');
+        }
+    }
+
+    // Refresh Dashboard
+    function refreshDashboard() {
+        location.reload();
+    }
+
+    // Auto-refresh every 5 minutes
+    setTimeout(function() {
+        location.reload();
+    }, 300000); // 5 minutes
+</script>
+{% endblock %}

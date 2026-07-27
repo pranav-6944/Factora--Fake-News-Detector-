@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+
+{% block title %}FacTora - Home | AI-Powered Fake News Detection{% endblock %}
+
+{% block body_class %}home-body{% endblock %}
+
+{% block content %}
+    <!-- Hero Section with Prediction Form -->
+    {% include 'components/hero_section.html' %}
+    
+    <!-- Features Section -->
+    {% include 'components/features_section.html' %}
+    
+    <!-- Trust Section -->
+    <section class="trust-section" data-aos="fade-up">
+        <div class="trust-container">
+            <h2 class="trust-title">Trusted by Fact-Checkers Worldwide</h2>
+            <p class="trust-subtitle">Join thousands of users who rely on FacTora to verify news authenticity</p>
+            
+            <div class="trust-stats">
+                <div class="trust-stat">
+                    <div class="trust-stat-number">75%+</div>
+                    <div class="trust-stat-label">Accuracy Rate</div>
+                </div>
+                <div class="trust-stat">
+                    <div class="trust-stat-number">10+</div>
+                    <div class="trust-stat-label">Active Users</div>
+                </div>
+                <div class="trust-stat">
+                    <div class="trust-stat-number">1000+</div>
+                    <div class="trust-stat-label">News Analyzed</div>
+                </div>
+                <div class="trust-stat">
+                    <div class="trust-stat-number">&lt;2s</div>
+                    <div class="trust-stat-label">Avg. Response Time</div>
+                </div>
+            </div>
+            
+            <div class="trust-partners">
+                <span class="partner-label">Verified by:</span>
+                <div class="partner-logos">
+                    <span class="partner-logo">PolitiFact</span>
+                    <span class="partner-logo">Snopes</span>
+                    <span class="partner-logo">FactCheck.org</span>
+                    <span class="partner-logo">AltNews</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- How It Works Section -->
+    <section class="how-it-works-section" data-aos="fade-up">
+        <div class="how-it-works-container">
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-subtitle">Our AI-powered system analyzes news in three simple steps</p>
+            
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-icon">
+                        <i class="fas fa-keyboard"></i>
+                    </div>
+                    <h3 class="step-title">Enter Headline</h3>
+                    <p class="step-description">Simply paste or type the news headline you want to verify into our analysis form.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="step-title">AI Analysis</h3>
+                    <p class="step-description">Our BERT-based AI model analyzes language patterns, credibility signals, and contextual information.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3 class="step-title">Get Results</h3>
+                    <p class="step-description">Receive instant results with confidence scores and detailed analysis breakdown.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta-section" data-aos="fade-up">
+        <div class="cta-container">
+            <div class="cta-content">
+                <h2 class="cta-title">Ready to Fight Misinformation?</h2>
+                <p class="cta-description">Join FacTora today and start verifying news with AI-powered accuracy</p>
+                <div class="cta-buttons">
+                    {% if current_user.is_authenticated %}
+                        <a href="#predictionForm" class="cta-btn primary">
+                            <i class="fas fa-shield-alt"></i>
+                            Start Analyzing
+                        </a>
+                        <a href="{{ url_for('dashboard') }}" class="cta-btn secondary">
+                            <i class="fas fa-tachometer-alt"></i>
+                            View Dashboard
+                        </a>
+                    {% else %}
+                        <a href="{{ url_for('register') }}" class="cta-btn primary">
+                            <i class="fas fa-user-plus"></i>
+                            Get Started Free
+                        </a>
+                        <a href="{{ url_for('login') }}" class="cta-btn secondary">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Sign In
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // The prediction form JavaScript is already in prediction_form.html component
+    // This script handles additional interactions for the index page
+    
+    // Smooth scroll to form when clicking CTA
+    document.addEventListener('DOMContentLoaded', function() {
+        const ctaButton = document.querySelector('a[href="#predictionForm"]');
+        if (ctaButton) {
+            ctaButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                const form = document.getElementById('predictionForm');
+                if (form) {
+                    form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    setTimeout(() => {
+                        document.getElementById('headline').focus();
+                    }, 500);
+                }
+            });
+        }
+    });
+    
+    // Check for reanalyze from history page
+    const headlineToReanalyze = sessionStorage.getItem('reanalyze_headline');
+    if (headlineToReanalyze) {
+        const headlineInput = document.getElementById('headline');
+        if (headlineInput) {
+            headlineInput.value = headlineToReanalyze;
+            sessionStorage.removeItem('reanalyze_headline');
+            
+            // Scroll to form
+            setTimeout(() => {
+                headlineInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                headlineInput.focus();
+            }, 500);
+        }
+    }
+    
+    // Add animation to stats on scroll
+    const observerOptions = {
+        threshold: 0.3,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+    
+    // Observe trust stats
+    document.querySelectorAll('.trust-stat').forEach(stat => {
+        stat.style.opacity = '0';
+        stat.style.transform = 'translateY(20px)';
+        stat.style.transition = 'all 0.6s ease';
+        statsObserver.observe(stat);
+    });
+    
+    // Observe step cards
+    document.querySelectorAll('.step-card').forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = `all 0.6s ease ${index * 0.1}s`;
+        statsObserver.observe(card);
+    });
+</script>
+{% endblock %}

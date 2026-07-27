@@ -1,0 +1,480 @@
+<!-- ===================================
+     PREMIUM NAVIGATION BAR
+     FacTora - AI-Powered Fake News Detection
+     Optimized & Production-Ready
+     =================================== -->
+
+<header class="header">
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <!-- Logo -->
+            <a href="{{ url_for('index') }}" class="nav-logo" aria-label="FacTora Home">
+                <img src="{{ url_for('static', filename='images/Factoraimage1.jpg') }}" alt="FacTora Logo" class="logo-image">
+            </a>
+            
+            <!-- Desktop Navigation Menu -->
+            <ul class="nav-menu" id="navMenu" role="menubar">
+                {% if current_user.is_authenticated %}
+                    <!-- Authenticated User Menu -->
+                    <li role="none">
+                        <a href="{{ url_for('index') }}" 
+                           class="nav-link {% if request.endpoint == 'index' %}active{% endif %}"
+                           role="menuitem"
+                           title="Home">
+                            <i class="fas fa-home"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="{{ url_for('dashboard') }}" 
+                           class="nav-link {% if request.endpoint == 'dashboard' %}active{% endif %}"
+                           role="menuitem"
+                           title="Dashboard">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="{{ url_for('history') }}" 
+                           class="nav-link {% if request.endpoint == 'history' %}active{% endif %}"
+                           role="menuitem"
+                           title="History">
+                            <i class="fas fa-history"></i>
+                            <span>History</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="{{ url_for('live_news') }}" 
+                           class="nav-link {% if request.endpoint == 'live_news' %}active{% endif %}"
+                           role="menuitem"
+                           title="Live News">
+                            <i class="fas fa-broadcast-tower"></i>
+                            <span>Live News</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="{{ url_for('source_check') }}" 
+                           class="nav-link {% if request.endpoint == 'source_check' %}active{% endif %}"
+                           role="menuitem"
+                           title="Source Check">
+                            <i class="fas fa-shield-check"></i>
+                            <span>Source Check</span>
+                        </a>
+                    </li>
+                    
+                    <!-- User Profile Dropdown -->
+                    <li class="nav-dropdown" role="none">
+                        <button class="nav-user-btn" 
+                                id="userMenuBtn" 
+                                aria-haspopup="true" 
+                                aria-expanded="false"
+                                title="User Menu">
+                            <div class="user-avatar">
+                                {{ current_user.username[0].upper() }}
+                            </div>
+                            <span class="user-name">{{ current_user.username }}</span>
+                            <i class="fas fa-chevron-down dropdown-icon"></i>
+                        </button>
+                        
+                        <!-- Dropdown Menu -->
+                        <div class="dropdown-menu" id="userDropdown" role="menu">
+                            <!-- User Info Header -->
+                            <div class="dropdown-header">
+                                <div class="dropdown-user-info">
+                                    <div class="dropdown-avatar">
+                                        {{ current_user.username[0].upper() }}
+                                    </div>
+                                    <div class="dropdown-user-details">
+                                        <span class="dropdown-username">{{ current_user.username }}</span>
+                                        <span class="dropdown-email">FacTora User</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="dropdown-divider"></div>
+                            
+                            <!-- Dashboard Link -->
+                            <a href="{{ url_for('dashboard') }}" 
+                               class="dropdown-item {% if request.endpoint == 'dashboard' %}active{% endif %}" 
+                               role="menuitem"
+                               title="View Dashboard">
+                                <i class="fas fa-chart-pie"></i>
+                                <span>My Dashboard</span>
+                                <i class="fas fa-arrow-right item-arrow"></i>
+                            </a>
+                            
+                            <!-- History Link -->
+                            <a href="{{ url_for('history') }}" 
+                               class="dropdown-item {% if request.endpoint == 'history' %}active{% endif %}" 
+                               role="menuitem"
+                               title="View History">
+                                <i class="fas fa-history"></i>
+                                <span>Prediction History</span>
+                                <i class="fas fa-arrow-right item-arrow"></i>
+                            </a>
+                            
+                            <div class="dropdown-divider"></div>
+                            
+                            <!-- Settings Link -->
+                            <a href="{{ url_for('settings') }}" 
+                               class="dropdown-item {% if request.endpoint == 'settings' %}active{% endif %}" 
+                               role="menuitem"
+                               title="Account Settings">
+                                <i class="fas fa-cog"></i>
+                                <span>Settings</span>
+                                <i class="fas fa-arrow-right item-arrow"></i>
+                            </a>
+                            
+                            <!-- Help & Support Link -->
+                            <a href="{{ url_for('help') }}" 
+                               class="dropdown-item {% if request.endpoint == 'help' %}active{% endif %}" 
+                               role="menuitem"
+                               title="Help & Support">
+                                <i class="fas fa-question-circle"></i>
+                                <span>Help & Support</span>
+                                <i class="fas fa-arrow-right item-arrow"></i>
+                            </a>
+                            
+                            <div class="dropdown-divider"></div>
+                            
+                            <!-- Legal Links -->
+                            <a href="{{ url_for('privacy') }}" 
+                               class="dropdown-item dropdown-item-small" 
+                               role="menuitem"
+                               title="Privacy Policy">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Privacy Policy</span>
+                            </a>
+                            
+                            <a href="{{ url_for('terms') }}" 
+                               class="dropdown-item dropdown-item-small" 
+                               role="menuitem"
+                               title="Terms of Service">
+                                <i class="fas fa-file-contract"></i>
+                                <span>Terms of Service</span>
+                            </a>
+                            
+                            <div class="dropdown-divider"></div>
+                            
+                            <!-- Logout Link -->
+                            <a href="{{ url_for('logout') }}" 
+                               class="dropdown-item logout" 
+                               role="menuitem"
+                               title="Logout"
+                               onclick="return confirmLogout(event)">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Logout</span>
+                            </a>
+                        </div>
+                    </li>
+                {% else %}
+                    <!-- Guest User Menu -->
+                    <li role="none">
+                        <a href="{{ url_for('index') }}" 
+                           class="nav-link {% if request.endpoint == 'index' %}active{% endif %}"
+                           role="menuitem"
+                           title="Home">
+                            <i class="fas fa-home"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="{{ url_for('help') }}" 
+                           class="nav-link {% if request.endpoint == 'help' %}active{% endif %}"
+                           role="menuitem"
+                           title="Help">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Help</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="{{ url_for('login') }}" 
+                           class="nav-link {% if request.endpoint == 'login' %}active{% endif %}"
+                           role="menuitem"
+                           title="Login">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <span>Login</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="{{ url_for('register') }}" 
+                           class="nav-link nav-btn-primary"
+                           role="menuitem"
+                           title="Register">
+                            <i class="fas fa-user-plus"></i>
+                            <span>Get Started</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+            
+            <!-- Mobile Hamburger Menu -->
+            <button class="hamburger" 
+                    id="hamburger" 
+                    aria-label="Toggle navigation menu"
+                    aria-expanded="false"
+                    aria-controls="navMenu"
+                    title="Menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </nav>
+</header>
+
+<!-- Navbar JavaScript -->
+<script>
+    (function() {
+        'use strict';
+        
+        // Wait for DOM to be ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initNavbar);
+        } else {
+            initNavbar();
+        }
+        
+        function initNavbar() {
+            // ===== HAMBURGER MENU TOGGLE =====
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('navMenu');
+            
+            if (hamburger && navMenu) {
+                // Toggle menu on hamburger click
+                hamburger.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+                    toggleMenu(!isExpanded);
+                });
+                
+                // Close menu when clicking nav links (mobile)
+                const navLinks = navMenu.querySelectorAll('.nav-link, .dropdown-item');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        if (window.innerWidth <= 768) {
+                            toggleMenu(false);
+                        }
+                    });
+                });
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', function(event) {
+                    const isClickInsideNav = navMenu.contains(event.target);
+                    const isClickOnHamburger = hamburger.contains(event.target);
+                    
+                    if (!isClickInsideNav && !isClickOnHamburger && navMenu.classList.contains('active')) {
+                        toggleMenu(false);
+                    }
+                });
+                
+                // Close menu on escape key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+                        toggleMenu(false);
+                        hamburger.focus();
+                    }
+                });
+            }
+            
+            function toggleMenu(shouldOpen) {
+                hamburger.setAttribute('aria-expanded', shouldOpen);
+                hamburger.classList.toggle('active', shouldOpen);
+                navMenu.classList.toggle('active', shouldOpen);
+                document.body.classList.toggle('nav-open', shouldOpen);
+                
+                // Prevent body scroll when menu is open (mobile)
+                if (shouldOpen && window.innerWidth <= 768) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
+                }
+            }
+            
+            // ===== USER DROPDOWN MENU =====
+            const userMenuBtn = document.getElementById('userMenuBtn');
+            const userDropdown = document.getElementById('userDropdown');
+            
+            if (userMenuBtn && userDropdown) {
+                // Toggle dropdown on button click
+                userMenuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const isExpanded = userMenuBtn.getAttribute('aria-expanded') === 'true';
+                    toggleDropdown(!isExpanded);
+                });
+                
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function(event) {
+                    if (!userDropdown.contains(event.target) && !userMenuBtn.contains(event.target)) {
+                        toggleDropdown(false);
+                    }
+                });
+                
+                // Close dropdown on escape key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && userDropdown.classList.contains('active')) {
+                        toggleDropdown(false);
+                        userMenuBtn.focus();
+                    }
+                });
+                
+                // Close dropdown when clicking dropdown items
+                const dropdownItems = userDropdown.querySelectorAll('.dropdown-item');
+                dropdownItems.forEach(item => {
+                    item.addEventListener('click', function() {
+                        toggleDropdown(false);
+                    });
+                });
+            }
+            
+            function toggleDropdown(shouldOpen) {
+                userMenuBtn.setAttribute('aria-expanded', shouldOpen);
+                userDropdown.classList.toggle('active', shouldOpen);
+                
+                // Animate dropdown icon
+                const icon = userMenuBtn.querySelector('.dropdown-icon');
+                if (icon) {
+                    icon.style.transform = shouldOpen ? 'rotate(180deg)' : 'rotate(0deg)';
+                }
+            }
+            
+            // ===== NAVBAR SCROLL EFFECTS =====
+            let lastScroll = 0;
+            const navbar = document.querySelector('.navbar');
+            let ticking = false;
+            
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        handleScroll();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+            
+            function handleScroll() {
+                const currentScroll = window.pageYOffset;
+                
+                // Add scrolled class for styling
+                if (currentScroll > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+                
+                // Hide/show navbar on scroll (desktop only)
+                if (window.innerWidth > 768) {
+                    if (currentScroll > lastScroll && currentScroll > 300) {
+                        navbar.classList.add('navbar-hidden');
+                    } else {
+                        navbar.classList.remove('navbar-hidden');
+                    }
+                }
+                
+                lastScroll = currentScroll;
+            }
+            
+            // ===== ACTIVE LINK HIGHLIGHTING =====
+            // Highlight current page in navigation
+            const currentPath = window.location.pathname;
+            const navLinks = document.querySelectorAll('.nav-link, .dropdown-item');
+            
+            navLinks.forEach(link => {
+                const linkPath = new URL(link.href).pathname;
+                if (linkPath === currentPath) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // ===== KEYBOARD NAVIGATION =====
+            // Add keyboard support for dropdown menu
+            if (userDropdown) {
+                const dropdownItems = userDropdown.querySelectorAll('.dropdown-item');
+                
+                dropdownItems.forEach((item, index) => {
+                    item.addEventListener('keydown', function(e) {
+                        if (e.key === 'ArrowDown') {
+                            e.preventDefault();
+                            const nextItem = dropdownItems[index + 1];
+                            if (nextItem) nextItem.focus();
+                        } else if (e.key === 'ArrowUp') {
+                            e.preventDefault();
+                            const prevItem = dropdownItems[index - 1];
+                            if (prevItem) {
+                                prevItem.focus();
+                            } else {
+                                userMenuBtn.focus();
+                                toggleDropdown(false);
+                            }
+                        }
+                    });
+                });
+            }
+            
+            // ===== MOBILE MENU ACCESSIBILITY =====
+            // Handle window resize
+            let resizeTimer;
+            window.addEventListener('resize', function() {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(function() {
+                    // Close mobile menu if window is resized to desktop
+                    if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
+                        toggleMenu(false);
+                    }
+                    // Reset body overflow
+                    if (window.innerWidth > 768) {
+                        document.body.style.overflow = '';
+                    }
+                }, 250);
+            });
+            
+            console.log('✅ Navbar initialized successfully');
+        }
+        
+        // ===== LOGOUT CONFIRMATION =====
+        window.confirmLogout = function(event) {
+            const confirmed = confirm('Are you sure you want to logout?');
+            if (!confirmed) {
+                event.preventDefault();
+                return false;
+            }
+            return true;
+        };
+        
+        // ===== NOTIFICATION FOR NEW FEATURES =====
+        // Show notification badge on Help link (example)
+        function showNotificationBadge() {
+            const helpLink = document.querySelector('a[href*="help"]');
+            if (helpLink && !localStorage.getItem('help_visited')) {
+                const badge = document.createElement('span');
+                badge.className = 'notification-badge';
+                badge.textContent = 'New';
+                badge.style.cssText = `
+                    position: absolute;
+                    top: 0;
+                    right: -5px;
+                    background: #C66B6B;
+                    color: white;
+                    font-size: 0.625rem;
+                    padding: 0.125rem 0.375rem;
+                    border-radius: 0.5rem;
+                    font-weight: 700;
+                `;
+                helpLink.style.position = 'relative';
+                helpLink.appendChild(badge);
+                
+                helpLink.addEventListener('click', function() {
+                    localStorage.setItem('help_visited', 'true');
+                    badge.remove();
+                });
+            }
+        }
+        
+        // Uncomment to enable notification badge
+        // setTimeout(showNotificationBadge, 1000);
+        
+    })();
+</script>
+
+

@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FacTora Help & Support - Get answers to common questions, contact support, and learn how to use our fake news detection platform.">
+    <title>Help & Support - FacTora | Get Assistance</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon-32x32.png') }}">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/help.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    {% include 'components/navbar.html' %}
+
+    <!-- Main Help Content -->
+    <main class="help-main">
+        <div class="help-container">
+            <!-- Help Header -->
+            <header class="help-header">
+                <div class="header-content">
+                    <div class="header-icon">
+                        <i class="fas fa-life-ring"></i>
+                    </div>
+                    <h1>Help & Support</h1>
+                    <p>We're here to help you get the most out of FacTora</p>
+                </div>
+
+                <!-- Search Bar -->
+                <div class="help-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="helpSearch" placeholder="Search for help articles, guides, or FAQs...">
+                </div>
+            </header>
+
+            <!-- Quick Help Cards -->
+            <section class="quick-help-section">
+                <h2>Quick Help</h2>
+                <div class="quick-help-grid">
+                    <a href="#getting-started" class="quick-help-card">
+                        <div class="card-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h3>Getting Started</h3>
+                        <p>New to FacTora? Start here</p>
+                    </a>
+
+                    <a href="#how-to-use" class="quick-help-card">
+                        <div class="card-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h3>How to Use</h3>
+                        <p>Learn the basics</p>
+                    </a>
+
+                    <a href="#faq" class="quick-help-card">
+                        <div class="card-icon">
+                            <i class="fas fa-question-circle"></i>
+                        </div>
+                        <h3>FAQs</h3>
+                        <p>Common questions</p>
+                    </a>
+
+                    <a href="#contact" class="quick-help-card">
+                        <div class="card-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3>Contact Us</h3>
+                        <p>Get in touch</p>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Getting Started Section -->
+            <section class="help-section" id="getting-started">
+                <div class="section-header">
+                    <h2><i class="fas fa-rocket"></i> Getting Started with FacTora</h2>
+                </div>
+
+                <div class="help-card">
+                    <h3>What is FacTora?</h3>
+                    <p>FacTora is an AI-powered fake news detection platform that helps you verify the authenticity of news headlines and articles. Our advanced machine learning algorithms analyze text patterns, language use, and credibility indicators to determine whether content is likely to be real or fake.</p>
+                </div>
+
+                <div class="help-card">
+                    <h3>How to Create an Account</h3>
+                    <ol class="help-list">
+                        <li>Click the "Register" button in the top navigation</li>
+                        <li>Enter your desired username and password</li>
+                        <li>Confirm your password</li>
+                        <li>Click "Create Account" to complete registration</li>
+                        <li>You'll be automatically logged in and can start using FacTora</li>
+                    </ol>
+                </div>
+
+                <div class="help-card">
+                    <h3>Making Your First Prediction</h3>
+                    <ol class="help-list">
+                        <li>Navigate to the Dashboard after logging in</li>
+                        <li>Paste or type a news headline in the text box</li>
+                        <li>Click "Analyze" to start the prediction</li>
+                        <li>Wait a few seconds for the AI to process</li>
+                        <li>View your result showing REAL or FAKE with confidence percentage</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- How to Use Section -->
+            <section class="help-section" id="how-to-use">
+                <div class="section-header">
+                    <h2><i class="fas fa-book"></i> How to Use FacTora</h2>
+                </div>
+
+                <div class="help-accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header">
+                            <i class="fas fa-chart-pie"></i>
+                            <span>Understanding Your Dashboard</span>
+                            <i class="fas fa-chevron-down accordion-icon"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <p>Your dashboard provides an overview of your activity:</p>
+                            <ul class="help-list">
+                                <li><strong>Total Predictions:</strong> Number of analyses you've performed</li>
+                                <li><strong>Accuracy Stats:</strong> Your feedback accuracy percentage</li>
+                                <li><strong>Recent Feedback:</strong> Latest feedback you've submitted</li>
+                                <li><strong>Quick Predict:</strong> Input box for instant analysis</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header">
+                            <i class="fas fa-history"></i>
+                            <span>Viewing Your History</span>
+                            <i class="fas fa-chevron-down accordion-icon"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <p>The History page shows all your past predictions:</p>
+                            <ul class="help-list">
+                                <li><strong>Search:</strong> Find specific predictions by keyword</li>
+                                <li><strong>Filter:</strong> View only REAL or FAKE predictions</li>
+                                <li><strong>Sort:</strong> Order by date or confidence level</li>
+                                <li><strong>Export:</strong> Download your data as CSV</li>
+                                <li><strong>Delete:</strong> Remove individual predictions</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header">
+                            <i class="fas fa-thumbs-up"></i>
+                            <span>Providing Feedback</span>
+                            <i class="fas fa-chevron-down accordion-icon"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <p>Your feedback helps improve our AI:</p>
+                            <ul class="help-list">
+                                <li>After each prediction, you can mark it as "Accurate" or "Wrong"</li>
+                                <li>This feedback trains our model to be more accurate</li>
+                                <li>Your feedback history is visible in your dashboard</li>
+                                <li>You can change your feedback at any time</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header">
+                            <i class="fas fa-broadcast-tower"></i>
+                            <span>Using Live News</span>
+                            <i class="fas fa-chevron-down accordion-icon"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <p>Check real-time news headlines:</p>
+                            <ul class="help-list">
+                                <li>Browse current news from trusted sources</li>
+                                <li>Click "Analyze" on any headline to check it</li>
+                                <li>View source credibility information</li>
+                                <li>Click "Read More" to visit the original article</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header">
+                            <i class="fas fa-download"></i>
+                            <span>Exporting Your Data</span>
+                            <i class="fas fa-chevron-down accordion-icon"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <p>Download your prediction history:</p>
+                            <ul class="help-list">
+                                <li>Go to History page</li>
+                                <li>Click "Export CSV" button</li>
+                                <li>Your data downloads as a spreadsheet</li>
+                                <li>Includes headline, prediction, confidence, and timestamp</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FAQ Section -->
+            <section class="help-section" id="faq">
+                <div class="section-header">
+                    <h2><i class="fas fa-question-circle"></i> Frequently Asked Questions</h2>
+                </div>
+
+                <div class="faq-grid">
+                    <div class="faq-card">
+                        <div class="faq-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h3>How accurate is the AI?</h3>
+                        <p>Our AI model achieves 95%+ accuracy on test data. However, no system is perfect. We recommend using FacTora as one of several tools for fact-checking.</p>
+                    </div>
+
+                    <div class="faq-card">
+                        <div class="faq-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>How long does analysis take?</h3>
+                        <p>Most predictions complete in 2-5 seconds. Complex headlines may take slightly longer as the AI performs deeper analysis.</p>
+                    </div>
+
+                    <div class="faq-card">
+                        <div class="faq-icon">
+                            <i class="fas fa-language"></i>
+                        </div>
+                        <h3>What languages are supported?</h3>
+                        <p>Currently, FacTora primarily supports English text. We're working on adding support for more languages in future updates.</p>
+                    </div>
+
+                    <div class="faq-card">
+                        <div class="faq-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Is my data secure?</h3>
+                        <p>Yes! We use industry-standard encryption and never share your data with third parties. See our Privacy Policy for details.</p>
+                    </div>
+
+                    <div class="faq-card">
+                        <div class="faq-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <h3>Is FacTora free to use?</h3>
+                        <p>Yes, FacTora is completely free for all users. We believe fact-checking should be accessible to everyone.</p>
+                    </div>
+
+                    <div class="faq-card">
+                        <div class="faq-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3>Is there a mobile app?</h3>
+                        <p>Currently, FacTora is web-based and works on mobile browsers. A dedicated mobile app is planned for future release.</p>
+                    </div>
+
+                    <div class="faq-card">
+                        <div class="faq-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <h3>What if I find an error?</h3>
+                        <p>Please use the feedback buttons to report incorrect predictions. This helps us improve the AI. For technical issues, contact support.</p>
+                    </div>
+
+                    <div class="faq-card">
+                        <div class="faq-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3>Can I use this for research?</h3>
+                        <p>Yes! FacTora can be used for academic research. Contact us for API access and bulk analysis options.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Troubleshooting Section -->
+            <section class="help-section" id="troubleshooting">
+                <div class="section-header">
+                    <h2><i class="fas fa-tools"></i> Troubleshooting</h2>
+                </div>
+
+                <div class="troubleshooting-grid">
+                    <div class="troubleshooting-card">
+                        <h3><i class="fas fa-times-circle"></i> Prediction Not Working</h3>
+                        <ul class="help-list">
+                            <li>Ensure you're logged in</li>
+                            <li>Check your internet connection</li>
+                            <li>Try refreshing the page</li>
+                            <li>Clear browser cache and cookies</li>
+                            <li>Try a different browser</li>
+                        </ul>
+                    </div>
+
+                    <div class="troubleshooting-card">
+                        <h3><i class="fas fa-key"></i> Can't Log In</h3>
+                        <ul class="help-list">
+                            <li>Double-check your username and password</li>
+                            <li>Ensure Caps Lock is off</li>
+                            <li>Clear browser cookies</li>
+                            <li>Try incognito/private browsing mode</li>
+                            <li>Contact support if issue persists</li>
+                        </ul>
+                    </div>
+
+                    <div class="troubleshooting-card">
+                        <h3><i class="fas fa-history"></i> History Not Loading</h3>
+                        <ul class="help-list">
+                            <li>Refresh the page</li>
+                            <li>Check if you have any predictions</li>
+                            <li>Try clearing search/filter options</li>
+                            <li>Disable browser extensions</li>
+                            <li>Try on a different device</li>
+                        </ul>
+                    </div>
+
+                    <div class="troubleshooting-card">
+                        <h3><i class="fas fa-mobile-alt"></i> Mobile Issues</h3>
+                        <ul class="help-list">
+                            <li>Use latest version of your browser</li>
+                            <li>Enable JavaScript</li>
+                            <li>Clear mobile browser cache</li>
+                            <li>Try desktop mode if needed</li>
+                            <li>Ensure stable internet connection</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section class="help-section" id="contact">
+                <div class="section-header">
+                    <h2><i class="fas fa-envelope"></i> Contact Support</h2>
+                    <p>Can't find what you're looking for? Reach out to our support team</p>
+                </div>
+
+                <div class="contact-grid">
+                    <div class="contact-method-card">
+                        <div class="method-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3>Email Support</h3>
+                        <p>Get help via email</p>
+                        <a href="mailto:support@factora.com" class="btn-contact">
+                            support@factora.com
+                        </a>
+                        <span class="response-time">
+                            <i class="fas fa-clock"></i>
+                            Response within 24 hours
+                        </span>
+                    </div>
+
+                    <div class="contact-method-card">
+                        <div class="method-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h3>Live Chat</h3>
+                        <p>Chat with our team</p>
+                        <button class="btn-contact" onclick="openLiveChat()">
+                            Start Chat
+                        </button>
+                        <span class="response-time">
+                            <i class="fas fa-clock"></i>
+                            Available Mon-Fri, 9AM-5PM IST
+                        </span>
+                    </div>
+
+                    <div class="contact-method-card">
+                        <div class="method-icon">
+                            <i class="fas fa-bug"></i>
+                        </div>
+                        <h3>Report a Bug</h3>
+                        <p>Found a technical issue?</p>
+                        <a href="mailto:bugs@factora.com" class="btn-contact">
+                            Report Bug
+                        </a>
+                        <span class="response-time">
+                            <i class="fas fa-clock"></i>
+                            We'll investigate ASAP
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="contact-form-section">
+                    <h3>Send Us a Message</h3>
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contactName">Your Name</label>
+                                <input type="text" id="contactName" required 
+                                       value="{% if current_user.is_authenticated %}{{ current_user.username }}{% endif %}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="contactEmail">Your Email</label>
+                                <input type="email" id="contactEmail" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contactSubject">Subject</label>
+                            <select id="contactSubject" required>
+                                <option value="">Select a topic</option>
+                                <option value="technical">Technical Issue</option>
+                                <option value="account">Account Problem</option>
+                                <option value="feature">Feature Request</option>
+                                <option value="feedback">General Feedback</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contactMessage">Message</label>
+                            <textarea id="contactMessage" rows="6" required 
+                                      placeholder="Please describe your issue or question in detail..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-submit">
+                            <i class="fas fa-paper-plane"></i>
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Resources Section -->
+            <section class="help-section resources-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-book-open"></i> Additional Resources</h2>
+                </div>
+
+                <div class="resources-grid">
+                    <a href="{{ url_for('privacy') }}" class="resource-card">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Privacy Policy</h3>
+                        <p>How we protect your data</p>
+                    </a>
+
+                    <a href="{{ url_for('terms') }}" class="resource-card">
+                        <i class="fas fa-file-contract"></i>
+                        <h3>Terms of Service</h3>
+                        <p>Usage terms and conditions</p>
+                    </a>
+
+                    <a href="{{ url_for('cookies') }}" class="resource-card">
+                        <i class="fas fa-cookie-bite"></i>
+                        <h3>Cookie Policy</h3>
+                        <p>How we use cookies</p>
+                    </a>
+
+                    <a href="#" class="resource-card">
+                        <i class="fas fa-code"></i>
+                        <h3>API Documentation</h3>
+                        <p>Developer resources</p>
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    {% include 'components/footer.html' %}
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/help.js') }}"></script>
+</body>
+</html>

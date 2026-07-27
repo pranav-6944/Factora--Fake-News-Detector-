@@ -1,0 +1,157 @@
+<!-- Premium Hero Section with Warm Luxury Design -->
+<section class="hero-section">
+    <!-- Decorative Background Elements -->
+    <div class="hero-background">
+        <div class="hero-circle hero-circle-1"></div>
+        <div class="hero-circle hero-circle-2"></div>
+        <div class="hero-pattern"></div>
+    </div>
+    
+    <div class="hero-container">
+        <!-- Hero Content -->
+        <div class="hero-content">
+            <!-- Badge -->
+            <div class="hero-badge" data-aos="fade-down" data-aos-delay="100">
+                <i class="fas fa-sparkles"></i>
+                <span>Powered by Advanced AI Technology</span>
+            </div>
+            
+            <!-- Main Title -->
+            <h1 class="hero-title" data-aos="fade-up" data-aos-delay="200">
+                <span class="title-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </span>
+                Detect <span class="gradient-text">Fake News</span>
+                <br>
+                with AI Precision
+            </h1>
+            
+            <!-- Subtitle -->
+            <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="300">
+                Enter a news headline and let our advanced BERT-based machine learning model determine its authenticity with 75%+ accuracy
+            </p>
+            
+            <!-- Trust Indicators -->
+            <div class="hero-stats" data-aos="fade-up" data-aos-delay="350">
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-content">
+                        <span class="stat-number">75%+</span>
+                        <span class="stat-label">Accuracy</span>
+                    </div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-content">
+                        <span class="stat-number">10+</span>
+                        <span class="stat-label">Users</span>
+                    </div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-content">
+                        <span class="stat-number">&lt;2s</span>
+                        <span class="stat-label">Analysis</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Prediction Form or Auth Prompt -->
+            {% if current_user.is_authenticated %}
+                <!-- Prediction Form Component -->
+                <div class="hero-form-wrapper" data-aos="fade-up" data-aos-delay="400">
+                    {% include 'components/prediction_form.html' %}
+                </div>
+            {% else %}
+                <!-- Authentication Prompt -->
+                <div class="auth-prompt-wrapper" data-aos="fade-up" data-aos-delay="400">
+                    <div class="auth-prompt">
+                        <div class="auth-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h3 class="auth-title">Start Detecting Fake News</h3>
+                        <p class="auth-description">
+                            Create a free account or sign in to access our powerful AI-driven fact-checking platform
+                        </p>
+                        <div class="cta-buttons">
+                            <a href="{{ url_for('login') }}" class="cta-btn secondary">
+                                <i class="fas fa-sign-in-alt"></i>
+                                Sign In
+                            </a>
+                            <a href="{{ url_for('register') }}" class="cta-btn primary">
+                                <i class="fas fa-user-plus"></i>
+                                Create Account
+                            </a>
+                        </div>
+                        <p class="auth-note">
+                            <i class="fas fa-shield-check"></i>
+                            Free forever. No credit card required.
+                        </p>
+                    </div>
+                </div>
+            {% endif %}
+            
+            <!-- Trust Logos -->
+            <div class="hero-trust" data-aos="fade-up" data-aos-delay="450">
+                <p class="trust-text">Trusted by fact-checkers worldwide</p>
+                <div class="trust-logos">
+                    <span class="trust-logo">PolitiFact</span>
+                    <span class="trust-logo">Snopes</span>
+                    <span class="trust-logo">FactCheck.org</span>
+                    <span class="trust-logo">AltNews</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Hero Illustration (Optional) -->
+        <div class="hero-illustration" data-aos="fade-left" data-aos-delay="500">
+            <div class="illustration-wrapper">
+                <div class="illustration-card floating">
+                    <div class="card-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-label">AI Analysis</div>
+                        <div class="card-progress">
+                            <div class="progress-bar"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="illustration-card floating" style="animation-delay: 0.3s;">
+                    <div class="card-icon success">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-label">Verified</div>
+                        <div class="card-value">Real News</div>
+                    </div>
+                </div>
+                <div class="illustration-card floating" style="animation-delay: 0.6s;">
+                    <div class="card-icon warning">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-label">Detected</div>
+                        <div class="card-value">Fake News</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator" data-aos="fade-up" data-aos-delay="600">
+        <div class="scroll-mouse">
+            <div class="scroll-wheel"></div>
+        </div>
+        <span class="scroll-text">Scroll to explore</span>
+    </div>
+</section>

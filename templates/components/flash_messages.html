@@ -1,0 +1,100 @@
+<!-- Premium Flash Messages with Warm Luxury Palette -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div class="flash-messages-container" role="alert" aria-live="polite">
+            {% for category, message in messages %}
+                <div class="flash-message flash-{{ category }}" data-category="{{ category }}">
+                    <!-- Icon Circle -->
+                    <div class="flash-icon-wrapper">
+                        <div class="flash-icon-circle">
+                            {% if category == 'success' %}
+                                <i class="fas fa-check-circle"></i>
+                            {% elif category == 'error' %}
+                                <i class="fas fa-times-circle"></i>
+                            {% elif category == 'warning' %}
+                                <i class="fas fa-exclamation-triangle"></i>
+                            {% elif category == 'info' %}
+                                <i class="fas fa-info-circle"></i>
+                            {% else %}
+                                <i class="fas fa-bell"></i>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <!-- Message Content -->
+                    <div class="flash-content">
+                        <h4 class="flash-title">
+                            {% if category == 'success' %}
+                                Success!
+                            {% elif category == 'error' %}
+                                Error
+                            {% elif category == 'warning' %}
+                                Warning
+                            {% elif category == 'info' %}
+                                Information
+                            {% else %}
+                                Notification
+                            {% endif %}
+                        </h4>
+                        <p class="flash-text">{{ message }}</p>
+                    </div>
+                    
+                    <!-- Close Button -->
+                    <button class="flash-close" 
+                            onclick="closeFlashMessage(this)" 
+                            aria-label="Close notification"
+                            title="Dismiss">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    
+                    <!-- Progress Bar for Auto-dismiss -->
+                    <div class="flash-progress"></div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+
+<!-- Flash Messages JavaScript -->
+<script>
+    // Auto-dismiss flash messages after 5 seconds
+    document.addEventListener('DOMContentLoaded', function() {
+        const flashMessages = document.querySelectorAll('.flash-message');
+        
+        flashMessages.forEach(function(message, index) {
+            // Animate in
+            setTimeout(() => {
+                message.classList.add('flash-show');
+            }, 100 * (index + 1));
+            
+            // Start progress bar
+            const progressBar = message.querySelector('.flash-progress');
+            if (progressBar) {
+                setTimeout(() => {
+                    progressBar.classList.add('flash-progress-active');
+                }, 100 * (index + 1) + 50);
+            }
+            
+            // Auto-dismiss after 5 seconds
+            setTimeout(function() {
+                closeFlashMessage(message.querySelector('.flash-close'));
+            }, 5000 + (100 * index));
+        });
+    });
+    
+    // Close flash message function
+    function closeFlashMessage(button) {
+        const message = button.closest('.flash-message');
+        message.classList.add('flash-hide');
+        
+        setTimeout(function() {
+            message.remove();
+            
+            // Remove container if no messages left
+            const container = document.querySelector('.flash-messages-container');
+            if (container && container.children.length === 0) {
+                container.remove();
+            }
+        }, 300);
+    }
+</script>

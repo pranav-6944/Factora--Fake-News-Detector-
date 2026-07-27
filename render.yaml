@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: factora
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --timeout 120
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: NEWS_API_KEY
+        sync: false
+      - key: FLASK_DEBUG
+        value: "false"
+      - key: HF_MODEL_REPO
+        value: pranav6944/factora-bert
+      - key: PYTHON_VERSION
+        value: "3.11.9"
