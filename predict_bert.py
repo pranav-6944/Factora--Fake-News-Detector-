@@ -2,91 +2,58 @@ import os
 import requests
 from credibility_engine import compute_credibility
 
-# Lazy-loaded local model/tokenizer (used if running locally with PyTorch)
+# Lazy-loaded model & tokenizer
 _model = None
 _tokenizer = None
 
 
-def _load_local_model():
-    """Attempt to load local PyTorch BERT model if available."""
+def _load_model():
+    """Load DistilBERT model directly from Hugging Face repository or local folder."""
     global _model, _tokenizer
     if _model is None:
-        try:
-            from transformers import DistilBertTokenizerFast, DistilBertForSequenceClassification
-            base = os.path.dirname(os.path.abspath(__file__))
-            model_path = os.path.join(base, "bert_model")
-            tokenizer_path = os.path.join(base, "bert_tokenizer")
-            if os.path.isfile(os.path.join(model_path, "pytorch_model.bin")):
-                _model = DistilBertForSequenceClassification.from_pretrained(model_path)
-                _tokenizer = DistilBertTokenizerFast.from_pretrained(tokenizer_path)
+        base = os.path.dirname(os.path.abspath(__file__))
+        local_model_path = os.path.join(base, "bert_model")
+        local_tokenizer_path = os.path.join(base, "bert_tokenizer")
+
+        # 1. Try local folder if exists
+        if os.path.isfile(os.path.join(local_model_path, "pytorch_model.bin")):
+            try:
+                from transformers import DistilBertTokenizerFast, DistilBertForSequenceClassification
+                _tokenizer = DistilBertTokenizerFast.from_pretrained(local_tokenizer_path)
+                _model = DistilBertForSequenceClassification.from_pretrained(local_model_path)
                 _model.eval()
-                print("predict_bert: Local BERT model loaded successfully.")
+                print("predict_bert: Loaded local model successfully.")
+                return _model, _tokenizer
+            except Exception as e:
+                print(f"predict_bert: Local load error: {e}")
+
+        # 2. Load directly from HuggingFace Hub repo
+        try:
+            from transformers import AutoTokenizer, AutoModelForSequenceClassification
+            repo = os.environ.get("HF_MODEL_REPO", "pranavlamkhade/factora-fake-news-detector")
+            print(f"predict_bert: Loading model from Hugging Face repo '{repo}'...")
+            _tokenizer = AutoTokenizer.from_pretrained(repo)
+            _model = AutoModelForSequenceClassification.from_pretrained(repo)
+            _model.eval()
+            print(f"predict_bert: Loaded Hugging Face model '{repo}' successfully.")
         except Exception as e:
-            print(f"predict_bert: Local model not loaded: {e}")
+            print(f"predict_bert: HF repo load error: {e}")
             _model = None
             _tokenizer = None
+
     return _model, _tokenizer
-
-
-def predict_hf_api(text: str):
-    """
-    Query HuggingFace Serverless Inference API.
-    Supports HF_API_KEY, HF_TOKEN, or HUGGINGFACE_TOKEN env variables.
-    """
-    token = os.environ.get("HF_API_KEY") or os.environ.get("HF_TOKEN") or os.environ.get("HUGGINGFACE_TOKEN")
-    repo = os.environ.get("HF_MODEL_REPO", "pranavlamkhade/factora-fake-news-detector")
-    
-    urls = [
-        f"https://router.huggingface.co/hf-inference/v1/models/{repo}",
-        f"https://api-inference.huggingface.co/models/{repo}"
-    ]
-    
-    headers = {"Content-Type": "application/json"}
-    if token:
-        headers["Authorization"] = f"Bearer {token}"
-
-    for url in urls:
-        try:
-            r = requests.post(url, json={"inputs": text}, headers=headers, timeout=8)
-            if r.status_code == 200:
-                data = r.json()
-                # Parse HF classification output format: [[{'label': 'LABEL_1', 'score': 0.95}, ...]]
-                if isinstance(data, list) and len(data) > 0:
-                    preds = data[0] if isinstance(data[0], list) else data
-                    if isinstance(preds, list) and len(preds) > 0:
-                        top = max(preds, key=lambda x: x.get("score", 0))
-                        lbl = str(top.get("label", "")).upper()
-                        score = float(top.get("score", 0.5)) * 100
-                        
-                        # Map labels: LABEL_1 / REAL -> REAL, LABEL_0 / FAKE -> FAKE
-                        verdict = "REAL" if ("1" in lbl or "REAL" in lbl or "TRUE" in lbl) else "FAKE"
-                        return verdict, round(score, 2)
-        except Exception as e:
-            print(f"HF API check error ({url}): {e}")
-
-    return None
 
 
 def predict_news(text: str):
     """
-    Multi-tier news credibility prediction:
-    1. HuggingFace Serverless Inference API (Fast, 0 MB server RAM)
-    2. Local PyTorch Model (if model files exist locally)
-    3. Credibility Engine Fallback (Linguistic + Clickbait + Source scoring)
-    Returns: (verdict, confidence) e.g. ("REAL", 88.5)
+    Predict fake vs real news using DistilBERT model.
+    Returns: (verdict, confidence) e.g. ("REAL", 94.2) or ("FAKE", 88.5)
     """
     text = (text or "").strip()
     if not text:
         return "FAKE", 50.0
 
-    # Tier 1: Hugging Face Inference API
-    hf_res = predict_hf_api(text)
-    if hf_res is not None:
-        verdict, confidence = hf_res
-        return verdict, confidence
-
-    # Tier 2: Local PyTorch Model
-    model, tokenizer = _load_local_model()
+    model, tokenizer = _load_model()
     if model is not None and tokenizer is not None:
         try:
             import torch
@@ -94,14 +61,15 @@ def predict_news(text: str):
             with torch.no_grad():
                 outputs = model(**inputs)
             probs = torch.nn.functional.softmax(outputs.logits, dim=1)
-            confidence = float(probs.max()) * 100
-            prediction = torch.argmax(probs, dim=1).item()
-            verdict = "REAL" if prediction == 1 else "FAKE"
+            predicted_class = torch.argmax(probs, dim=1).item()
+            confidence = float(probs[0][predicted_class]) * 100
+            
+            verdict = "REAL" if predicted_class == 1 else "FAKE"
             return verdict, round(confidence, 2)
         except Exception as e:
-            print(f"Local inference error: {e}")
+            print(f"predict_bert: Inference error: {e}")
 
-    # Tier 3: Credibility Engine Fallback
+    # Fallback to credibility engine if model loading fails
     cred = compute_credibility(text, bert_confidence=50.0, bert_prediction="REAL")
     verdict = cred.get("verdict", "REAL")
     confidence = cred.get("credibility_score", 50.0)
