@@ -13,6 +13,6 @@ services:
       - key: FLASK_DEBUG
         value: "false"
       - key: HF_MODEL_REPO
-        value: pranav6944/factora-bert
+        value: pranavlamkhade/factora-fake-news-detector
       - key: PYTHON_VERSION
         value: "3.11.9"

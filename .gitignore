@@ -52,3 +52,7 @@ tempCodeRunnerFile.py
 
 # ─── Node (browser extension dev) ───
 node_modules/
+
+# ─── Push scripts with tokens ───
+push_to_hub.py
+push_readme.py

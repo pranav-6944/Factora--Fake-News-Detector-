@@ -30,7 +30,7 @@ def ensure_bert_model():
         try:
             from huggingface_hub import snapshot_download
             # Download from your HuggingFace repo (push your model there once)
-            hf_repo = os.environ.get('HF_MODEL_REPO', 'pranav6944/factora-bert')
+            hf_repo = os.environ.get('HF_MODEL_REPO', 'pranavlamkhade/factora-fake-news-detector')
             cache = snapshot_download(repo_id=hf_repo, local_dir=model_dir)
             print(f'✅ BERT model downloaded to {model_dir}')
         except Exception as e:
