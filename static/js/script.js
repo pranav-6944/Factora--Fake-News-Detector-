@@ -49,9 +49,13 @@ async function handlePrediction(e) {
             body: formData
         });
         
-        const data = await response.json();
-        
+        if (response.redirected || response.status === 401) {
+            window.location.href = '/login';
+            return;
+        }
+
         if (response.ok) {
+            const data = await response.json();
             // Display results
             const isReal = data.result === 'REAL';
             const iconClass = isReal ? 'fas fa-check-circle' : 'fas fa-times-circle';

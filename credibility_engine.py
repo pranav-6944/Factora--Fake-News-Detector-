@@ -247,17 +247,26 @@ def compute_credibility(
     linguistic = score_linguistic(headline)
     linguistic_score = linguistic["score"]
 
-    # 3. Source score
-    source = score_source(domain)
-    source_score = source["score"]
+    # 3. Source score & dynamic weighting
+    if domain:
+        source = score_source(domain)
+        source_score = source["score"]
+        composite = (
+            bert_score * 0.50 +
+            linguistic_score * 0.30 +
+            source_score * 0.20
+        )
+    else:
+        source = {"score": 50.0, "trust_level": "unknown", "badge": "❓ Unknown Source"}
+        source_score = 50.0
+        # When no source URL is provided, rely 70% on BERT model confidence & 30% on linguistic checks
+        composite = (
+            bert_score * 0.70 +
+            linguistic_score * 0.30
+        )
 
-    # 4. Composite (weighted)
-    composite = (
-        bert_score * 0.50 +
-        linguistic_score * 0.30 +
-        source_score * 0.20
-    )
     composite = _clamp(composite)
+
 
     grade_info = get_credibility_grade(composite)
 

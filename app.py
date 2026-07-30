@@ -214,9 +214,9 @@ def logout():
 
 # Routes
 @app.route('/predict', methods=['POST'])
-@login_required
 def predict():
-    print(f"Prediction request from user: {current_user.id}")
+    user_id = current_user.id if current_user.is_authenticated else None
+    print(f"Prediction request from user: {user_id or 'Guest'}")
 
     headline = request.form.get('headline')
     if not headline:
@@ -231,31 +231,30 @@ def predict():
         result = 'REAL' if verdict == 'REAL' or 'REAL' in str(verdict).upper() else 'FAKE'
         print(f"Prediction: {result}, Confidence: {confidence:.2f}%")
 
-        # Save to DB
-        try:
-            conn = get_db(TRUTH_DB)
-            cursor = conn.cursor()
-            cursor.execute('''INSERT INTO predictions (user_id, headline, prediction, confidence, timestamp)
-                              VALUES (?, ?, ?, ?, ?)''',
-                           (current_user.id, headline, result, confidence, get_ist_time().isoformat()))
-            prediction_id = cursor.lastrowid
-            conn.commit()
-            conn.close()
+        prediction_id = None
+        # Save to DB if user is logged in
+        if user_id:
+            try:
+                conn = get_db(TRUTH_DB)
+                cursor = conn.cursor()
+                cursor.execute('''INSERT INTO predictions (user_id, headline, prediction, confidence, timestamp)
+                                  VALUES (?, ?, ?, ?, ?)''',
+                               (user_id, headline, result, confidence, get_ist_time().isoformat()))
+                prediction_id = cursor.lastrowid
+                conn.commit()
+                conn.close()
+                print(f"Prediction stored with ID: {prediction_id}")
+            except Exception as db_error:
+                print(f"DB Error storing prediction: {db_error}")
 
-            print(f"✅ Prediction stored with ID: {prediction_id}")
-
-            return jsonify({
-                'result': result,
-                'confidence': f"{confidence:.2f}%",
-                'prediction_id': prediction_id
-            })
-
-        except Exception as db_error:
-            print(f"❌ DB Error: {db_error}")
-            return jsonify({'error': 'Database error occurred'}), 500
+        return jsonify({
+            'result': result,
+            'confidence': f"{confidence:.2f}%",
+            'prediction_id': prediction_id
+        })
 
     except Exception as e:
-        print(f"❌ BERT Prediction Error: {e}")
+        print(f"Prediction Error: {e}")
         return jsonify({'error': f'Prediction failed: {str(e)}'}), 500
 
 @app.route('/feedback', methods=['POST'])
@@ -939,9 +938,9 @@ def submit_contact_form():
 # ===== CREDIBILITY & SOURCE VERIFICATION API ROUTES =====
 
 @app.route('/api/analyze', methods=['POST'])
-@login_required
 def analyze():
-    """Full credibility analysis – BERT + linguistic + source (requires login)"""
+    """Full credibility analysis – BERT + linguistic + source"""
+    user_id = current_user.id if current_user.is_authenticated else None
     data = request.get_json(force=True) or {}
     headline = (data.get('headline') or '').strip()
     source_url = (data.get('source_url') or '').strip() or None
@@ -962,16 +961,21 @@ def analyze():
         # Multi-factor credibility score
         cred = compute_credibility(headline, confidence, prediction, domain)
 
-        # Persist to DB
-        conn = get_db(TRUTH_DB)
-        cursor = conn.cursor()
-        cursor.execute(
-            'INSERT INTO predictions (user_id, headline, prediction, confidence, timestamp) VALUES (?, ?, ?, ?, ?)',
-            (current_user.id, headline, prediction, confidence, get_ist_time().isoformat())
-        )
-        prediction_id = cursor.lastrowid
-        conn.commit()
-        conn.close()
+        prediction_id = None
+        # Persist to DB if user is logged in
+        if user_id:
+            try:
+                conn = get_db(TRUTH_DB)
+                cursor = conn.cursor()
+                cursor.execute(
+                    'INSERT INTO predictions (user_id, headline, prediction, confidence, timestamp) VALUES (?, ?, ?, ?, ?)',
+                    (user_id, headline, prediction, confidence, get_ist_time().isoformat())
+                )
+                prediction_id = cursor.lastrowid
+                conn.commit()
+                conn.close()
+            except Exception as db_e:
+                print(f"DB Error in /api/analyze: {db_e}")
 
         return jsonify({
             'prediction_id': prediction_id,

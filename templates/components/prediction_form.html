@@ -242,6 +242,14 @@
                 body: formData
             });
             
+            if (response.redirected || response.status === 401) {
+                window.location.href = '/login';
+                return;
+            }
+            if (!response.ok) {
+                throw new Error(`Server returned status ${response.status}`);
+            }
+            
             const data = await response.json();
             const endTime = Date.now();
             const analysisTimeMs = endTime - startTime;
