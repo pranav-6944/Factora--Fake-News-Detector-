@@ -71,6 +71,11 @@ CONSPIRACY_PATTERNS = [
     r"\bvaccine (kill|death|harm|danger|poison)\b",
     r"\b5g (kill|harm|spread|cause)\b",
     r"\bcovid.?(fake|hoax|lie|plandemic)\b",
+    r"\balien(s)?\b",
+    r"\bufo(s)?\b",
+    r"\bflat earth\b",
+    r"\bchemtrail(s)?\b",
+    r"\blizard people\b",
 ]
 
 # ─────────────────────────────────────────────────────────────────────────────

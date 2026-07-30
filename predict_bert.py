@@ -1,6 +1,6 @@
 import os
 import joblib
-from credibility_engine import compute_credibility
+from credibility_engine import compute_credibility, score_linguistic
 
 # Lazy-loaded lightweight ML model & vectorizer
 _local_model = None
@@ -27,15 +27,21 @@ def _load_ml_model():
 def predict_news(text: str):
     """
     Predict fake vs real news using multi-tier intelligence:
-    1. Fast ML Model (TF-IDF + Classifier trained on LIAR dataset - ultra fast, <10MB RAM)
-    2. Multi-factor Credibility Engine (Linguistic + Clickbait + Conspiracy analysis)
-    Returns: (verdict, confidence) e.g. ("REAL", 88.5) or ("FAKE", 92.1)
+    1. Linguistic & Conspiracy Signal Check (Immediate red-flag detection)
+    2. ML Classifier Model (TF-IDF + Classifier trained on LIAR dataset)
+    3. Credibility Engine Fallback
+    Returns: (verdict, confidence) e.g. ("REAL", 88.5) or ("FAKE", 25.0)
     """
     text = (text or "").strip()
     if not text:
         return "FAKE", 50.0
 
-    # Tier 1: Fast ML Classifier
+    # 1. Linguistic Red Flags (Conspiracy / Heavy Clickbait Check)
+    ling = score_linguistic(text)
+    if ling.get("conspiracy_detected") or (ling.get("score", 100) < 55):
+        return "FAKE", round(ling["score"], 2)
+
+    # 2. Fast ML Classifier
     model, vectorizer = _load_ml_model()
     if model is not None and vectorizer is not None:
         try:
@@ -48,7 +54,7 @@ def predict_news(text: str):
         except Exception as e:
             print(f"predict_bert: ML predict error: {e}")
 
-    # Tier 2: Credibility Engine Fallback
+    # 3. Credibility Engine Fallback
     cred = compute_credibility(text, bert_confidence=50.0, bert_prediction="REAL")
     verdict = cred.get("verdict", "REAL")
     confidence = cred.get("credibility_score", 50.0)
