@@ -13,8 +13,7 @@ from datetime import datetime, timedelta
 import requests
 from config import DB_DIR, MODEL_DIR, AUTH_DB, FEEDBACK_DB, TRUTH_DB, MODEL_FILE, VECTORIZER_FILE
 from predict_bert import predict_news
-from transformers import DistilBertTokenizerFast, DistilBertForSequenceClassification
-import torch
+
 from credibility_engine import compute_credibility
 from source_verifier import verify_source
 
@@ -38,9 +37,9 @@ NEWS_API_URL = 'https://newsapi.org/v2/top-headlines'
 try:
     model = joblib.load(MODEL_FILE)
     vectorizer = joblib.load(VECTORIZER_FILE)
-    print("✅ Model and vectorizer loaded successfully!")
+    print("Model and vectorizer loaded successfully!")
 except FileNotFoundError:
-    print("❌ Model files not found. Please train and save the model first.")
+    print("Model files not found. Please train and save the model first.")
     model = None
     vectorizer = None
 
@@ -87,7 +86,7 @@ def init_db():
                          password_hash TEXT NOT NULL)''')
         conn.commit()
         conn.close()
-        print("✅ auth.db initialized")
+        print("auth.db initialized")
         
         # TruthLens database for predictions
         conn = sqlite3.connect(TRUTH_DB)
@@ -100,7 +99,7 @@ def init_db():
                          timestamp TEXT NOT NULL)''')
         conn.commit()
         conn.close()
-        print("✅ truthlens.db initialized")
+        print("truthlens.db initialized")
         
         # Feedback database
         conn = sqlite3.connect(FEEDBACK_DB)
@@ -112,12 +111,12 @@ def init_db():
                          timestamp TEXT NOT NULL)''')
         conn.commit()
         conn.close()
-        print("✅ feedback.db initialized")
+        print("feedback.db initialized")
         
         return True
         
     except Exception as e:
-        print(f"❌ Database initialization error: {e}")
+        print(f"Database initialization error: {e}")
         return False
 
 # Helper function for IST time
