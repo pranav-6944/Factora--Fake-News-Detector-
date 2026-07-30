@@ -18,37 +18,7 @@ import torch
 from credibility_engine import compute_credibility
 from source_verifier import verify_source
 
-# ─── Auto-download BERT model from HuggingFace Hub if not present ───
-def ensure_bert_model():
-    """Download BERT model files from HuggingFace Hub if they don't exist locally."""
-    base = os.path.dirname(os.path.abspath(__file__))
-    model_dir = os.path.join(base, 'bert_model')
-    tokenizer_dir = os.path.join(base, 'bert_tokenizer')
 
-    if not os.path.isfile(os.path.join(model_dir, 'pytorch_model.bin')):
-        print('⬇️  BERT model not found locally – downloading from HuggingFace Hub...')
-        try:
-            from huggingface_hub import snapshot_download
-            # Download from your HuggingFace repo (push your model there once)
-            hf_repo = os.environ.get('HF_MODEL_REPO', 'pranavlamkhade/factora-fake-news-detector')
-            cache = snapshot_download(repo_id=hf_repo, local_dir=model_dir)
-            print(f'✅ BERT model downloaded to {model_dir}')
-        except Exception as e:
-            print(f'⚠️  Could not auto-download model: {e}')
-            print('   Place bert_model/ and bert_tokenizer/ manually.')
-
-    if not os.path.isdir(tokenizer_dir) or not os.listdir(tokenizer_dir):
-        # If tokenizer was bundled with model download, copy relevant files
-        tok_files = ['tokenizer.json', 'tokenizer_config.json', 'special_tokens_map.json', 'vocab.txt']
-        os.makedirs(tokenizer_dir, exist_ok=True)
-        for f in tok_files:
-            src = os.path.join(model_dir, f)
-            dst = os.path.join(tokenizer_dir, f)
-            if os.path.isfile(src) and not os.path.isfile(dst):
-                import shutil
-                shutil.copy2(src, dst)
-
-ensure_bert_model()
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-fallback-key-change-in-production')
@@ -94,8 +64,13 @@ def load_user(user_id):
 
 # Database helper function
 def get_db(db_name):
-    db = sqlite3.connect(db_name)
+    os.makedirs(os.path.dirname(os.path.abspath(db_name)), exist_ok=True)
+    db = sqlite3.connect(db_name, timeout=15)
     db.row_factory = sqlite3.Row
+    try:
+        db.execute('PRAGMA journal_mode=WAL;')
+    except Exception:
+        pass
     return db
 
 # Initialize databases with enhanced error handling
@@ -238,23 +213,7 @@ def logout():
     flash('You have been logged out.', 'info')
     return redirect(url_for('index'))
 
-# Load BERT once when Flask starts
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_PATH = os.path.join(BASE_DIR, 'bert_model')
-TOKENIZER_PATH = os.path.join(BASE_DIR, 'bert_tokenizer')
-
-try:
-    bert_model = DistilBertForSequenceClassification.from_pretrained(MODEL_PATH)
-    bert_tokenizer = DistilBertTokenizerFast.from_pretrained(TOKENIZER_PATH)
-    bert_model.eval()
-    print("✅ BERT model loaded successfully!")
-except Exception as e:
-    print(f"⚠️  BERT model could not be loaded: {e}")
-    print("   Predictions will fail until model files are available.")
-    bert_model = None
-    bert_tokenizer = None
-
-# Now your route:
+# Routes
 @app.route('/predict', methods=['POST'])
 @login_required
 def predict():
@@ -269,18 +228,8 @@ def predict():
         return jsonify({'error': 'Headline too short. Please enter a meaningful headline.'}), 400
 
     try:
-        if bert_model is None or bert_tokenizer is None:
-            return jsonify({'error': 'AI model is still loading. Please try again in a moment.'}), 503
-
-        # BERT Prediction
-        inputs = bert_tokenizer(headline, return_tensors="pt", truncation=True, padding=True)
-        with torch.no_grad():
-            outputs = bert_model(**inputs)
-            logits = outputs.logits
-            predicted_class = torch.argmax(logits, dim=1).item()
-            confidence = torch.softmax(logits, dim=1)[0][predicted_class].item() * 100
-
-        result = 'REAL' if predicted_class == 1 else 'FAKE'
+        verdict, confidence = predict_news(headline)
+        result = 'REAL' if verdict == 'REAL' or 'REAL' in str(verdict).upper() else 'FAKE'
         print(f"Prediction: {result}, Confidence: {confidence:.2f}%")
 
         # Save to DB
@@ -1002,16 +951,8 @@ def analyze():
         return jsonify({'error': 'Please provide a valid headline (min 5 chars).'}), 400
 
     try:
-        if bert_model is None or bert_tokenizer is None:
-            return jsonify({'error': 'AI model is still loading. Please try again in a moment.'}), 503
-
-        # BERT inference
-        inputs = bert_tokenizer(headline, return_tensors='pt', truncation=True, padding=True)
-        with torch.no_grad():
-            logits = bert_model(**inputs).logits
-            pred_class = torch.argmax(logits, dim=1).item()
-            confidence = torch.softmax(logits, dim=1)[0][pred_class].item() * 100
-        prediction = 'REAL' if pred_class == 1 else 'FAKE'
+        verdict, confidence = predict_news(headline)
+        prediction = 'REAL' if verdict == 'REAL' or 'REAL' in str(verdict).upper() else 'FAKE'
 
         # Extract domain from source URL if provided
         domain = None
@@ -1059,15 +1000,8 @@ def credibility_score_public():
         return jsonify({'error': 'Headline too short'}), 400
 
     try:
-        if bert_model is None or bert_tokenizer is None:
-            return jsonify({'error': 'AI model is still loading. Please try again in a moment.'}), 503
-
-        inputs = bert_tokenizer(headline, return_tensors='pt', truncation=True, padding=True)
-        with torch.no_grad():
-            logits = bert_model(**inputs).logits
-            pred_class = torch.argmax(logits, dim=1).item()
-            confidence = torch.softmax(logits, dim=1)[0][pred_class].item() * 100
-        prediction = 'REAL' if pred_class == 1 else 'FAKE'
+        verdict, confidence = predict_news(headline)
+        prediction = 'REAL' if verdict == 'REAL' or 'REAL' in str(verdict).upper() else 'FAKE'
 
         domain = None
         if source_url:
