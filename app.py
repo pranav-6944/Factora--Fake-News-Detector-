@@ -238,14 +238,21 @@ def logout():
     flash('You have been logged out.', 'info')
     return redirect(url_for('index'))
 
-# Load BERT once when Flask starts (at the top of your app.py)
+# Load BERT once when Flask starts
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_PATH = os.path.join(BASE_DIR, 'bert_model')
 TOKENIZER_PATH = os.path.join(BASE_DIR, 'bert_tokenizer')
 
-bert_model = DistilBertForSequenceClassification.from_pretrained(MODEL_PATH)
-bert_tokenizer = DistilBertTokenizerFast.from_pretrained(TOKENIZER_PATH)
-bert_model.eval()
+try:
+    bert_model = DistilBertForSequenceClassification.from_pretrained(MODEL_PATH)
+    bert_tokenizer = DistilBertTokenizerFast.from_pretrained(TOKENIZER_PATH)
+    bert_model.eval()
+    print("✅ BERT model loaded successfully!")
+except Exception as e:
+    print(f"⚠️  BERT model could not be loaded: {e}")
+    print("   Predictions will fail until model files are available.")
+    bert_model = None
+    bert_tokenizer = None
 
 # Now your route:
 @app.route('/predict', methods=['POST'])
@@ -262,6 +269,9 @@ def predict():
         return jsonify({'error': 'Headline too short. Please enter a meaningful headline.'}), 400
 
     try:
+        if bert_model is None or bert_tokenizer is None:
+            return jsonify({'error': 'AI model is still loading. Please try again in a moment.'}), 503
+
         # BERT Prediction
         inputs = bert_tokenizer(headline, return_tensors="pt", truncation=True, padding=True)
         with torch.no_grad():
@@ -992,6 +1002,9 @@ def analyze():
         return jsonify({'error': 'Please provide a valid headline (min 5 chars).'}), 400
 
     try:
+        if bert_model is None or bert_tokenizer is None:
+            return jsonify({'error': 'AI model is still loading. Please try again in a moment.'}), 503
+
         # BERT inference
         inputs = bert_tokenizer(headline, return_tensors='pt', truncation=True, padding=True)
         with torch.no_grad():
@@ -1046,6 +1059,9 @@ def credibility_score_public():
         return jsonify({'error': 'Headline too short'}), 400
 
     try:
+        if bert_model is None or bert_tokenizer is None:
+            return jsonify({'error': 'AI model is still loading. Please try again in a moment.'}), 503
+
         inputs = bert_tokenizer(headline, return_tensors='pt', truncation=True, padding=True)
         with torch.no_grad():
             logits = bert_model(**inputs).logits
