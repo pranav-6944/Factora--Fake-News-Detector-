@@ -3,7 +3,7 @@
  * Calls the FacTora local API and renders credibility results.
  */
 
-const DEPLOYED_URL = '';  // Set your Render URL here, e.g. 'https://factora.onrender.com'
+const DEPLOYED_URL = 'https://factora-lljj.onrender.com';
 const API_BASE = DEPLOYED_URL || 'http://localhost:5000';
 
 const headlineInput = document.getElementById('headlineInput');
